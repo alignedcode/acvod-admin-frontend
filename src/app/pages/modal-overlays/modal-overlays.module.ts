@@ -14,24 +14,24 @@ import {
 } from '@nebular/theme';
 
 // modules
-import { ThemeModule } from '../../layout/theme.module';
+import { LayoutModule } from '../../layout/layout.module';
 import { ModalOverlaysRoutingModule } from './modal-overlays-routing.module';
 
 // components
-import { ModalOverlaysComponent } from './modal-overlays.component';
+import { DialogNamePromptComponent } from './dialog/dialog-name-prompt/dialog-name-prompt.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { ShowcaseDialogComponent } from './dialog/showcase-dialog/showcase-dialog.component';
-import { DialogNamePromptComponent } from './dialog/dialog-name-prompt/dialog-name-prompt.component';
-import { WindowComponent } from './window/window.component';
-import { WindowFormComponent } from './window/window-form/window-form.component';
-import { ToastrComponent } from './toastr/toastr.component';
-import { PopoversComponent } from './popovers/popovers.component';
+import { ModalOverlaysComponent } from './modal-overlays.component';
 import {
-  NgxPopoverCardComponent, NgxPopoverFormComponent,
+  NgxPopoverCardComponent,
+  NgxPopoverFormComponent,
   NgxPopoverTabsComponent,
 } from './popovers/popover-examples.component';
+import { PopoversComponent } from './popovers/popovers.component';
+import { ToastrComponent } from './toastr/toastr.component';
 import { TooltipComponent } from './tooltip/tooltip.component';
-
+import { WindowFormComponent } from './window/window-form/window-form.component';
+import { WindowComponent } from './window/window.component';
 
 const COMPONENTS = [
   ModalOverlaysComponent,
@@ -59,7 +59,7 @@ const ENTRY_COMPONENTS = [
 
 const MODULES = [
   FormsModule,
-  ThemeModule,
+  LayoutModule,
   ModalOverlaysRoutingModule,
   NbDialogModule.forChild(),
   NbWindowModule.forChild(),
@@ -73,22 +73,12 @@ const MODULES = [
   NbTooltipModule,
 ];
 
-const SERVICES = [
-];
+const SERVICES = [];
 
 @NgModule({
-  imports: [
-    ...MODULES,
-  ],
-  declarations: [
-    ...COMPONENTS,
-  ],
-  providers: [
-    ...SERVICES,
-  ],
-  entryComponents: [
-    ...ENTRY_COMPONENTS,
-  ],
+  imports: [...MODULES],
+  declarations: [...COMPONENTS],
+  providers: [...SERVICES],
+  entryComponents: [...ENTRY_COMPONENTS],
 })
-export class ModalOverlaysModule {
-}
+export class ModalOverlaysModule {}

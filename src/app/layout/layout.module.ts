@@ -17,18 +17,19 @@ import {
 } from '@nebular/theme';
 
 import {
-  FooterComponent,
-  HeaderComponent,
-  SearchInputComponent,
-} from './components';
-import { OneColumnLayoutComponent } from './layouts';
-import {
   CapitalizePipe,
   NumberWithCommasPipe,
   PluralPipe,
   RoundPipe,
   TimingPipe,
-} from './pipes';
+} from '@shared/pipes';
+import {
+  FooterComponent,
+  HeaderComponent,
+  SearchInputComponent,
+} from './components';
+import { OneColumnLayoutComponent } from './layouts';
+
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { DARK_THEME } from './styles/theme.dark';
@@ -66,13 +67,13 @@ const PIPES = [
 
 @NgModule({
   imports: [CommonModule, ...NB_MODULES],
-  exports: [CommonModule, ...PIPES, ...COMPONENTS],
-  declarations: [...COMPONENTS, ...PIPES],
+  exports: [CommonModule, ...COMPONENTS],
+  declarations: [...COMPONENTS],
 })
-export class ThemeModule {
-  static forRoot(): ModuleWithProviders<ThemeModule> {
+export class LayoutModule {
+  static forRoot(): ModuleWithProviders<LayoutModule> {
     return {
-      ngModule: ThemeModule,
+      ngModule: LayoutModule,
       providers: [
         ...NbThemeModule.forRoot(
           {

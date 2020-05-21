@@ -11,7 +11,7 @@ import {
   NbUserModule,
 } from '@nebular/theme';
 
-import { ThemeModule } from '../../layout/theme.module';
+import { LayoutModule } from '../../layout/layout.module';
 import { AccordionComponent } from './accordion/accordion.component';
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
@@ -27,7 +27,7 @@ import {
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    ThemeModule,
+    LayoutModule,
     NbTabsetModule,
     NbRouteTabsetModule,
     NbStepperModule,
@@ -48,4 +48,4 @@ import {
     AccordionComponent,
   ],
 })
-export class LayoutModule {}
+export class LayoutPageModule {}

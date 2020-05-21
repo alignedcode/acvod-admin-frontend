@@ -36,7 +36,7 @@ export class SearchInputComponent {
     this.isInputShown = false;
   }
 
-  onInput(val: string) {
-    this.search.emit(val);
+  onInput(value: string) {
+    this.search.emit(value);
   }
 }
