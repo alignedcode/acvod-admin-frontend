@@ -7,40 +7,10 @@ import {
 } from '@angular/core';
 import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
 import { NbRoleProvider, NbSecurityModule } from '@nebular/security';
-import { of as observableOf } from 'rxjs';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 
-import {
-  AnalyticsService,
-  LayoutService,
-  SeoService,
-  StateService,
-} from './utils';
-
-const socialLinks = [
-  {
-    url: 'https://github.com/akveo/nebular',
-    target: '_blank',
-    icon: 'github',
-  },
-  {
-    url: 'https://www.facebook.com/akveo/',
-    target: '_blank',
-    icon: 'facebook',
-  },
-  {
-    url: 'https://twitter.com/akveo_inc',
-    target: '_blank',
-    icon: 'twitter',
-  },
-];
-
-export class NbSimpleRoleProvider extends NbRoleProvider {
-  getRole() {
-    // here you could provide any role based on any auth flow
-    return observableOf('guest');
-  }
-}
+import { NbSimpleRoleProvider } from './nb-simple-role.provider';
+import { LayoutService, SeoService } from './utils';
 
 export const NB_CORE_PROVIDERS = [
   ...NbAuthModule.forRoot({
@@ -51,12 +21,8 @@ export const NB_CORE_PROVIDERS = [
       }),
     ],
     forms: {
-      login: {
-        socialLinks,
-      },
-      register: {
-        socialLinks,
-      },
+      login: {},
+      register: {},
     },
   }).providers,
 
@@ -78,10 +44,8 @@ export const NB_CORE_PROVIDERS = [
     provide: NbRoleProvider,
     useClass: NbSimpleRoleProvider,
   },
-  AnalyticsService,
   LayoutService,
   SeoService,
-  StateService,
 ];
 
 @NgModule({
