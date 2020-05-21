@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
-import { MENU_ITEMS } from './pages-menu';
+import { MENU_ITEMS } from './content-layout-navigation-menu';
 
 @Component({
   selector: 'pages',
-  styleUrls: ['pages.component.scss'],
+  styleUrls: ['content-layout.component.scss'],
   template: `
     <one-column-layout>
       <nb-menu [items]="menu"></nb-menu>
@@ -12,6 +12,6 @@ import { MENU_ITEMS } from './pages-menu';
     </one-column-layout>
   `,
 })
-export class PagesComponent {
+export class ContentLayoutComponent {
   menu = MENU_ITEMS;
 }

@@ -13,7 +13,9 @@ export const routes: Routes = [
   {
     path: 'pages',
     loadChildren: () =>
-      import('./pages/pages.module').then((module) => module.PagesModule),
+      import('./modules/content-layout.module').then(
+        (module) => module.ContentLayoutModule,
+      ),
   },
   {
     path: 'auth',
