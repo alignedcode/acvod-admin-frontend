@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
 
 // themes - our custom or/and out of the box themes
-@import 'themes';
+@import '/styles/themes';
 
 // framework component themes (styles tied to theme variables)
 @import '~@nebular/theme/styles/globals';
@@ -13,10 +13,10 @@
 @import '~bootstrap/scss/grid';
 
 // loading progress bar theme
-@import './pace.theme';
+@import '/styles/pace.theme';
 
-@import './layout';
-@import './overrides';
+@import '/styles/layout';
+@import '/styles/overrides';
 
 // install the framework and custom global styles
 @include nb-install() {
@@ -26,6 +26,7 @@
   @include nb-auth-global();
 
   @include ngx-layout();
+
   // loading progress bar
   @include ngx-pace-theme();
 

@@ -28,7 +28,7 @@ import {
   HeaderComponent,
   SearchInputComponent,
 } from './components';
-import { OneColumnLayoutComponent } from './layouts';
+import { OneColumnLayoutComponent } from './pages';
 
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { COSMIC_THEME } from './styles/theme.cosmic';
