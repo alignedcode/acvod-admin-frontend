@@ -2,9 +2,11 @@ import { DARK_THEME as baseTheme, NbJSThemeOptions } from '@nebular/theme';
 
 const baseThemeVariables = baseTheme.variables;
 
+export const DARK_THEME_NAME = 'dark';
+
 export const DARK_THEME = {
-  name: 'dark',
-  base: 'dark',
+  name: DARK_THEME_NAME,
+  base: DARK_THEME_NAME,
   variables: {
     temperature: {
       arcFill: [

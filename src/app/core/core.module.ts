@@ -44,6 +44,7 @@ export const NB_CORE_PROVIDERS = [
     provide: NbRoleProvider,
     useClass: NbSimpleRoleProvider,
   },
+
   LayoutService,
   SeoService,
 ];

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MENU_ITEMS } from './content-layout-navigation-menu';
 
 @Component({
-  selector: 'pages',
+  selector: 'content-layout',
   styleUrls: ['content-layout.component.scss'],
   template: `
     <one-column-layout>

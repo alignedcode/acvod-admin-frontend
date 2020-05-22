@@ -2,9 +2,11 @@ import { CORPORATE_THEME as baseTheme, NbJSThemeOptions } from '@nebular/theme';
 
 const baseThemeVariables = baseTheme.variables;
 
+export const CORPORATE_THEME_NAME = 'corporate';
+
 export const CORPORATE_THEME = {
-  name: 'corporate',
-  base: 'corporate',
+  name: CORPORATE_THEME_NAME,
+  base: CORPORATE_THEME_NAME,
   variables: {
     temperature: {
       arcFill: ['#ffa36b', '#ffa36b', '#ff9e7a', '#ff9888', '#ff8ea0'],

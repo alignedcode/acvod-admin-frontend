@@ -2,9 +2,11 @@ import { COSMIC_THEME as baseTheme, NbJSThemeOptions } from '@nebular/theme';
 
 const baseThemeVariables = baseTheme.variables;
 
+export const COSMIC_THEME_NAME = 'cosmic';
+
 export const COSMIC_THEME = {
-  name: 'cosmic',
-  base: 'cosmic',
+  name: COSMIC_THEME_NAME,
+  base: COSMIC_THEME_NAME,
   variables: {
     temperature: {
       arcFill: ['#2ec7fe', '#31ffad', '#7bff24', '#fff024', '#f7bd59'],

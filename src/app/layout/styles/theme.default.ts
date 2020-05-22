@@ -1,10 +1,12 @@
 import { DEFAULT_THEME as baseTheme, NbJSThemeOptions } from '@nebular/theme';
 
+import { Theme } from './theme.enum';
+
 const baseThemeVariables = baseTheme.variables;
 
 export const DEFAULT_THEME = {
-  name: 'default',
-  base: 'default',
+  name: Theme.DEFAULT,
+  base: Theme.DEFAULT,
   variables: {
     temperature: {
       arcFill: [

@@ -34,6 +34,7 @@ import { CORPORATE_THEME } from './styles/theme.corporate';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { DARK_THEME } from './styles/theme.dark';
 import { DEFAULT_THEME } from './styles/theme.default';
+import { Theme } from './styles/theme.enum';
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -77,7 +78,7 @@ export class LayoutModule {
       providers: [
         ...NbThemeModule.forRoot(
           {
-            name: 'default',
+            name: Theme.DEFAULT,
           },
           [DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, DARK_THEME],
         ).providers,
