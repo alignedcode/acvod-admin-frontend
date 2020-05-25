@@ -3,15 +3,13 @@ import { OAuthSocialProvider } from './oauth-social-provider.enum';
 
 // TODO: pass baseEndpoint and redirectURI
 // TODO: turn into the provider
-export const OAuthSocialProviders: Readonly<
+export const OAuthSocialProviders: ReadonlyArray<NbOAuthBackendOptions> = [
   {
-    [key in OAuthSocialProvider]: NbOAuthBackendOptions;
-  }
-> = {
-  [OAuthSocialProvider.GOOGLE]: {
     name: OAuthSocialProvider.GOOGLE,
+    title: 'Google',
+    icon: 'google-outline',
     baseEndpoint:
       'http://ec2-18-191-255-140.us-east-2.compute.amazonaws.com:443/api/admin/blogger/auth/google',
-    redirect: { success: 'redirectUri=http//localhost:4200' },
+    redirect: { success: 'http://localhost:4200/bloggers/auth' },
   },
-};
+];

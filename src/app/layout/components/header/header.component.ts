@@ -8,6 +8,8 @@ import {
 
 import { Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
+
+import { AuthService } from '@core/modules/auth/services/auth.service';
 import { LayoutService } from '../../../core/utils';
 
 @Component({
@@ -24,6 +26,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
 
   constructor(
+    private readonly authService: AuthService,
     private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
     private themeService: NbThemeService,
@@ -63,5 +66,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   navigateHome() {
     this.menuService.navigateHome();
     return false;
+  }
+
+  logout() {
+    this.authService.logout().subscribe(() => this.navigateHome());
   }
 }

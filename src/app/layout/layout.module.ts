@@ -1,28 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { NbSecurityModule } from '@nebular/security';
-import {
-  NbActionsModule,
-  NbButtonModule,
-  NbContextMenuModule,
-  NbIconModule,
-  NbLayoutModule,
-  NbMenuModule,
-  NbSearchModule,
-  NbSelectModule,
-  NbSidebarModule,
-  NbThemeModule,
-  NbUserModule,
-} from '@nebular/theme';
+import { NbThemeModule } from '@nebular/theme';
 
-import {
-  CapitalizePipe,
-  NumberWithCommasPipe,
-  PluralPipe,
-  RoundPipe,
-  TimingPipe,
-} from '@shared/pipes';
+import { SharedModule } from '@shared/shared.module';
 import {
   FooterComponent,
   HeaderComponent,
@@ -36,21 +16,6 @@ import { DARK_THEME } from './styles/theme.dark';
 import { DEFAULT_THEME } from './styles/theme.default';
 import { Theme } from './styles/theme.enum';
 
-const NB_MODULES = [
-  NbLayoutModule,
-  NbMenuModule,
-  NbUserModule,
-  NbActionsModule,
-  NbSearchModule,
-  NbSidebarModule,
-  NbContextMenuModule,
-  NbSecurityModule,
-  NbButtonModule,
-  NbSelectModule,
-  NbIconModule,
-  NbEvaIconsModule,
-];
-
 const COMPONENTS = [
   HeaderComponent,
   FooterComponent,
@@ -58,16 +23,8 @@ const COMPONENTS = [
   OneColumnLayoutComponent,
 ];
 
-const PIPES = [
-  CapitalizePipe,
-  PluralPipe,
-  RoundPipe,
-  TimingPipe,
-  NumberWithCommasPipe,
-];
-
 @NgModule({
-  imports: [CommonModule, ...NB_MODULES],
+  imports: [CommonModule, SharedModule],
   exports: [CommonModule, ...COMPONENTS],
   declarations: [...COMPONENTS],
 })

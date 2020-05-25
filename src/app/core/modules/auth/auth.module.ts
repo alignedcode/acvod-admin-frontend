@@ -1,15 +1,19 @@
 import { NgModule } from '@angular/core';
-import { NbAuthModule } from '@nebular/auth';
 
-import { OAuthSocialProviders } from './models/oauth-social-providers';
-import { NbOAuthBackendStrategy } from './strategies/nb-oauth-backend.strategy';
+import { AuthGuard } from './guards/auth.guard';
+import { AuthTokenParceler } from './services/auth-token-parceler.service';
+import { AuthService } from './services/auth.service';
+import { TokenLocalStorage } from './services/token-storage';
+import { TokenService } from './services/token.service';
 
 @NgModule({
-  imports: [
-    NbAuthModule.forRoot({
-      strategies: [NbOAuthBackendStrategy.setup(OAuthSocialProviders.google)],
-      forms: {},
-    }),
+  imports: [],
+  providers: [
+    AuthGuard,
+    TokenLocalStorage,
+    TokenService,
+    AuthTokenParceler,
+    AuthService,
   ],
 })
 export class AuthModule {}
