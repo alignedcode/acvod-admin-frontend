@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 
-import { NotFoundComponent } from '@modules/components/not-found/not-found.component';
-import { AppRoutes } from './app-routes.enum';
+import { AppRoutes } from './app-route.enum';
 
 export const routes: Routes = [
   {
@@ -11,10 +10,6 @@ export const routes: Routes = [
       import('./modules/content-layout.module').then(
         (module) => module.ContentLayoutModule,
       ),
-  },
-  {
-    path: '**',
-    component: NotFoundComponent,
   },
 ];
 

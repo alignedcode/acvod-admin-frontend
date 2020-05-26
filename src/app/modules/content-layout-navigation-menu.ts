@@ -1,3 +1,16 @@
 import { NbMenuItem } from '@nebular/theme';
 
-export const MENU_ITEMS: NbMenuItem[] = [];
+import { AccountRoutes } from './pages/account/account-routes.enum';
+
+export const MENU_ITEMS: NbMenuItem[] = [
+  {
+    title: 'Account',
+    icon: 'person-outline',
+    children: [
+      {
+        title: 'Details',
+        link: `/${AccountRoutes.ACCOUNT}/${AccountRoutes.DETAILS}`,
+      },
+    ],
+  },
+];

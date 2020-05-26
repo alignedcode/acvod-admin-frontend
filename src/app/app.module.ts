@@ -12,8 +12,8 @@ import {
 } from '@nebular/theme';
 
 import { CoreModule } from '@core/core.module';
+import { DataModule } from '@data/data.module';
 import { LayoutModule } from '@layout/layout.module';
-import { ComponentsModule } from '@modules/components/components.module';
 import { SharedModule } from '@shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -32,8 +32,8 @@ import { AppComponent } from './app.component';
     NbWindowModule.forRoot(),
     NbToastrModule.forRoot(),
     CoreModule.forRoot(),
+    DataModule.forRoot(),
     LayoutModule.forRoot(),
-    ComponentsModule,
     SharedModule,
   ],
   bootstrap: [AppComponent],

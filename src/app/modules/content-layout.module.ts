@@ -5,7 +5,7 @@ import { LayoutModule } from '@layout/layout.module';
 import { ComponentsModule } from './components/components.module';
 import { ContentLayoutRoutingModule } from './content-layout-routing.module';
 import { ContentLayoutComponent } from './content-layout.component';
-import { BloggerModule } from './pages/blogger/blogger.module';
+import { AccountModule } from './pages/account/account.module';
 
 @NgModule({
   imports: [
@@ -13,7 +13,7 @@ import { BloggerModule } from './pages/blogger/blogger.module';
     ContentLayoutRoutingModule,
     LayoutModule,
     ComponentsModule,
-    BloggerModule,
+    AccountModule,
   ],
   declarations: [ContentLayoutComponent],
 })

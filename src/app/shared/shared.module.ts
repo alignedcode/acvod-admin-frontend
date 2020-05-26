@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import {
   NbActionsModule,
@@ -8,10 +9,12 @@ import {
   NbCardModule,
   NbCheckboxModule,
   NbContextMenuModule,
+  NbDatepickerModule,
   NbIconModule,
   NbInputModule,
   NbLayoutModule,
   NbMenuModule,
+  NbRadioModule,
   NbSearchModule,
   NbSelectModule,
   NbSidebarModule,
@@ -50,11 +53,13 @@ const NB_MODULES = [
   NbSelectModule,
   NbIconModule,
   NbEvaIconsModule,
+  NbRadioModule,
+  NbDatepickerModule,
 ];
 
 @NgModule({
-  imports: [CommonModule, ...NB_MODULES],
-  exports: [CommonModule, ...PIPES, ...NB_MODULES],
+  imports: [CommonModule, ...NB_MODULES, FormsModule],
+  exports: [CommonModule, ...PIPES, ...NB_MODULES, FormsModule],
   declarations: [...PIPES],
 })
 export class SharedModule {}

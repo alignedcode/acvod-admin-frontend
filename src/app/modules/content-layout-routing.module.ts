@@ -2,43 +2,43 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from '@core/modules/auth/guards/auth.guard';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ContentLayoutComponent } from './content-layout.component';
-import { BloggerRoutes } from './pages/blogger/blogger-routes.enum';
-import { BloggerLoginComponent } from './pages/blogger/pages/blogger-login/blogger-login.component';
+import { AccountRoutes } from './pages/account/account-routes.enum';
+import { AccountLoginComponent } from './pages/account/pages/account-login/account-login.component';
 
 const routes: Routes = [
   {
-    path: 'bloggers',
+    path: AccountRoutes.ACCOUNT,
     children: [
       {
-        path: BloggerRoutes.AUTH,
+        path: AccountRoutes.AUTH,
         children: [
           {
             path: '',
-            component: BloggerLoginComponent,
+            component: AccountLoginComponent,
           },
         ],
       },
       {
-        path: 'details',
+        path: '',
         component: ContentLayoutComponent,
         canActivate: [AuthGuard],
         loadChildren: () =>
-          import('./pages/blogger/blogger.module').then(
-            (module) => module.BloggerModule,
+          import('./pages/account/account.module').then(
+            (module) => module.AccountModule,
           ),
       },
       {
         path: '',
-        redirectTo: BloggerRoutes.AUTH,
+        redirectTo: AccountRoutes.AUTH,
         pathMatch: 'full',
       },
     ],
   },
   {
-    path: '',
-    redirectTo: 'bloggers',
-    pathMatch: 'full',
+    path: '**',
+    component: NotFoundComponent,
   },
 ];
 

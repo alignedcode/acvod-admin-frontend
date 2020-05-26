@@ -6,13 +6,14 @@ import { NbAuthResult } from '@nebular/auth';
 import { OAuthSocialProvider } from '@core/modules/auth/models/oauth-social-provider.enum';
 import { OAuthSocialProviders } from '@core/modules/auth/models/oauth-social-providers';
 import { AuthService } from '@core/modules/auth/services/auth.service';
+import { AccountRoutes } from '../../account-routes.enum';
 
 @Component({
-  selector: 'blogger-login',
-  styleUrls: ['./blogger-login.component.scss'],
-  templateUrl: './blogger-login.component.html',
+  selector: 'account-login',
+  styleUrls: ['./account-login.component.scss'],
+  templateUrl: './account-login.component.html',
 })
-export class BloggerLoginComponent implements OnInit {
+export class AccountLoginComponent implements OnInit {
   redirectDelay: number = 350;
   showMessages: any = {};
 
@@ -59,7 +60,7 @@ export class BloggerLoginComponent implements OnInit {
           this.errors = result.getErrors();
         }
 
-        const redirect = '/bloggers/details';
+        const redirect = `${AccountRoutes.ACCOUNT}`;
         if (redirect) {
           setTimeout(() => {
             return this.router.navigateByUrl(redirect);
