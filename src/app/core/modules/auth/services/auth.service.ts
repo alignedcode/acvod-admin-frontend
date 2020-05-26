@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NbAuthJWTToken, NbAuthResult, NbAuthToken } from '@nebular/auth';
-import { Observable, of as observableOf, throwError, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { TokenService } from './token.service';
@@ -57,6 +57,6 @@ export class AuthService {
       );
     }
 
-    return observableOf(result);
+    return of(result);
   }
 }

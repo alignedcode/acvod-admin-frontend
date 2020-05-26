@@ -3,19 +3,19 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from '@core/modules/auth/guards/auth.guard';
 import { ContentLayoutComponent } from './content-layout.component';
-import { BloggersRoutes } from './pages/bloggers/bloggers-routes.enum';
-import { BloggersLoginComponent } from './pages/bloggers/pages/bloggers-login/bloggers-login.component';
+import { BloggerRoutes } from './pages/blogger/blogger-routes.enum';
+import { BloggerLoginComponent } from './pages/blogger/pages/blogger-login/blogger-login.component';
 
 const routes: Routes = [
   {
     path: 'bloggers',
     children: [
       {
-        path: BloggersRoutes.AUTH,
+        path: BloggerRoutes.AUTH,
         children: [
           {
             path: '',
-            component: BloggersLoginComponent,
+            component: BloggerLoginComponent,
           },
         ],
       },
@@ -24,13 +24,13 @@ const routes: Routes = [
         component: ContentLayoutComponent,
         canActivate: [AuthGuard],
         loadChildren: () =>
-          import('./pages/bloggers/bloggers.module').then(
-            (module) => module.BloggersModule,
+          import('./pages/blogger/blogger.module').then(
+            (module) => module.BloggerModule,
           ),
       },
       {
         path: '',
-        redirectTo: BloggersRoutes.AUTH,
+        redirectTo: BloggerRoutes.AUTH,
         pathMatch: 'full',
       },
     ],

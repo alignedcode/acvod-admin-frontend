@@ -8,11 +8,11 @@ import { OAuthSocialProviders } from '@core/modules/auth/models/oauth-social-pro
 import { AuthService } from '@core/modules/auth/services/auth.service';
 
 @Component({
-  selector: 'bloggers-login',
-  styleUrls: ['./bloggers-login.component.scss'],
-  templateUrl: './bloggers-login.component.html',
+  selector: 'blogger-login',
+  styleUrls: ['./blogger-login.component.scss'],
+  templateUrl: './blogger-login.component.html',
 })
-export class BloggersLoginComponent implements OnInit {
+export class BloggerLoginComponent implements OnInit {
   redirectDelay: number = 350;
   showMessages: any = {};
 
