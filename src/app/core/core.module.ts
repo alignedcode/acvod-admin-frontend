@@ -8,12 +8,12 @@ import {
 
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { AuthModule } from './modules/auth/auth.module';
+import { RestApiModule } from './modules/rest-api/rest-api.module';
 import { LayoutService, SeoService } from './utils';
 
 @NgModule({
-  imports: [CommonModule, AuthModule],
-  exports: [AuthModule],
-  declarations: [],
+  imports: [CommonModule, AuthModule, RestApiModule.forRoot()],
+  exports: [AuthModule, RestApiModule],
 })
 export class CoreModule {
   static forRoot(): ModuleWithProviders<CoreModule> {
