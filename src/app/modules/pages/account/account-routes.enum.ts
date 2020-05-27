@@ -1,5 +1,5 @@
 export enum AccountRoutes {
-  ACCOUNT = 'account',
+  ENTRY = 'account',
   AUTH = 'auth',
   DETAILS = 'details',
 }

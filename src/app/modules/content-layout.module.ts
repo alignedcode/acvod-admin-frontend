@@ -5,7 +5,9 @@ import { LayoutModule } from '@layout/layout.module';
 import { ComponentsModule } from './components/components.module';
 import { ContentLayoutRoutingModule } from './content-layout-routing.module';
 import { ContentLayoutComponent } from './content-layout.component';
+import { AccountShortSummaryModule } from './pages/account-short-summary/account-short-summary.module';
 import { AccountModule } from './pages/account/account.module';
+import { VideoPlatformsModule } from './pages/video-platforms/video-platforms.module';
 
 @NgModule({
   imports: [
@@ -13,7 +15,9 @@ import { AccountModule } from './pages/account/account.module';
     ContentLayoutRoutingModule,
     LayoutModule,
     ComponentsModule,
+    AccountShortSummaryModule,
     AccountModule,
+    VideoPlatformsModule,
   ],
   declarations: [ContentLayoutComponent],
 })

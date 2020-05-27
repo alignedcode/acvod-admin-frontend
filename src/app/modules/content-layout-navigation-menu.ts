@@ -1,6 +1,7 @@
 import { NbMenuItem } from '@nebular/theme';
 
 import { AccountRoutes } from './pages/account/account-routes.enum';
+import { VideoPlatformsRoutes } from './pages/video-platforms/video-platforms-routes.enum';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
@@ -9,7 +10,17 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Details',
-        link: `/${AccountRoutes.ACCOUNT}/${AccountRoutes.DETAILS}`,
+        link: `/${AccountRoutes.ENTRY}/${AccountRoutes.DETAILS}`,
+      },
+    ],
+  },
+  {
+    title: 'Video Platforms',
+    icon: 'film-outline',
+    children: [
+      {
+        title: 'YouTube',
+        link: `/${VideoPlatformsRoutes.ENTRY}/${VideoPlatformsRoutes.YOUTUBE}`,
       },
     ],
   },

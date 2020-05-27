@@ -28,6 +28,7 @@
     "no-debugger": true,
     "no-duplicate-super": true,
     "no-empty": false,
+    "interface-name": false,
     "no-empty-interface": true,
     "no-eval": true,
     "no-misused-new": true,

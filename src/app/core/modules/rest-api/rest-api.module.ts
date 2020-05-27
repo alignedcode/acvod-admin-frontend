@@ -8,9 +8,10 @@ import {
 
 import { throwIfAlreadyLoaded } from '@core/module-import-guard';
 import { BloggerApiService } from './api/blogger-api.service';
+import { YouTubeChannelsApiService } from './api/video-providers/youtube-channels-api.service';
 
 @NgModule({
-  providers: [BloggerApiService],
+  providers: [BloggerApiService, YouTubeChannelsApiService],
 })
 export class RestApiModule {
   public static forRoot(): ModuleWithProviders {

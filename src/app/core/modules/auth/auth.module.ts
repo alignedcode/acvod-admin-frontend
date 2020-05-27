@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthTokenParceler } from './services/auth-token-parceler.service';
 import { AuthService } from './services/auth.service';
+import { OAuthService } from './services/oauth.service';
 import { TokenLocalStorage } from './services/token-storage';
 import { TokenService } from './services/token.service';
 
@@ -14,6 +15,7 @@ import { TokenService } from './services/token.service';
     TokenService,
     AuthTokenParceler,
     AuthService,
+    OAuthService,
   ],
 })
 export class AuthModule {}

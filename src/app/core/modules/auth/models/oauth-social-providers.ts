@@ -12,7 +12,7 @@ export const OAuthSocialProviders: ReadonlyArray<NbOAuthBackendOptions> = [
     icon: 'google-outline',
     baseEndpoint: `${environment.backendURI}/api/admin/blogger/auth/google`,
     redirect: {
-      success: `${environment.fronendURI}/${AccountRoutes.ACCOUNT}/${AccountRoutes.AUTH}`,
+      success: `${environment.fronendURI}/${AccountRoutes.ENTRY}/${AccountRoutes.AUTH}`,
     },
   },
 ];

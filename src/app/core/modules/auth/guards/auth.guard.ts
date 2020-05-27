@@ -9,8 +9,8 @@ import {
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-import { AuthService } from '../services/auth.service';
 import { AccountRoutes } from '@modules/pages/account/account-routes.enum';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
@@ -31,7 +31,7 @@ export class AuthGuard implements CanActivate {
         }
 
         return this.router.parseUrl(
-          `/${AccountRoutes.ACCOUNT}/${AccountRoutes.AUTH}`,
+          `/${AccountRoutes.ENTRY}/${AccountRoutes.AUTH}`,
         );
       }),
     );

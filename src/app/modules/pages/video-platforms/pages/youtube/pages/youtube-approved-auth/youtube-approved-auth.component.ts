@@ -6,14 +6,14 @@ import { NbAuthResult } from '@nebular/auth';
 import { OAuthSocialProvider } from '@core/modules/auth/models/oauth-social-provider.enum';
 import { OAuthSocialProviders } from '@core/modules/auth/models/oauth-social-providers';
 import { AuthService } from '@core/modules/auth/services/auth.service';
-import { AccountRoutes } from '../../account-routes.enum';
+import { VideoPlatformsRoutes } from '@modules/pages/video-platforms/video-platforms-routes.enum';
 
 @Component({
-  selector: 'account-login',
-  styleUrls: ['./account-login.component.scss'],
-  templateUrl: './account-login.component.html',
+  selector: 'youtube-approved-auth',
+  styleUrls: ['./youtube-approved-auth.component.scss'],
+  templateUrl: './youtube-approved-auth.component.html',
 })
-export class AccountLoginComponent implements OnInit {
+export class YouTubeApprovedAuthComponent implements OnInit {
   redirectDelay: number = 350;
   showMessages: any = {};
 
@@ -60,7 +60,7 @@ export class AccountLoginComponent implements OnInit {
           this.errors = result.getErrors();
         }
 
-        const redirect = `${AccountRoutes.ENTRY}`;
+        const redirect = `${VideoPlatformsRoutes.ENTRY}/${VideoPlatformsRoutes.YOUTUBE}`;
         if (redirect) {
           setTimeout(() => {
             return this.router.navigateByUrl(redirect);
