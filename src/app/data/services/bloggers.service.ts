@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { JwtPayload } from '@core/modules/auth/models/jwt-payload.model';
-import { AuthService } from '@core/modules/auth/services/auth.service';
+import { InternalAuthService } from '@core/modules/auth/services/internal-auth.service';
 import { BloggerApiService } from '@core/modules/rest-api/api/blogger-api.service';
 import { BloggerDetails } from '@core/modules/rest-api/models/blogger-detais.model';
 import { Blogger } from '@data/models/blogger.model';
@@ -14,7 +14,7 @@ export class BloggersService {
 
   constructor(
     private readonly bloggersApiService: BloggerApiService,
-    private readonly authService: AuthService,
+    private readonly authService: InternalAuthService,
   ) {}
 
   getBlogger(): Observable<Blogger> {

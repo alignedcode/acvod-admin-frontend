@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { TokenService } from './token.service';
 
 @Injectable({ providedIn: 'root' })
-export class AuthService {
+export class InternalAuthService {
   constructor(protected tokenService: TokenService) {}
 
   getToken(): Observable<NbAuthToken> {

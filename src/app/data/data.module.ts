@@ -7,7 +7,7 @@ import {
 
 import { throwIfAlreadyLoaded } from '@core/module-import-guard';
 import { BloggersService } from './services/bloggers.service';
-import { YouTubeChannelsService } from './services/video-platforms/youtube/youtube-channels.service';
+import { YouTubeChannelsService } from './services/video-providers/youtube/youtube-channels.service';
 
 @NgModule({})
 export class DataModule {

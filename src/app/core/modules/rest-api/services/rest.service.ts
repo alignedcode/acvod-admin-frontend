@@ -3,7 +3,7 @@ import { OnDestroy } from '@angular/core';
 import { NbAuthToken } from '@nebular/auth';
 import { Subscription } from 'rxjs';
 
-import { AuthService } from '@core/modules/auth/services/auth.service';
+import { InternalAuthService } from '@core/modules/auth/services/internal-auth.service';
 
 export enum HttpHeader {
   AUTHORIZATION = 'Authorization',
@@ -22,7 +22,7 @@ export abstract class RestService implements OnDestroy {
   };
 
   constructor(
-    protected readonly authService: AuthService,
+    protected readonly authService: InternalAuthService,
     private headers: HttpHeaders = new HttpHeaders(),
   ) {
     this.subscriptions = {

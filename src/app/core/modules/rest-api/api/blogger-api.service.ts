@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { AuthService } from '@core/modules/auth/services/auth.service';
+import { InternalAuthService } from '@core/modules/auth/services/internal-auth.service';
 import { BASE_PATH } from '../injection-tokens';
 import { BloggerDetails } from '../models/blogger-detais.model';
 import { ContentType, RestService } from '../services/rest.service';
@@ -19,8 +19,8 @@ export enum BloggerApiRouteParam {
 export class BloggerApiService extends RestService {
   constructor(
     @Inject(BASE_PATH) protected basePath: string,
-    protected httpClient: HttpClient,
-    authService: AuthService,
+    protected readonly httpClient: HttpClient,
+    authService: InternalAuthService,
   ) {
     super(authService);
   }
@@ -33,7 +33,7 @@ export class BloggerApiService extends RestService {
         bloggerId,
       );
 
-    return this.httpClient.get<any>(route, {
+    return this.httpClient.get<BloggerDetails>(route, {
       headers: this.getHeaders(),
     });
   }

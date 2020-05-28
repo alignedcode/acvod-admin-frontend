@@ -9,7 +9,7 @@ import {
 import { Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 
-import { AuthService } from '@core/modules/auth/services/auth.service';
+import { InternalAuthService } from '@core/modules/auth/services/internal-auth.service';
 import { LayoutService } from '../../../core/utils';
 
 @Component({
@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
 
   constructor(
-    private readonly authService: AuthService,
+    private readonly authService: InternalAuthService,
     private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
     private themeService: NbThemeService,

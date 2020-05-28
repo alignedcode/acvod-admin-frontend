@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import {
+  NbAccordionModule,
   NbActionsModule,
   NbAlertModule,
   NbButtonModule,
@@ -18,6 +19,7 @@ import {
   NbSearchModule,
   NbSelectModule,
   NbSidebarModule,
+  NbTabsetModule,
   NbUserModule,
 } from '@nebular/theme';
 
@@ -45,6 +47,8 @@ const NB_MODULES = [
   NbCheckboxModule,
   NbUserModule,
   NbActionsModule,
+  NbAccordionModule,
+  NbTabsetModule,
   NbCardModule,
   NbSearchModule,
   NbSidebarModule,
