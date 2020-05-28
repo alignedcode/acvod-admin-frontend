@@ -16,7 +16,7 @@ export enum ContentType {
 
 const AUTHORIZATION_HEADER_PREFIX = 'Bearer ';
 
-export abstract class RestService implements OnDestroy {
+export abstract class HttpRestService implements OnDestroy {
   protected subscriptions: { [key: string]: Subscription } & {
     onTokenChange?: Subscription;
   };

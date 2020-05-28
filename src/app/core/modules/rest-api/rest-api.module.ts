@@ -7,11 +7,16 @@ import {
 } from '@angular/core';
 
 import { throwIfAlreadyLoaded } from '@core/module-import-guard';
-import { BloggerApiService } from './api/blogger-api.service';
-import { YouTubeChannelsApiService } from './api/video-providers/youtube-channels-api.service';
+import { BloggerHttpService } from './api/blogger-http.service';
+import { YouTubeChannelsHttpService } from './api/video-providers/youtube-channels-http.service';
+import { YouTubePlaylistsHttpService } from './api/video-providers/youtube-playlists-http.service';
 
 @NgModule({
-  providers: [BloggerApiService, YouTubeChannelsApiService],
+  providers: [
+    BloggerHttpService,
+    YouTubeChannelsHttpService,
+    YouTubePlaylistsHttpService,
+  ],
 })
 export class RestApiModule {
   public static forRoot(): ModuleWithProviders {

@@ -1,6 +1,5 @@
 export interface PaginatedResponse<T> {
   items: T[];
-
-  nextPageToken?: string | null;
-  prevPageToken?: string | null;
+  nextPageToken?: string;
+  prevPageToken?: string;
 }

@@ -4,7 +4,7 @@ import { map, tap } from 'rxjs/operators';
 
 import { JwtPayload } from '@core/modules/auth/models/jwt-payload.model';
 import { InternalAuthService } from '@core/modules/auth/services/internal-auth.service';
-import { BloggerApiService } from '@core/modules/rest-api/api/blogger-api.service';
+import { BloggerHttpService } from '@core/modules/rest-api/api/blogger-http.service';
 import { BloggerDetails } from '@core/modules/rest-api/models/blogger-detais.model';
 import { Blogger } from '@data/models/blogger.model';
 
@@ -13,7 +13,7 @@ export class BloggersService {
   onDetailsChange: BehaviorSubject<BloggerDetails> = new BehaviorSubject(null);
 
   constructor(
-    private readonly bloggersApiService: BloggerApiService,
+    private readonly bloggersApiService: BloggerHttpService,
     private readonly authService: InternalAuthService,
   ) {}
 

@@ -5,18 +5,18 @@ import { Observable } from 'rxjs';
 import { InternalAuthService } from '@core/modules/auth/services/internal-auth.service';
 import { BASE_PATH } from '../injection-tokens';
 import { BloggerDetails } from '../models/blogger-detais.model';
-import { ContentType, RestService } from '../services/rest.service';
+import { ContentType, HttpRestService } from '../services/http-rest.service';
 
-export enum BloggerApiRoute {
+enum ApiRoute {
   DETAILS = '/api/admin/blogger/:bloggerId/details',
 }
 
-export enum BloggerApiRouteParam {
+enum RouteParam {
   BLOGGER_ID = ':bloggerId',
 }
 
 @Injectable()
-export class BloggerApiService extends RestService {
+export class BloggerHttpService extends HttpRestService {
   constructor(
     @Inject(BASE_PATH) protected basePath: string,
     protected readonly httpClient: HttpClient,
@@ -28,10 +28,7 @@ export class BloggerApiService extends RestService {
   public getDetails(bloggerId: string): Observable<BloggerDetails> {
     const route =
       this.basePath +
-      BloggerApiRoute.DETAILS.replace(
-        BloggerApiRouteParam.BLOGGER_ID,
-        bloggerId,
-      );
+      ApiRoute.DETAILS.replace(RouteParam.BLOGGER_ID, bloggerId);
 
     return this.httpClient.get<BloggerDetails>(route, {
       headers: this.getHeaders(),
