@@ -22,6 +22,8 @@ import {
   NbTabsetModule,
   NbUserModule,
 } from '@nebular/theme';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import {
   CapitalizePipe,
@@ -62,8 +64,21 @@ const NB_MODULES = [
 ];
 
 @NgModule({
-  imports: [CommonModule, ...NB_MODULES, FormsModule],
-  exports: [CommonModule, ...PIPES, ...NB_MODULES, FormsModule],
+  imports: [
+    CommonModule,
+    ...NB_MODULES,
+    NgxDatatableModule,
+    NgSelectModule,
+    FormsModule,
+  ],
+  exports: [
+    CommonModule,
+    ...PIPES,
+    ...NB_MODULES,
+    NgxDatatableModule,
+    NgSelectModule,
+    FormsModule,
+  ],
   declarations: [...PIPES],
 })
 export class SharedModule {}

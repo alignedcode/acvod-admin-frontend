@@ -16,8 +16,4 @@ export class YouTubeChannelCardComponent {
   onRemoveChannel() {
     this.channelsService.removeChannel(this.channel.id).subscribe();
   }
-
-  addPlaylist() {
-    throw new Error('Feature is not implemented');
-  }
 }

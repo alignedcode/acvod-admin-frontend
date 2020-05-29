@@ -61,11 +61,10 @@ export class YouTubeApprovedAuthComponent implements OnInit {
         }
 
         const redirect = `${VideoPlatformsRoutes.ENTRY}/${VideoPlatformsRoutes.YOUTUBE}`;
-        if (redirect) {
-          setTimeout(() => {
-            return this.router.navigateByUrl(redirect);
-          }, this.redirectDelay);
-        }
+
+        setTimeout(() => {
+          return this.router.navigateByUrl(redirect);
+        }, this.redirectDelay);
 
         this.cd.detectChanges();
       });

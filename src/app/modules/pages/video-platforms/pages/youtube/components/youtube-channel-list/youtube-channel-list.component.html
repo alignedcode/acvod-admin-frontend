@@ -1,5 +1,9 @@
-<div *ngFor="let channel of channels | async" class="row">
-  <div class="col-md-12 col-lg-12 col-xxxl-6">
-    <youtube-channel-card [channel]="channel"></youtube-channel-card>
-  </div>
-</div>
+<ngx-datatable class="material fullscreen" [rows]="channels$ | async" [columns]="columns" [headerHeight]="50"
+  [footerHeight]="50" [rowHeight]="'auto'">
+</ngx-datatable>
+
+<ng-template #actionsTemplate let-row="row" let-value="value">
+  <button nbButton [size]="'small'" (click)="navigateToChannelPage(value)" [status]="'primary'">
+    <nb-icon class="action-icon" icon="external-link-outline"></nb-icon>
+  </button>
+</ng-template>

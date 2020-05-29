@@ -28,13 +28,13 @@ export class AccountDetailsComponent implements OnInit, OnDestroy {
     };
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.service
       .getBloggerId()
       .subscribe((id) => this.service.loadBlogger(id).subscribe());
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.subscriptions.onBloggerChange.unsubscribe();
   }
 }

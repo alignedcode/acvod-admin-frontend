@@ -20,12 +20,7 @@ const routes: Routes = [
     children: [
       {
         path: AccountRoutes.AUTH,
-        children: [
-          {
-            path: '',
-            component: AccountLoginComponent,
-          },
-        ],
+        component: AccountLoginComponent,
       },
       {
         path: '',
@@ -35,11 +30,6 @@ const routes: Routes = [
           import('./pages/account/account.module').then(
             (module) => module.AccountModule,
           ),
-      },
-      {
-        path: '',
-        redirectTo: AccountRoutes.AUTH,
-        pathMatch: 'full',
       },
     ],
   },

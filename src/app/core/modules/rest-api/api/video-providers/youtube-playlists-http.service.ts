@@ -25,7 +25,7 @@ enum RouteQueryParam {
 }
 
 enum PlaylistsSelectionType {
-  CHOSEN = 'chose',
+  CHOSEN = 'chosen',
   ALL = 'all',
 }
 
