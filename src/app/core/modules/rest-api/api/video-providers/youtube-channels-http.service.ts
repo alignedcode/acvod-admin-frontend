@@ -2,9 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { InternalAuthService } from '@core/modules/auth/services/internal-auth.service';
 import { BASE_PATH } from '../../injection-tokens';
-import { YouTubeChannel } from '../../models/video-providers/youtube/youtube-channel.model';
+import { YouTubeChannelDto } from '../../models/video-providers/youtube/youtube-channel.dto';
 import { ContentType, HttpRestService } from '../../services/http-rest.service';
 
 enum ApiRoute {
@@ -28,9 +27,8 @@ export class YouTubeChannelsHttpService extends HttpRestService {
   constructor(
     @Inject(BASE_PATH) protected basePath: string,
     protected readonly httpClient: HttpClient,
-    authService: InternalAuthService,
   ) {
-    super(authService);
+    super();
   }
 
   getAutheticationUri(bloggerId: string, redirectURI: string): string {
@@ -41,7 +39,7 @@ export class YouTubeChannelsHttpService extends HttpRestService {
     return `${this.basePath}${ApiRoute.AUTH}${uriQueries}`;
   }
 
-  getChannels(bloggerId: string): Observable<YouTubeChannel[]> {
+  getChannels(bloggerId: string): Observable<YouTubeChannelDto[]> {
     const route =
       this.basePath +
       ApiRoute.GET_CHANNELS.replace(RouteParam.BLOGGER_ID, bloggerId);

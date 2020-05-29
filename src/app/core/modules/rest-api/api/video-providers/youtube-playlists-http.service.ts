@@ -2,10 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { InternalAuthService } from '@core/modules/auth/services/internal-auth.service';
 import { BASE_PATH } from '../../injection-tokens';
 import { PaginatedResponse } from '../../models/paginated-response.model';
-import { YouTubePlaylist } from '../../models/video-providers/youtube/youtube-playlist.model';
+import { YouTubePlaylistDto } from '../../models/video-providers/youtube/youtube-playlist.dto';
 import { ContentType, HttpRestService } from '../../services/http-rest.service';
 
 enum ApiRoute {
@@ -36,22 +35,21 @@ export class YouTubePlaylistsHttpService extends HttpRestService {
   constructor(
     @Inject(BASE_PATH) protected basePath: string,
     protected readonly httpClient: HttpClient,
-    authService: InternalAuthService,
   ) {
-    super(authService);
+    super();
   }
 
   getAllPlaylists(
     bloggerId: string,
     channelId: string,
     pageToken: string = '',
-  ): Observable<PaginatedResponse<YouTubePlaylist>> {
+  ): Observable<PaginatedResponse<YouTubePlaylistDto>> {
     const route = ApiRoute.GET_PLAYLISTS.replace(
       RouteParam.BLOGGER_ID,
       bloggerId,
     ).replace(RouteParam.CHANNEL_ID, channelId);
 
-    return this.httpClient.get<PaginatedResponse<YouTubePlaylist>>(
+    return this.httpClient.get<PaginatedResponse<YouTubePlaylistDto>>(
       `${this.basePath}${route}`,
       {
         headers: this.getHeaders(),
@@ -67,13 +65,13 @@ export class YouTubePlaylistsHttpService extends HttpRestService {
     bloggerId: string,
     channelId: string,
     pageToken: string = '',
-  ): Observable<PaginatedResponse<YouTubePlaylist>> {
+  ): Observable<PaginatedResponse<YouTubePlaylistDto>> {
     const route = ApiRoute.GET_PLAYLISTS.replace(
       RouteParam.BLOGGER_ID,
       bloggerId,
     ).replace(RouteParam.CHANNEL_ID, channelId);
 
-    return this.httpClient.get<PaginatedResponse<YouTubePlaylist>>(
+    return this.httpClient.get<PaginatedResponse<YouTubePlaylistDto>>(
       `${this.basePath}${route}`,
       {
         headers: this.getHeaders(),

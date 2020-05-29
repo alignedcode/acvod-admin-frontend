@@ -1,4 +1,4 @@
-export interface YouTubeChannel {
+export interface YouTubeChannelDto {
   kind: string;
   etag: string;
   id: string;

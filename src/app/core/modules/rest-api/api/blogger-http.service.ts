@@ -2,9 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { InternalAuthService } from '@core/modules/auth/services/internal-auth.service';
 import { BASE_PATH } from '../injection-tokens';
-import { BloggerDetails } from '../models/blogger-detais.model';
+import { BloggerDto } from '../models/blogger.dto';
 import { ContentType, HttpRestService } from '../services/http-rest.service';
 
 enum ApiRoute {
@@ -20,17 +19,16 @@ export class BloggerHttpService extends HttpRestService {
   constructor(
     @Inject(BASE_PATH) protected basePath: string,
     protected readonly httpClient: HttpClient,
-    authService: InternalAuthService,
   ) {
-    super(authService);
+    super();
   }
 
-  public getDetails(bloggerId: string): Observable<BloggerDetails> {
+  public getBlogger(bloggerId: string): Observable<BloggerDto> {
     const route =
       this.basePath +
       ApiRoute.DETAILS.replace(RouteParam.BLOGGER_ID, bloggerId);
 
-    return this.httpClient.get<BloggerDetails>(route, {
+    return this.httpClient.get<BloggerDto>(route, {
       headers: this.getHeaders(),
     });
   }

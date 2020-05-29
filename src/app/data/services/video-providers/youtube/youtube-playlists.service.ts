@@ -4,7 +4,7 @@ import { mergeMap } from 'rxjs/operators';
 
 import { YouTubePlaylistsHttpService } from '@core/modules/rest-api/api/video-providers/youtube-playlists-http.service';
 import { PaginatedResponse } from '@core/modules/rest-api/models/paginated-response.model';
-import { YouTubePlaylist } from '@core/modules/rest-api/models/video-providers/youtube/youtube-playlist.model';
+import { YouTubePlaylistDto } from '@core/modules/rest-api/models/video-providers/youtube/youtube-playlist.dto';
 import { BloggersService } from '@data/services/bloggers.service';
 
 @Injectable()
@@ -17,11 +17,11 @@ export class YouTubePlaylistsService {
   getAllPlaylists(
     channelId: string,
     pageToken?: string,
-  ): Observable<PaginatedResponse<YouTubePlaylist>> {
+  ): Observable<PaginatedResponse<YouTubePlaylistDto>> {
     return this.bloggerService
-      .getBlogger()
+      .getBloggerId()
       .pipe(
-        mergeMap(({ id: bloggerId }) =>
+        mergeMap((bloggerId) =>
           this.playlistsService.getAllPlaylists(
             bloggerId,
             channelId,
@@ -31,14 +31,14 @@ export class YouTubePlaylistsService {
       );
   }
 
-  getSelectedPlaylists(
+  loadSelectedPlaylists(
     channelId: string,
     pageToken?: string,
-  ): Observable<PaginatedResponse<YouTubePlaylist>> {
+  ): Observable<PaginatedResponse<YouTubePlaylistDto>> {
     return this.bloggerService
-      .getBlogger()
+      .getBloggerId()
       .pipe(
-        mergeMap(({ id: bloggerId }) =>
+        mergeMap((bloggerId) =>
           this.playlistsService.getSelectedPlaylists(
             bloggerId,
             channelId,
@@ -50,9 +50,9 @@ export class YouTubePlaylistsService {
 
   selectPlaylist(channelId: string, playlistId: string): Observable<any> {
     return this.bloggerService
-      .getBlogger()
+      .getBloggerId()
       .pipe(
-        mergeMap(({ id: bloggerId }) =>
+        mergeMap((bloggerId) =>
           this.playlistsService.selectPlaylist(
             bloggerId,
             channelId,
@@ -64,9 +64,9 @@ export class YouTubePlaylistsService {
 
   deselectPlaylist(channelId: string, playlistId: string): Observable<any> {
     return this.bloggerService
-      .getBlogger()
+      .getBloggerId()
       .pipe(
-        mergeMap(({ id: bloggerId }) =>
+        mergeMap((bloggerId) =>
           this.playlistsService.deselectPlaylist(
             bloggerId,
             channelId,

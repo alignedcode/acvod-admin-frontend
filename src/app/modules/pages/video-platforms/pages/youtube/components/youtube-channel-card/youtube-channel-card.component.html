@@ -1,5 +1,5 @@
 <nb-card>
-  <nb-card-header>{{channel.snippet.title}}</nb-card-header>
+  <nb-card-header>{{channel.title}}</nb-card-header>
   <nb-card-body>
     <nb-tabset>
       <nb-tab tabTitle="Summary" badgeStatus="primary">
@@ -14,7 +14,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="publishedAt" class="label">Published At</label>
-              <input type="text" nbInput [value]="channel.snippet.publishedAt" fullWidth id="publishedAt"
+              <input type="text" nbInput [value]="channel.publishedAt" fullWidth id="publishedAt"
                 placeholder="Published At" disabled />
             </div>
           </div>
@@ -22,7 +22,7 @@
 
         <div class="form-group">
           <label for="description" class="label">Description</label>
-          <textarea nbInput fullWidth [value]="channel.snippet.description" id="description" placeholder="Description"
+          <textarea nbInput fullWidth [value]="channel.description" id="description" placeholder="Description"
             disabled></textarea>
         </div>
       </nb-tab>

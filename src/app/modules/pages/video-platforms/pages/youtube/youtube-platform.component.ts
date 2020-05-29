@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
-import { YouTubeChannel } from '@core/modules/rest-api/models/video-providers/youtube/youtube-channel.model';
+import { YouTubeChannel } from '@data/models/video-providers/youtube/youtube-channel.entity';
 import { YouTubeChannelsService } from '@data/services/video-providers/youtube/youtube-channels.service';
+import { YouTubeQuery } from '@data/state/video-providers/youtube.query';
 import { environment } from 'environments/environment';
 import { VideoPlatformsRoutes } from '../../video-platforms-routes.enum';
 
@@ -11,27 +12,11 @@ import { VideoPlatformsRoutes } from '../../video-platforms-routes.enum';
   styleUrls: ['./youtube-platform.component.scss'],
   templateUrl: './youtube-platform.component.html',
 })
-export class YouTubePlatformComponent implements OnInit, OnDestroy {
-  channels: YouTubeChannel[] = [];
-
-  private subscriptions: { onChannelsChange: Subscription };
-
-  constructor(private readonly channelsService: YouTubeChannelsService) {
-    this.subscriptions = {
-      onChannelsChange: channelsService.onChannelsChange.subscribe(
-        (channels) => (this.channels = channels),
-      ),
-    };
-  }
+export class YouTubePlatformComponent implements OnInit {
+  constructor(private readonly channelsService: YouTubeChannelsService) {}
 
   ngOnInit() {
-    this.channelsService
-      .getChannels()
-      .subscribe((channels) => (this.channels = channels));
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.onChannelsChange.unsubscribe();
+    this.channelsService.loadChannels().subscribe();
   }
 
   onAddChannel() {

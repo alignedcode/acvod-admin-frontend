@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { BloggerDetails } from '@core/modules/rest-api/models/blogger-detais.model';
+import { Blogger } from '@data/models/blogger.entity';
 import { BloggersService } from '@data/services/bloggers.service';
+import { BloggerQuery } from '@data/state/blogger/blogger.query';
 
 @Component({
   selector: 'account-details',
@@ -10,29 +11,30 @@ import { BloggersService } from '@data/services/bloggers.service';
   styleUrls: ['./account-details.component.scss'],
 })
 export class AccountDetailsComponent implements OnInit, OnDestroy {
-  bloggerDetails: BloggerDetails | null;
+  blogger?: Blogger;
 
-  private readonly subscriptions: { onDetailsChange: Subscription } & {
+  private readonly subscriptions: { onBloggerChange: Subscription } & {
     [key: string]: Subscription;
   };
 
-  constructor(private readonly bloggersService: BloggersService) {
+  constructor(
+    private readonly service: BloggersService,
+    private readonly query: BloggerQuery,
+  ) {
     this.subscriptions = {
-      onDetailsChange: this.bloggersService.onDetailsChange.subscribe(
-        (details) => (this.bloggerDetails = details),
+      onBloggerChange: this.query.blogger$.subscribe(
+        (blogger) => (this.blogger = blogger),
       ),
     };
   }
 
   ngOnInit(): void {
-    this.bloggersService.getBlogger().subscribe(({ id }) => {
-      this.bloggersService
-        .getDetails(id)
-        .subscribe((details) => (this.bloggerDetails = details));
-    });
+    this.service
+      .getBloggerId()
+      .subscribe((id) => this.service.loadBlogger(id).subscribe());
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.onDetailsChange.unsubscribe();
+    this.subscriptions.onBloggerChange.unsubscribe();
   }
 }

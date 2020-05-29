@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { YouTubeChannel } from '@core/modules/rest-api/models/video-providers/youtube/youtube-channel.model';
+import { YouTubeChannel } from '@data/models/video-providers/youtube/youtube-channel.entity';
 import { YouTubeChannelsService } from '@data/services/video-providers/youtube/youtube-channels.service';
 
 @Component({

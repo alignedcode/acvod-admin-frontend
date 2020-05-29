@@ -1,4 +1,4 @@
-export interface BloggerDetails {
+export interface BloggerDto {
   id: string;
   account: {
     email: string;

@@ -1,40 +1,45 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { JwtPayload } from '@core/modules/auth/models/jwt-payload.model';
 import { InternalAuthService } from '@core/modules/auth/services/internal-auth.service';
 import { BloggerHttpService } from '@core/modules/rest-api/api/blogger-http.service';
-import { BloggerDetails } from '@core/modules/rest-api/models/blogger-detais.model';
-import { Blogger } from '@data/models/blogger.model';
+import { BloggerDto } from '@core/modules/rest-api/models/blogger.dto';
+import { Blogger } from '@data/models/blogger.entity';
+import { BloggerStore } from '@data/state/blogger/blogger.store';
+import { YouTubeStore } from '@data/state/video-providers/youtube.store';
 
 @Injectable()
 export class BloggersService {
-  onDetailsChange: BehaviorSubject<BloggerDetails> = new BehaviorSubject(null);
-
   constructor(
     private readonly bloggersApiService: BloggerHttpService,
     private readonly authService: InternalAuthService,
+    private readonly bloggerStore: BloggerStore,
+    private readonly youtubeStore: YouTubeStore,
   ) {}
 
-  getBlogger(): Observable<Blogger> {
-    return this.authService.getToken().pipe(
-      map((token) => {
-        const {
-          id,
-          accountDetails: { email, firstName, lastName },
-        } = token.getPayload() as JwtPayload;
+  getBloggerId(): Observable<string> {
+    return this.authService
+      .getToken()
+      .pipe(map((token) => token.getPayload().id));
+  }
 
-        return { id, email, firstName, lastName };
+  loadBlogger(bloggerId: string): Observable<BloggerDto> {
+    return this.bloggersApiService.getBlogger(bloggerId).pipe(
+      tap((blogger) => {
+        this.bloggerStore.update({
+          blogger: this.mapBloggerDtoToEntity(blogger),
+        });
+        this.youtubeStore.reset();
       }),
     );
   }
 
-  getDetails(bloggerId: string): Observable<BloggerDetails> {
-    return this.bloggersApiService.getDetails(bloggerId).pipe(
-      tap((details) => {
-        this.onDetailsChange.next(details);
-      }),
-    );
+  private mapBloggerDtoToEntity({
+    id,
+    account: { email, firstName, lastName },
+    applicationKey,
+  }: BloggerDto): Blogger {
+    return { id, email, firstName, lastName, applicationKey };
   }
 }

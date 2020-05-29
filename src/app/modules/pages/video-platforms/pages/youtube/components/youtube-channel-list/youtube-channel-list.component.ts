@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { YouTubeChannel } from '@core/modules/rest-api/models/video-providers/youtube/youtube-channel.model';
+import { YouTubeChannel } from '@data/models/video-providers/youtube/youtube-channel.entity';
+import { YouTubeQuery } from '@data/state/video-providers/youtube.query';
 
 @Component({
   selector: 'youtube-channel-list',
@@ -8,5 +10,9 @@ import { YouTubeChannel } from '@core/modules/rest-api/models/video-providers/yo
   styleUrls: ['./youtube-channel-list.component.scss'],
 })
 export class YouTubeChannelListComponent {
-  @Input() channels: YouTubeChannel[];
+  readonly channels: Observable<YouTubeChannel[]>;
+
+  constructor(private readonly query: YouTubeQuery) {
+    this.channels = query.channels$;
+  }
 }

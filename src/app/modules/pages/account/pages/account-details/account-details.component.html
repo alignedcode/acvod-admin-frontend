@@ -6,7 +6,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="emailControl" class="label">Email address</label>
-              <input type="email" [value]="bloggerDetails?.account?.email" nbInput fullWidth id="emailControl"
+              <input type="email" [value]="blogger?.email" nbInput fullWidth id="emailControl"
                 placeholder="Email" disabled />
             </div>
           </div>
@@ -16,7 +16,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="firstNameControl" class="label">First Name</label>
-              <input type="text" nbInput [value]="bloggerDetails?.account?.firstName" fullWidth id="firstNameControl"
+              <input type="text" nbInput [value]="blogger?.firstName" fullWidth id="firstNameControl"
                 placeholder="First Name" disabled />
             </div>
           </div>
@@ -24,7 +24,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="lastNameControl" class="label">Last Name</label>
-              <input type="text" nbInput [value]="bloggerDetails?.account?.lastName" fullWidth id="lastNameControl"
+              <input type="text" nbInput [value]="blogger?.lastName" fullWidth id="lastNameControl"
                 placeholder="Last Name" disabled />
             </div>
           </div>
@@ -34,7 +34,7 @@
           <div class="col-md-9">
             <div class="form-group">
               <label for="applicaitonKeyControl" class="label">Application Key</label>
-              <input type="text" [value]="bloggerDetails?.applicationKey" nbInput fullWidth id="applicaitonKeyControl"
+              <input type="text" [value]="blogger?.applicationKey" nbInput fullWidth id="applicaitonKeyControl"
                 placeholder="Application Key" disabled />
             </div>
           </div>
