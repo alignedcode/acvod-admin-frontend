@@ -5,18 +5,20 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { TableColumn } from '@swimlane/ngx-datatable';
+import { ColumnMode, TableColumn } from '@swimlane/ngx-datatable';
 import { Observable } from 'rxjs';
 
 import { YouTubeChannel } from '@data/models/video-providers/youtube/youtube-channel.entity';
 import { YouTubeRoutingService } from '../../services/youtube-routing.service';
 
 @Component({
-  selector: 'youtube-channel-list',
-  templateUrl: './youtube-channel-list.component.html',
-  styleUrls: ['./youtube-channel-list.component.scss'],
+  selector: 'youtube-channel-table',
+  templateUrl: './youtube-channel-table.component.html',
+  styleUrls: ['./youtube-channel-table.component.scss'],
 })
-export class YouTubeChannelListComponent implements OnInit {
+export class YouTubeChannelTableComponent implements OnInit {
+  readonly ColumnMode = ColumnMode;
+
   @Input() channels$: Observable<YouTubeChannel[]>;
 
   @ViewChild('actionsTemplate', { static: true })
@@ -29,7 +31,7 @@ export class YouTubeChannelListComponent implements OnInit {
   ngOnInit(): void {
     // TODO: Move into a service
     this.columns = [
-      { name: 'ID', prop: 'id' },
+      { name: 'ID', prop: 'id', minWidth: 300 },
       { name: 'Title', prop: 'title' },
       { name: 'Description', prop: 'description' },
       { name: 'Published At', prop: 'publishedAt' },

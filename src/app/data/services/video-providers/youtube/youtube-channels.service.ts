@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { mergeMap, tap } from 'rxjs/operators';
+import { flatMap, tap } from 'rxjs/operators';
 
 import { OAuthService } from '@core/modules/auth/services/oauth.service';
 import { YouTubeChannelsHttpService } from '@core/modules/rest-api/api/video-providers/youtube-channels-http.service';
@@ -31,7 +31,7 @@ export class YouTubeChannelsService {
 
   removeChannel(channelId: string): Observable<any> {
     return this.bloggerService.getBloggerId().pipe(
-      mergeMap((bloggerId) =>
+      flatMap((bloggerId) =>
         this.channelsApiService.removeChannel(bloggerId, channelId),
       ),
       tap(() => {
@@ -44,7 +44,7 @@ export class YouTubeChannelsService {
 
   loadChannels(): Observable<YouTubeChannelDto[]> {
     return this.bloggerService.getBloggerId().pipe(
-      mergeMap((bloggerId) => this.channelsApiService.getChannels(bloggerId)),
+      flatMap((bloggerId) => this.channelsApiService.getChannels(bloggerId)),
       tap((channels) => {
         this.youtubeStore.update({
           channels: channels.map((channel) =>

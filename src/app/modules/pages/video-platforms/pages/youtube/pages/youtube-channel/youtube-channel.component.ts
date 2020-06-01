@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Observable, zip } from 'rxjs';
 
-import { ActivatedRoute, Params, Router } from '@angular/router';
 import { YouTubeChannel } from '@data/models/video-providers/youtube/youtube-channel.entity';
 import { YouTubePlaylistsService } from '@data/services/video-providers/youtube/youtube-playlists.service';
 import { YouTubeQuery } from '@data/state/video-providers/youtube.query';
-import { Observable, zip } from 'rxjs';
 import { YouTubeRoutingService } from '../../services/youtube-routing.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { YouTubeRoutingService } from '../../services/youtube-routing.service';
   templateUrl: './youtube-channel.component.html',
   styleUrls: ['./youtube-channel.component.scss'],
 })
-export class YoutubeChannelComponent implements OnInit {
+export class YoutubeChannelComponent {
   channel$: Observable<YouTubeChannel>;
 
   constructor(
@@ -20,22 +20,19 @@ export class YoutubeChannelComponent implements OnInit {
     private readonly routingService: YouTubeRoutingService,
     private readonly query: YouTubeQuery,
     private readonly route: ActivatedRoute,
-  ) {}
+  ) {
+    const channelId = this.route.snapshot.paramMap.get('channelId');
 
-  ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      const channelId = params['channelId'];
+    if (!channelId) {
+      this.routingService.navigateToChannelsPage();
+    }
 
-      if (!channelId) {
-        this.routingService.navigateToChannelsPage();
-      }
+    this.channel$ = this.query.getChannel(channelId);
 
-      this.channel$ = this.query.getChannel(channelId);
-
-      zip(
-        this.playlistsService.loadAllPlaylists(channelId),
-        this.playlistsService.loadSelectedPlaylists(channelId),
-      ).subscribe();
-    });
+    // TODO: Move into a component service
+    zip(
+      this.playlistsService.loadAllPlaylists(channelId),
+      this.playlistsService.loadSelectedPlaylists(channelId),
+    ).subscribe();
   }
 }

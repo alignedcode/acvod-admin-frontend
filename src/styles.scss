@@ -12,9 +12,7 @@
 @import '~bootstrap/scss/mixins';
 @import '~bootstrap/scss/grid';
 
-@import '~@swimlane/ngx-datatable/index.css';
-@import '~@swimlane/ngx-datatable/themes/material.scss';
-@import '~@swimlane/ngx-datatable/assets/icons.css';
+@import 'styles/ngx-datatable.theme';
 
 @import '~@ng-select/ng-select/themes/default.theme.css';
 

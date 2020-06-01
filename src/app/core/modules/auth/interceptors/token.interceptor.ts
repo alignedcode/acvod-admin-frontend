@@ -6,7 +6,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { mergeMap } from 'rxjs/operators';
+import { flatMap } from 'rxjs/operators';
 
 import { InternalAuthService } from '../services/internal-auth.service';
 
@@ -21,7 +21,7 @@ export class TokenInterceptor implements HttpInterceptor {
     next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     return this.authService.getToken().pipe(
-      mergeMap((token) => {
+      flatMap((token) => {
         request = request.clone({
           setHeaders: {
             Authorization: `${AUTHORIZATION_HEADER_PREFIX} ${token.getValue()}`,

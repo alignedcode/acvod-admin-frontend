@@ -65,13 +65,13 @@ export class YouTubePlaylistsHttpService extends HttpRestService {
     bloggerId: string,
     channelId: string,
     pageToken: string = '',
-  ): Observable<PaginatedResponse<YouTubePlaylistDto>> {
+  ): Observable<YouTubePlaylistDto[]> {
     const route = ApiRoute.GET_PLAYLISTS.replace(
       RouteParam.BLOGGER_ID,
       bloggerId,
     ).replace(RouteParam.CHANNEL_ID, channelId);
 
-    return this.httpClient.get<PaginatedResponse<YouTubePlaylistDto>>(
+    return this.httpClient.get<YouTubePlaylistDto[]>(
       `${this.basePath}${route}`,
       {
         headers: this.getHeaders(),

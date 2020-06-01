@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, mergeMap, tap } from 'rxjs/operators';
+import { flatMap, map, tap } from 'rxjs/operators';
 
 import { YouTubePlaylistsHttpService } from '@core/modules/rest-api/api/video-providers/youtube-playlists-http.service';
 import { YouTubePlaylistDto } from '@core/modules/rest-api/models/video-providers/youtube/youtube-playlist.dto';
@@ -22,10 +22,10 @@ export class YouTubePlaylistsService {
     pageToken?: string,
   ): Observable<YouTubePlaylist[]> {
     return this.bloggerService.getBloggerId().pipe(
-      mergeMap((bloggerId) =>
+      flatMap((bloggerId) =>
         this.playlistsService.getAllPlaylists(bloggerId, channelId, pageToken),
       ),
-      map(({ items = [] }) =>
+      map(({ items }) =>
         items.map((playlist) => this.mapPalylistDtoToEntity(playlist)),
       ),
       tap((allPlaylists) => {
@@ -49,15 +49,15 @@ export class YouTubePlaylistsService {
     pageToken?: string,
   ): Observable<YouTubePlaylist[]> {
     return this.bloggerService.getBloggerId().pipe(
-      mergeMap((bloggerId) =>
+      flatMap((bloggerId) =>
         this.playlistsService.getSelectedPlaylists(
           bloggerId,
           channelId,
           pageToken,
         ),
       ),
-      map(({ items = [] }) =>
-        items.map((playlist) => this.mapPalylistDtoToEntity(playlist)),
+      map((playlists) =>
+        playlists.map((playlist) => this.mapPalylistDtoToEntity(playlist)),
       ),
       tap((selectedPlaylists) => {
         this.store.update(({ channels }) => {
@@ -76,7 +76,7 @@ export class YouTubePlaylistsService {
 
   selectPlaylist(channelId: string, playlistId: string): Observable<any> {
     return this.bloggerService.getBloggerId().pipe(
-      mergeMap((bloggerId) =>
+      flatMap((bloggerId) =>
         this.playlistsService.selectPlaylist(bloggerId, channelId, playlistId),
       ),
       tap(() => {
@@ -105,7 +105,7 @@ export class YouTubePlaylistsService {
 
   deselectPlaylist(channelId: string, playlistId: string): Observable<any> {
     return this.bloggerService.getBloggerId().pipe(
-      mergeMap((bloggerId) =>
+      flatMap((bloggerId) =>
         this.playlistsService.deselectPlaylist(
           bloggerId,
           channelId,
