@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col">
+    <ng-select #playlistsSearchControl [items]="unselectedPlaylists$ | async"
+               bindLabel="title"
+               autofocus
+               appendTo="body"
+               bindValue="id"
+               [(ngModel)]="selectedPlaylistId">
+    </ng-select>
+  </div>
+
+  <div class="col">
+    <button nbButton (click)="onSelectPlaylist()" [status]="'primary'" [disabled]="!selectedPlaylistId">
+      <nb-icon class="action-icon" icon="plus-outline"></nb-icon>
+    </button>
+  </div>
+</div>
