@@ -11,6 +11,7 @@ import { map, takeUntil } from 'rxjs/operators';
 
 import { InternalAuthService } from '@core/modules/auth/services/internal-auth.service';
 import { LayoutService } from '../../../core/utils';
+import { LayoutRoutingService } from '@layout/services/layout-routing.service';
 
 @Component({
   selector: 'header',
@@ -27,6 +28,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly authService: InternalAuthService,
+    private readonly routingService: LayoutRoutingService,
     private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
     private themeService: NbThemeService,
@@ -69,6 +71,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.authService.logout().subscribe(() => this.navigateHome());
+    this.authService
+      .logout()
+      .subscribe(() => this.routingService.navigateToAuthPage());
   }
 }

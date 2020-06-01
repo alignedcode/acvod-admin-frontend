@@ -10,6 +10,7 @@ import {
 } from './components';
 import { OneColumnLayoutComponent } from './pages';
 
+import { LayoutRoutingService } from './services/layout-routing.service';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { DARK_THEME } from './styles/theme.dark';
@@ -39,6 +40,7 @@ export class LayoutModule {
           },
           [DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, DARK_THEME],
         ).providers,
+        LayoutRoutingService,
       ],
     };
   }
