@@ -13,14 +13,21 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: `/${AccountRoutes.ENTRY}/${AccountRoutes.DETAILS}`,
       },
     ],
+    home: true,
   },
   {
     title: 'Video Platforms',
+    group: true,
+  },
+  {
+    title: 'YouTube',
     icon: 'film-outline',
+    link: `/${VideoPlatformsRoutes.ENTRY}/${VideoPlatformsRoutes.YOUTUBE}`,
     children: [
       {
-        title: 'YouTube',
-        link: `/${VideoPlatformsRoutes.ENTRY}/${VideoPlatformsRoutes.YOUTUBE}`,
+        title: 'Channels',
+        icon: 'folder-outline',
+        link: `/${VideoPlatformsRoutes.ENTRY}/${VideoPlatformsRoutes.YOUTUBE}/${VideoPlatformsRoutes.YOUTUBE_CHANNELS}`,
       },
     ],
   },

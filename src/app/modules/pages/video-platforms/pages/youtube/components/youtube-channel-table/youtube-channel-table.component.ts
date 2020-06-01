@@ -1,7 +1,10 @@
+import { DatePipe } from '@angular/common';
 import {
   Component,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   TemplateRef,
   ViewChild,
 } from '@angular/core';
@@ -20,13 +23,17 @@ export class YouTubeChannelTableComponent implements OnInit {
   readonly ColumnMode = ColumnMode;
 
   @Input() channels$: Observable<YouTubeChannel[]>;
+  @Output() removeChannel$: EventEmitter<string> = new EventEmitter();
 
   @ViewChild('actionsTemplate', { static: true })
   actionsTemplate: TemplateRef<any>;
 
   columns: TableColumn[] = [];
 
-  constructor(private readonly routingService: YouTubeRoutingService) {}
+  constructor(
+    private readonly routingService: YouTubeRoutingService,
+    private readonly datePipe: DatePipe,
+  ) {}
 
   ngOnInit(): void {
     // TODO: Move into a service
@@ -34,12 +41,16 @@ export class YouTubeChannelTableComponent implements OnInit {
       { name: 'ID', prop: 'id', minWidth: 300 },
       { name: 'Title', prop: 'title' },
       { name: 'Description', prop: 'description' },
-      { name: 'Published At', prop: 'publishedAt' },
+      { name: 'Published At', prop: 'publishedAt', pipe: this.datePipe },
       { name: 'Actions', cellTemplate: this.actionsTemplate, prop: 'id' },
     ];
   }
 
   navigateToChannelPage(channelId: string) {
     this.routingService.naviageteToChannelPage(channelId);
+  }
+
+  onRemoveChannel(channelId: string) {
+    this.removeChannel$.emit(channelId);
   }
 }

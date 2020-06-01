@@ -31,4 +31,8 @@ export class YouTubeChannelsComponent implements OnInit {
       `${environment.fronendURI}/${VideoPlatformsRoutes.ENTRY}/${VideoPlatformsRoutes.YOUTUBE}/${VideoPlatformsRoutes.YOUTUBE_APPROVED_AUTH}`,
     );
   }
+
+  onRemoveChannel(channelId: string) {
+    this.channelsService.removeChannel(channelId).subscribe();
+  }
 }
