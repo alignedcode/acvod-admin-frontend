@@ -19,7 +19,8 @@ enum RouteParam {
 
 enum RouteQueryParam {
   BLOGGER_ID = 'bloggerId',
-  REDIRECT_URI = 'redirectUri',
+  SUCCESSFUL_REDIRECT_URI = 'successfulRedirectUri',
+  FAILURE_REDIRECT_URI = 'unsuccessfulRedirectUri',
 }
 
 @Injectable()
@@ -31,10 +32,15 @@ export class YouTubeChannelsHttpService extends HttpRestService {
     super();
   }
 
-  getAutheticationUri(bloggerId: string, redirectURI: string): string {
+  getAutheticationUri(
+    bloggerId: string,
+    { successful, failure }: { successful: string; failure: string },
+  ): string {
     const uriQueries = `?${RouteQueryParam.BLOGGER_ID}=${bloggerId}&${
-      RouteQueryParam.REDIRECT_URI
-    }=${encodeURIComponent(redirectURI)}`;
+      RouteQueryParam.SUCCESSFUL_REDIRECT_URI
+    }=${encodeURIComponent(successful)}&${
+      RouteQueryParam.FAILURE_REDIRECT_URI
+    }=${encodeURIComponent(failure)}`;
 
     return `${this.basePath}${ApiRoute.AUTH}${uriQueries}`;
   }

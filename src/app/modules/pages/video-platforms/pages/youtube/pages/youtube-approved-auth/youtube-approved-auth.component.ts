@@ -1,65 +1,42 @@
-import { Location } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { NbAuthResult } from '@nebular/auth';
+import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { OAuthSocialProvider } from '@core/modules/auth/models/oauth-social-provider.enum';
-import { OAuthSocialProviders } from '@core/modules/auth/models/oauth-social-providers';
 import { InternalAuthService } from '@core/modules/auth/services/internal-auth.service';
 import { VideoPlatformsRoutes } from '@modules/pages/video-platforms/video-platforms-routes.enum';
+import { YouTubeRoutingService } from '../../services/youtube-routing.service';
 
 @Component({
   selector: 'youtube-approved-auth',
   styleUrls: ['./youtube-approved-auth.component.scss'],
   templateUrl: './youtube-approved-auth.component.html',
 })
-export class YouTubeApprovedAuthComponent implements OnInit {
+export class YouTubeApprovedAuthComponent implements AfterViewInit {
   redirectDelay: number = 350;
-  showMessages: any = {};
-
-  errors: string[] = [];
-  messages: string[] = [];
-  user: any = {};
-  submitted: boolean = false;
-  socilalProviders = OAuthSocialProviders;
-  rememberMe = false;
 
   constructor(
-    protected authService: InternalAuthService,
-    protected cd: ChangeDetectorRef,
-    protected router: Router,
+    private authService: InternalAuthService,
+    private navigationService: YouTubeRoutingService,
+    private cd: ChangeDetectorRef,
+    private router: Router,
     private route: ActivatedRoute,
-    protected location: Location,
   ) {}
 
-  ngOnInit() {
-    this.route.queryParams.subscribe((params: Params) => {
-      const accessToken = params['accessToken'];
+  ngAfterViewInit() {
+    const accessToken = this.route.snapshot.queryParams['accessToken'];
 
-      if (!accessToken) {
-        return;
-      }
+    if (!accessToken) {
+      // TODO: checkout an error name
+      return this.navigationService.navigateToNotBoundAccountPage();
+    }
 
-      this.login(accessToken);
-    });
+    this.login(accessToken);
   }
 
   login(accessToken: string): void {
-    this.errors = [];
-    this.messages = [];
-    this.submitted = true;
-
     this.authService
       .authenticate(accessToken, OAuthSocialProvider.GOOGLE)
-      .subscribe((result: NbAuthResult) => {
-        this.submitted = false;
-
-        if (result.isSuccess()) {
-          this.messages = result.getMessages();
-        } else {
-          this.errors = result.getErrors();
-        }
-
+      .subscribe(() => {
         const redirect = `${VideoPlatformsRoutes.ENTRY}/${VideoPlatformsRoutes.YOUTUBE}`;
 
         setTimeout(() => {
@@ -68,14 +45,5 @@ export class YouTubeApprovedAuthComponent implements OnInit {
 
         this.cd.detectChanges();
       });
-  }
-
-  back() {
-    this.location.back();
-    return false;
-  }
-
-  getSocialProviderLink(baseEndpoint: string, redirectUri: string): string {
-    return `${baseEndpoint}?redirectUri=${encodeURIComponent(redirectUri)}`;
   }
 }

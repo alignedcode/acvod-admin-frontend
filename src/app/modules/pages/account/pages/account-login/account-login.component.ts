@@ -76,7 +76,13 @@ export class AccountLoginComponent implements OnInit {
     return false;
   }
 
-  getSocialProviderLink(baseEndpoint: string, redirectUri: string): string {
-    return `${baseEndpoint}?redirectUri=${encodeURIComponent(redirectUri)}`;
+  getSocialProviderLink(
+    baseEndpoint: string,
+    successfulRedirectUri: string,
+    failureRedirectUri: string,
+  ): string {
+    return `${baseEndpoint}?successfulRedirectUri=${encodeURIComponent(
+      successfulRedirectUri,
+    )}&unsuccessfulRedirectUri=${encodeURIComponent(failureRedirectUri)}`;
   }
 }

@@ -18,7 +18,7 @@ export class YouTubeChannelsService {
     private readonly youtubeStore: YouTubeStore,
   ) {}
 
-  addChannel(redirectUri: string) {
+  addChannel(redirectUri: { successful: string; failure: string }) {
     this.bloggerService.getBloggerId().subscribe((id) => {
       const authenticationUri = this.channelsApiService.getAutheticationUri(
         id,

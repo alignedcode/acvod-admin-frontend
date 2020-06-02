@@ -13,6 +13,7 @@ export const OAuthSocialProviders: ReadonlyArray<NbOAuthBackendOptions> = [
     baseEndpoint: `${environment.backendURI}/api/admin/blogger/auth/google`,
     redirect: {
       success: `${environment.fronendURI}/${AccountRoutes.ENTRY}/${AccountRoutes.AUTH}`,
+      failure: `${environment.fronendURI}/${AccountRoutes.ENTRY}/${AccountRoutes.AUTH}`,
     },
   },
 ];

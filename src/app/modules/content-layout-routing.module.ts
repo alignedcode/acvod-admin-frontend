@@ -11,36 +11,39 @@ import { VideoPlatformsRoutes } from './pages/video-platforms/video-platforms-ro
 
 const routes: Routes = [
   {
-    path: AccountShortSummaryRoutes.ENTRY,
+    path: '',
     component: ContentLayoutComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: AccountRoutes.ENTRY,
     children: [
       {
-        path: AccountRoutes.AUTH,
-        component: AccountLoginComponent,
+        path: AccountShortSummaryRoutes.ENTRY,
+        canActivate: [AuthGuard],
       },
       {
-        path: '',
-        component: ContentLayoutComponent,
+        path: AccountRoutes.ENTRY,
+        children: [
+          {
+            path: AccountRoutes.AUTH,
+            component: AccountLoginComponent,
+          },
+          {
+            path: '',
+            canActivate: [AuthGuard],
+            loadChildren: () =>
+              import('./pages/account/account.module').then(
+                (module) => module.AccountModule,
+              ),
+          },
+        ],
+      },
+      {
+        path: VideoPlatformsRoutes.ENTRY,
         canActivate: [AuthGuard],
         loadChildren: () =>
-          import('./pages/account/account.module').then(
-            (module) => module.AccountModule,
+          import('./pages/video-platforms/video-platforms.module').then(
+            (module) => module.VideoPlatformsModule,
           ),
       },
     ],
-  },
-  {
-    path: VideoPlatformsRoutes.ENTRY,
-    component: ContentLayoutComponent,
-    canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./pages/video-platforms/video-platforms.module').then(
-        (module) => module.VideoPlatformsModule,
-      ),
   },
   {
     path: '',

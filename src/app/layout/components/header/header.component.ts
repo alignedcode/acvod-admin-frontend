@@ -10,8 +10,8 @@ import { Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 
 import { InternalAuthService } from '@core/modules/auth/services/internal-auth.service';
-import { LayoutService } from '../../../core/utils';
 import { LayoutRoutingService } from '@layout/services/layout-routing.service';
+import { LayoutService } from '../../../core/utils';
 
 @Component({
   selector: 'header',

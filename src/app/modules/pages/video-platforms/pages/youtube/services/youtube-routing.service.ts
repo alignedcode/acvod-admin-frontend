@@ -8,6 +8,12 @@ import { AppRoutes } from 'app/app-route.enum';
 export class YouTubeRoutingService {
   constructor(private readonly router: Router) {}
 
+  navigateToNotBoundAccountPage() {
+    this.router.navigateByUrl(
+      `${AppRoutes.ROOT}/${VideoPlatformsRoutes.ENTRY}/${VideoPlatformsRoutes.YOUTUBE}/${VideoPlatformsRoutes.YOUTUBE_NOT_BOUND_ACCOUNT}`,
+    );
+  }
+
   navigateToChannelsPage() {
     this.router.navigateByUrl(
       `${AppRoutes.ROOT}/${VideoPlatformsRoutes.ENTRY}/${VideoPlatformsRoutes.YOUTUBE}/${VideoPlatformsRoutes.YOUTUBE_CHANNELS}`,

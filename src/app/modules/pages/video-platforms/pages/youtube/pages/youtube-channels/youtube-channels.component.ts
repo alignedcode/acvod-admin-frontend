@@ -29,9 +29,12 @@ export class YouTubeChannelsComponent implements OnInit {
   }
 
   onAddChannel() {
-    this.channelsService.addChannel(
-      `${environment.fronendURI}/${VideoPlatformsRoutes.ENTRY}/${VideoPlatformsRoutes.YOUTUBE}/${VideoPlatformsRoutes.YOUTUBE_APPROVED_AUTH}`,
-    );
+    const redirectUriBase = `${environment.fronendURI}/${VideoPlatformsRoutes.ENTRY}/${VideoPlatformsRoutes.YOUTUBE}`;
+
+    this.channelsService.addChannel({
+      successful: `${redirectUriBase}/${VideoPlatformsRoutes.YOUTUBE_APPROVED_AUTH}`,
+      failure: `${redirectUriBase}/${VideoPlatformsRoutes.YOUTUBE_APPROVED_AUTH}`,
+    });
   }
 
   onRemoveChannel(channelId: string) {

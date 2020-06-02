@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { NbThemeModule, NbToastrModule } from '@nebular/theme';
+import { NbLayoutModule, NbThemeModule } from '@nebular/theme';
 
 import { SharedModule } from '@shared/shared.module';
 import {
@@ -25,7 +25,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [CommonModule, SharedModule],
+  imports: [CommonModule, SharedModule, NbLayoutModule],
   exports: [CommonModule, ...COMPONENTS],
   declarations: [...COMPONENTS],
 })
@@ -41,7 +41,6 @@ export class LayoutModule {
           [DEFAULT_THEME, COSMIC_THEME, CORPORATE_THEME, DARK_THEME],
         ).providers,
         LayoutRoutingService,
-        NbToastrModule.forRoot().providers,
       ],
     };
   }

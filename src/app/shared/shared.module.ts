@@ -42,7 +42,6 @@ const PIPES = [
 ];
 
 const NB_MODULES = [
-  NbLayoutModule,
   NbMenuModule,
   NbAlertModule,
   NbInputModule,
