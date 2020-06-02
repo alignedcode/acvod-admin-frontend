@@ -21,6 +21,9 @@ import { YouTubeRoutingService } from '../../services/youtube-routing.service';
 })
 export class YouTubeChannelTableComponent implements OnInit {
   readonly ColumnMode = ColumnMode;
+  readonly tableMessages = {
+    emptyMessage: 'There are no channels in your account, please choose one.',
+  };
 
   @Input() channels$: Observable<YouTubeChannel[]>;
   @Output() removeChannel$: EventEmitter<string> = new EventEmitter();

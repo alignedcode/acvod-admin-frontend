@@ -14,12 +14,14 @@ import { environment } from 'environments/environment';
 })
 export class YouTubeChannelsComponent implements OnInit {
   readonly channels$: Observable<YouTubeChannel[]>;
+  readonly hasChannels$: Observable<boolean>;
 
   constructor(
     private readonly channelsService: YouTubeChannelsService,
     private readonly query: YouTubeQuery,
   ) {
     this.channels$ = query.channels$;
+    this.hasChannels$ = query.hasChannels$;
   }
 
   ngOnInit() {

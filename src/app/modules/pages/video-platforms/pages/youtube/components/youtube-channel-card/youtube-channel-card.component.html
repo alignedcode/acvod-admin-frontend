@@ -28,17 +28,7 @@
       </nb-tab>
 
       <nb-tab tabTitle="Playlists" badgeStatus="primary">
-        <div class="container">
-          <div class="row justify-content-md-center mb-4">
-            <div class="col-md-6">
-              <youtube-add-playlist-control [channelId]="channel.id" (selectPlaylist$)="onSelectPlaylist($event)"></youtube-add-playlist-control>
-            </div>
-          </div>
-
-          <div class="row">
-            <youtube-playlist-table [playlists]="channel.selectedPlaylists" (deselectPlaylist$)="onDeselectPlaylist($event)"></youtube-playlist-table>
-          </div>
-        </div>
+        <youtube-playlists-tab [selectedPlaylists]="channel.selectedPlaylists" [unselectedPlaylists]="unselectedPlaylists | async" (selectPlaylist$)="onSelectPlaylist($event)" (deselectPlaylist$)="onDeselectPlaylist($event)"></youtube-playlists-tab>
       </nb-tab>
     </nb-tabset>
   </nb-card-body>

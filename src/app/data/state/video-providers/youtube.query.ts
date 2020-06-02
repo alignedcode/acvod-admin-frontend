@@ -10,6 +10,9 @@ import { YouTubeStore } from './youtube.store';
 @Injectable()
 export class YouTubeQuery extends Query<YouTubeState> {
   channels$ = this.select('channels');
+  hasChannels$ = this.select('channels').pipe(
+    map((channels) => channels.length > 0),
+  );
 
   constructor(store: YouTubeStore) {
     super(store);

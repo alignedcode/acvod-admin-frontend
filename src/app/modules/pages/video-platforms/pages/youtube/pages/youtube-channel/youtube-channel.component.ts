@@ -12,7 +12,7 @@ import { YouTubeRoutingService } from '../../services/youtube-routing.service';
   templateUrl: './youtube-channel.component.html',
   styleUrls: ['./youtube-channel.component.scss'],
 })
-export class YoutubeChannelComponent {
+export class YouTubeChannelComponent {
   channel$: Observable<YouTubeChannel>;
 
   constructor(

@@ -8,6 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ColumnMode, TableColumn } from '@swimlane/ngx-datatable';
+import { Observable } from 'rxjs';
 
 import { YouTubePlaylist } from '@data/models/video-providers/youtube/youtube-playlist.entity';
 
@@ -16,8 +17,12 @@ import { YouTubePlaylist } from '@data/models/video-providers/youtube/youtube-pl
   templateUrl: './youtube-playlist-table.component.html',
   styleUrls: ['./youtube-playlist-table.component.scss'],
 })
-export class YoutubePlaylistListComponent implements OnInit {
+export class YouTubePlaylistListComponent implements OnInit {
   readonly ColumnMode = ColumnMode;
+  readonly tableMessages = {
+    emptyMessage:
+      'There are no selected playlists in your channel, please add one.',
+  };
 
   @Input() playlists: YouTubePlaylist[];
   @Output() deselectPlaylist$: EventEmitter<string> = new EventEmitter();

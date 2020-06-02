@@ -1,11 +1,12 @@
-<div class="row">
+<div class="row align-items-center">
   <div class="col">
-    <ng-select #playlistsSearchControl [items]="unselectedPlaylists$ | async"
-               bindLabel="title"
-               autofocus
-               appendTo="body"
-               bindValue="id"
-               [(ngModel)]="selectedPlaylistId">
+    <ng-select #playlistsSearchControl [items]="playlists" bindLabel="title" autofocus appendTo="body" bindValue="id"
+      [(ngModel)]="selectedPlaylistId" placeholder="Select a playlist">
+      <ng-template ng-notfound-tmp let-searchTerm="searchTerm">
+        <div class="ng-option disabled">
+          Sorry, there are no playlists to select...
+        </div>
+      </ng-template>
     </ng-select>
   </div>
 
