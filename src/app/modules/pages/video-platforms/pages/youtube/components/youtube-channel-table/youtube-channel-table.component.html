@@ -1,0 +1,19 @@
+<ngx-datatable class="material" [columnMode]="ColumnMode.standard" [rows]="channels$ | async" [columns]="columns"
+  [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [messages]="tableMessages">
+</ngx-datatable>
+
+<ng-template #actionsTemplate let-row="row" let-value="value">
+  <div class="row">
+    <div class='col-sm-1 mr-1'>
+      <button nbButton [size]="'small'" (click)="navigateToChannelPage(value)" [status]="'primary'">
+        <nb-icon class="action-icon" icon="external-link-outline"></nb-icon>
+      </button>
+    </div>
+
+    <div class="col-sm-1">
+      <button nbButton [size]="'small'" (click)="onRemoveChannel(value)" [status]="'danger'">
+        <nb-icon class="action-icon" icon="trash-2-outline"></nb-icon>
+      </button>
+    </div>
+  </div>
+</ng-template>

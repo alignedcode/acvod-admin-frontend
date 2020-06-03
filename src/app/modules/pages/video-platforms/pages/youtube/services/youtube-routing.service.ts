@@ -1,0 +1,28 @@
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { VideoPlatformsRoutes } from '@modules/pages/video-platforms/video-platforms-routes.enum';
+import { AppRoutes } from 'app/app-route.enum';
+
+@Injectable()
+export class YouTubeRoutingService {
+  constructor(private readonly router: Router) {}
+
+  navigateToNotBoundAccountPage() {
+    this.router.navigateByUrl(
+      `${AppRoutes.ROOT}/${VideoPlatformsRoutes.ENTRY}/${VideoPlatformsRoutes.YOUTUBE}/${VideoPlatformsRoutes.YOUTUBE_NOT_BOUND_ACCOUNT}`,
+    );
+  }
+
+  navigateToChannelsPage() {
+    this.router.navigateByUrl(
+      `${AppRoutes.ROOT}/${VideoPlatformsRoutes.ENTRY}/${VideoPlatformsRoutes.YOUTUBE}/${VideoPlatformsRoutes.YOUTUBE_CHANNELS}`,
+    );
+  }
+
+  naviageteToChannelPage(channelId: string) {
+    this.router.navigateByUrl(
+      `${AppRoutes.ROOT}/${VideoPlatformsRoutes.ENTRY}/${VideoPlatformsRoutes.YOUTUBE}/${VideoPlatformsRoutes.YOUTUBE_CHANNELS}/${channelId}`,
+    );
+  }
+}
