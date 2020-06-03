@@ -1,0 +1,44 @@
+<nb-card>
+  <nb-card-header>
+    <nav class="navigation">
+      <a href="#" (click)="back()" class="link back-link" aria-label="Back">
+        <nb-icon icon="arrow-back"></nb-icon>
+      </a>
+    </nav>
+  </nb-card-header>
+  <nb-card-body>
+    <h1 id="title" class="title">Login</h1>
+    <p class="sub-title">Log in with your social account.</p>
+
+    <section *ngIf="socilalProviders && socilalProviders.length > 0" class="links" aria-label="Social sign in">
+      <div class="socials">
+        <ng-container *ngFor="let socialProvider of socilalProviders">
+          <a *ngIf="socialProvider.baseEndpoint"
+            [attr.href]="getSocialProviderLink(socialProvider.baseEndpoint, socialProvider.redirect.success, socialProvider.redirect.failure)">
+            <nb-icon *ngIf="socialProvider.icon; else title" [icon]="socialProvider.icon"></nb-icon>
+            <ng-template #title>{{ socialProvider.title }}</ng-template>
+          </a>
+        </ng-container>
+      </div>
+    </section>
+
+    <nb-alert *ngIf="showMessages.error && errors?.length && !submitted" outline="danger" role="alert">
+      <p class="alert-title"><b>Oh snap!</b></p>
+      <ul class="alert-message-list">
+        <li *ngFor="let error of errors" class="alert-message">
+          {{ error }}
+        </li>
+      </ul>
+    </nb-alert>
+
+    <nb-alert *ngIf="showMessages.success && messages?.length && !submitted" outline="success" role="alert">
+      <p class="alert-title"><b>Hooray!</b></p>
+      <ul class="alert-message-list">
+        <li *ngFor="let message of messages" class="alert-message">
+          {{ message }}
+        </li>
+      </ul>
+    </nb-alert>
+
+  </nb-card-body>
+</nb-card>
