@@ -21,7 +21,7 @@ export class BloggersService {
   getBloggerId(): Observable<string> {
     return this.authService
       .getToken()
-      .pipe(map((token) => token.getPayload().id));
+      .pipe(map((token) => token.getPayload().bloggerId));
   }
 
   loadBlogger(bloggerId: string): Observable<BloggerDto> {

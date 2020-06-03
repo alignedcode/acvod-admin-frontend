@@ -1,11 +1,8 @@
 export interface JwtPayload {
-  id: string;
+  bloggerId: string;
   accountDetails: {
     email: string;
     firstName: string;
     lastName: string;
-  };
-  providers: {
-    youtube: { [key: string]: { accessToken: string } };
   };
 }
