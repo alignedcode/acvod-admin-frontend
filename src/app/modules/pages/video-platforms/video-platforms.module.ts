@@ -14,7 +14,6 @@ import { YouTubePlaylistsTabComponent } from './pages/youtube/components/youtube
 import { YouTubeApprovedAuthComponent } from './pages/youtube/pages/youtube-approved-auth/youtube-approved-auth.component';
 import { YouTubeChannelComponent } from './pages/youtube/pages/youtube-channel/youtube-channel.component';
 import { YouTubeChannelsComponent } from './pages/youtube/pages/youtube-channels/youtube-channels.component';
-import { YouTubeNotBoundAccountComponent } from './pages/youtube/pages/youtube-not-bound-account/youtube-not-bound-account.component';
 import { YouTubeAuthDialogService } from './pages/youtube/services/youtube-auth-dialog.service';
 import { YouTubeNotificationService } from './pages/youtube/services/youtube-notification.service';
 import { YouTubeRoutingService } from './pages/youtube/services/youtube-routing.service';
@@ -38,7 +37,6 @@ import { VideoPlatformsComponent } from './video-platforms.component';
   entryComponents: [YouTubeNotBoundAccountDialogComponent],
   declarations: [
     VideoPlatformsComponent,
-    YouTubeNotBoundAccountComponent,
     YouTubeNotBoundAccountDialogComponent,
     YouTubeChannelsComponent,
     YouTubeAddChannelCardComponent,

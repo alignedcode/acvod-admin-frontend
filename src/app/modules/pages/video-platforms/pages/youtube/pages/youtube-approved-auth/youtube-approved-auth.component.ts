@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { OAuthSocialProvider } from '@core/modules/auth/models/oauth-social-provider.enum';
 import { InternalAuthService } from '@core/modules/auth/services/internal-auth.service';
 import { VideoPlatformsRoutes } from '@modules/pages/video-platforms/video-platforms-routes.enum';
-import { YouTubeRoutingService } from '../../services/youtube-routing.service';
+import { YouTubeAuthDialogService } from '../../services/youtube-auth-dialog.service';
 
 @Component({
   selector: 'youtube-approved-auth',
@@ -16,7 +16,7 @@ export class YouTubeApprovedAuthComponent implements AfterViewInit {
 
   constructor(
     private authService: InternalAuthService,
-    private navigationService: YouTubeRoutingService,
+    private dialogService: YouTubeAuthDialogService,
     private cd: ChangeDetectorRef,
     private router: Router,
     private route: ActivatedRoute,
@@ -25,12 +25,14 @@ export class YouTubeApprovedAuthComponent implements AfterViewInit {
   ngAfterViewInit() {
     const accessToken = this.route.snapshot.queryParams['accessToken'];
 
-    if (!accessToken) {
-      // TODO: checkout an error name
-      return this.navigationService.navigateToNotBoundAccountPage();
+    if (accessToken) {
+      return this.login(accessToken);
     }
 
-    this.login(accessToken);
+    // TODO: checkout an error name
+    setTimeout(() => {
+      return this.dialogService.showOnNotBoundAccountDialog();
+    }, this.redirectDelay);
   }
 
   login(accessToken: string): void {
