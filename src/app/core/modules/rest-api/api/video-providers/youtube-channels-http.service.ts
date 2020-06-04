@@ -7,7 +7,7 @@ import { YouTubeChannelDto } from '../../models/video-providers/youtube/youtube-
 import { ContentType, HttpRestService } from '../../services/http-rest.service';
 
 enum ApiRoute {
-  AUTH = '/api/admin/youtube/auth',
+  AUTH = '/api/admin/blogger/:bloggerId/youtube/auth',
   GET_CHANNELS = '/api/admin/blogger/:bloggerId/youtube/channel',
   REMOVE_CHANNEL = '/api/admin/blogger/:bloggerId/youtube/channel/:channelId',
 }
@@ -36,13 +36,15 @@ export class YouTubeChannelsHttpService extends HttpRestService {
     bloggerId: string,
     { successful, failure }: { successful: string; failure: string },
   ): string {
-    const uriQueries = `?${RouteQueryParam.BLOGGER_ID}=${bloggerId}&${
-      RouteQueryParam.SUCCESSFUL_REDIRECT_URI
-    }=${encodeURIComponent(successful)}&${
-      RouteQueryParam.FAILURE_REDIRECT_URI
-    }=${encodeURIComponent(failure)}`;
+    const uriQueries =
+      `?${RouteQueryParam.SUCCESSFUL_REDIRECT_URI}=${encodeURIComponent(
+        successful,
+      )}` +
+      `&${RouteQueryParam.FAILURE_REDIRECT_URI}=${encodeURIComponent(failure)}`;
 
-    return `${this.basePath}${ApiRoute.AUTH}${uriQueries}`;
+    const route = ApiRoute.AUTH.replace(RouteParam.BLOGGER_ID, bloggerId);
+
+    return `${this.basePath}${route}${uriQueries}`;
   }
 
   getChannels(bloggerId: string): Observable<YouTubeChannelDto[]> {

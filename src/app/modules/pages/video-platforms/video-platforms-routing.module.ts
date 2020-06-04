@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { YouTubeApprovedAuthComponent } from './pages/youtube/pages/youtube-approved-auth/youtube-approved-auth.component';
 import { YouTubeChannelComponent } from './pages/youtube/pages/youtube-channel/youtube-channel.component';
 import { YouTubeChannelsComponent } from './pages/youtube/pages/youtube-channels/youtube-channels.component';
+import { YouTubePlaylistComponent } from './pages/youtube/pages/youtube-playlist/youtube-playlist.component';
 import { VideoPlatformsRoutes } from './video-platforms-routes.enum';
 import { VideoPlatformsComponent } from './video-platforms.component';
 
@@ -22,7 +23,18 @@ export const routes: Routes = [
           { path: '', component: YouTubeChannelsComponent },
           {
             path: VideoPlatformsRoutes.YOUTUBE_CHANNEL,
-            component: YouTubeChannelComponent,
+            children: [
+              { path: '', component: YouTubeChannelComponent },
+              {
+                path: VideoPlatformsRoutes.YOUTUBE_PLAYLISTS,
+                children: [
+                  {
+                    path: VideoPlatformsRoutes.YOUTUBE_PLAYLIST,
+                    component: YouTubePlaylistComponent,
+                  },
+                ],
+              },
+            ],
           },
         ],
       },

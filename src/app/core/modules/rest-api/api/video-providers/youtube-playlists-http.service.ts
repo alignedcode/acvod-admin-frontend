@@ -5,12 +5,14 @@ import { Observable } from 'rxjs';
 import { BASE_PATH } from '../../injection-tokens';
 import { PaginatedResponse } from '../../models/paginated-response.model';
 import { YouTubePlaylistDto } from '../../models/video-providers/youtube/youtube-playlist.dto';
+import { YouTubeVideoDto } from '../../models/video-providers/youtube/youtube-video.dto';
 import { ContentType, HttpRestService } from '../../services/http-rest.service';
 
 enum ApiRoute {
   GET_PLAYLISTS = '/api/admin/blogger/:bloggerId/youtube/channel/:channelId/playlist',
   SELECT_PLAYLIST = '/api/admin/blogger/:bloggerId/youtube/channel/:channelId/playlist/:playlistId',
   DESELECT_PLAYLIST = '/api/admin/blogger/:bloggerId/youtube/channel/:channelId/playlist/:playlistId',
+  GET_PLAYLIST_VIDEOS = '/api/admin/blogger/:bloggerId/youtube/channel/:channelId/playlist/:playlistId/video',
 }
 
 enum RouteParam {
@@ -21,6 +23,7 @@ enum RouteParam {
 
 enum RouteQueryParam {
   SELECTION_TYPE = 'selectionType',
+  MAX_PAGE_SIZE = 'maxPageSize',
   PAGE_TOKEN = 'pageToken',
 }
 
@@ -115,6 +118,32 @@ export class YouTubePlaylistsHttpService extends HttpRestService {
     return this.httpClient.delete<any>(`${this.basePath}${route}`, {
       headers: this.getHeaders(),
     });
+  }
+
+  getPlaylistVideos(
+    bloggerId: string,
+    channelId: string,
+    playlistId: string,
+    pageToken: string = '',
+    maxPageSize: number = 50,
+  ): Observable<PaginatedResponse<YouTubeVideoDto>> {
+    const route = ApiRoute.GET_PLAYLIST_VIDEOS.replace(
+      RouteParam.BLOGGER_ID,
+      bloggerId,
+    )
+      .replace(RouteParam.CHANNEL_ID, channelId)
+      .replace(RouteParam.PLAYLIST_ID, playlistId);
+
+    return this.httpClient.get<PaginatedResponse<YouTubeVideoDto>>(
+      `${this.basePath}${route}`,
+      {
+        headers: this.getHeaders(),
+        params: {
+          [RouteQueryParam.PAGE_TOKEN]: pageToken,
+          [RouteQueryParam.MAX_PAGE_SIZE]: maxPageSize.toString(),
+        },
+      },
+    );
   }
 
   protected getDefaultContentType(): string {

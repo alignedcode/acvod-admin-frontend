@@ -13,6 +13,7 @@ export class YouTubePlaylistsTabComponent {
 
   @Output() selectPlaylist$ = new EventEmitter<string>();
   @Output() deselectPlaylist$ = new EventEmitter<string>();
+  @Output() navigateToPlaylistPage$ = new EventEmitter<string>();
 
   onSelectPlaylist(playlistId: string) {
     this.selectPlaylist$.emit(playlistId);
@@ -20,6 +21,10 @@ export class YouTubePlaylistsTabComponent {
 
   onDeselectPlaylist(playlistId: string) {
     this.deselectPlaylist$.emit(playlistId);
+  }
+
+  onNavigateToPlaylistPage(playlistId: string) {
+    this.navigateToPlaylistPage$.emit(playlistId);
   }
 
   hasSelectedPlaylists() {

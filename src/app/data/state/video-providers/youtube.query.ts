@@ -42,4 +42,12 @@ export class YouTubeQuery extends Query<YouTubeState> {
       }),
     );
   }
+
+  getPlaylist(channelId: string, playlistId: string) {
+    return this.getChannel(channelId).pipe(
+      map(({ allPlaylists }) =>
+        allPlaylists.find(({ id }) => id === playlistId),
+      ),
+    );
+  }
 }

@@ -50,7 +50,7 @@ export class YouTubeChannelTableComponent implements OnInit {
   }
 
   navigateToChannelPage(channelId: string) {
-    this.routingService.naviageteToChannelPage(channelId);
+    this.routingService.navigateToChannelPage(channelId);
   }
 
   onRemoveChannel(channelId: string) {

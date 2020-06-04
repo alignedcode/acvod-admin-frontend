@@ -24,6 +24,7 @@ import {
 } from '@nebular/theme';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgPipesModule } from 'ngx-pipes';
 
 import {
   CapitalizePipe,
@@ -69,6 +70,7 @@ const NB_MODULES = [
     NgxDatatableModule,
     NgSelectModule,
     FormsModule,
+    NgPipesModule,
   ],
   exports: [
     CommonModule,
@@ -77,6 +79,7 @@ const NB_MODULES = [
     NgxDatatableModule,
     NgSelectModule,
     FormsModule,
+    NgPipesModule,
   ],
   declarations: [...PIPES],
 })

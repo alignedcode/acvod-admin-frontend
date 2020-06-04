@@ -8,7 +8,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ColumnMode, TableColumn } from '@swimlane/ngx-datatable';
-import { Observable } from 'rxjs';
 
 import { YouTubePlaylist } from '@data/models/video-providers/youtube/youtube-playlist.entity';
 
@@ -25,7 +24,8 @@ export class YouTubePlaylistListComponent implements OnInit {
   };
 
   @Input() playlists: YouTubePlaylist[];
-  @Output() deselectPlaylist$: EventEmitter<string> = new EventEmitter();
+  @Output() deselectPlaylist$ = new EventEmitter<string>();
+  @Output() navigateToPlaylistPage$ = new EventEmitter<string>();
 
   @ViewChild('actionsTemplate', { static: true })
   actionsTemplate: TemplateRef<any>;
@@ -46,5 +46,9 @@ export class YouTubePlaylistListComponent implements OnInit {
 
   onDeselectPlaylist(playlistId: string) {
     this.deselectPlaylist$.emit(playlistId);
+  }
+
+  onNavigateToPlaylistPage(playlistId: string) {
+    this.navigateToPlaylistPage$.emit(playlistId);
   }
 }

@@ -1,5 +1,5 @@
 <nb-card>
-  <nb-card-header>{{channel.title}}</nb-card-header>
+  <nb-card-header> Channel: {{channel.title}}</nb-card-header>
   <nb-card-body>
     <nb-tabset>
       <nb-tab tabTitle="Summary" badgeStatus="primary">
@@ -28,7 +28,10 @@
       </nb-tab>
 
       <nb-tab tabTitle="Playlists" badgeStatus="primary">
-        <youtube-playlists-tab [selectedPlaylists]="channel.selectedPlaylists" [unselectedPlaylists]="unselectedPlaylists | async" (selectPlaylist$)="onSelectPlaylist($event)" (deselectPlaylist$)="onDeselectPlaylist($event)"></youtube-playlists-tab>
+        <youtube-playlists-tab [selectedPlaylists]="channel.selectedPlaylists"
+          [unselectedPlaylists]="unselectedPlaylists | async" (selectPlaylist$)="onSelectPlaylist($event)"
+          (deselectPlaylist$)="onDeselectPlaylist($event)" (navigateToPlaylistPage$)="onNavigateToPlaylistPage($event)">
+        </youtube-playlists-tab>
       </nb-tab>
     </nb-tabset>
   </nb-card-body>

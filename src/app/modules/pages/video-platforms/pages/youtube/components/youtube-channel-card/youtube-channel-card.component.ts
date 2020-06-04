@@ -54,4 +54,8 @@ export class YouTubeChannelCardComponent implements OnInit {
         this.notificationService.onSuccessfulDeselectedPlaylist(playlistId),
       );
   }
+
+  onNavigateToPlaylistPage(playlistId: string) {
+    this.routingService.navigateToPlaylistPage(this.channel.id, playlistId);
+  }
 }

@@ -14,9 +14,15 @@ export class YouTubeRoutingService {
     );
   }
 
-  naviageteToChannelPage(channelId: string) {
+  navigateToChannelPage(channelId: string) {
     this.router.navigateByUrl(
       `${AppRoutes.ROOT}/${VideoPlatformsRoutes.ENTRY}/${VideoPlatformsRoutes.YOUTUBE}/${VideoPlatformsRoutes.YOUTUBE_CHANNELS}/${channelId}`,
+    );
+  }
+
+  navigateToPlaylistPage(channelId: string, playlistId: string) {
+    this.router.navigateByUrl(
+      `${AppRoutes.ROOT}/${VideoPlatformsRoutes.ENTRY}/${VideoPlatformsRoutes.YOUTUBE}/${VideoPlatformsRoutes.YOUTUBE_CHANNELS}/${channelId}/playlist/${playlistId}`,
     );
   }
 }

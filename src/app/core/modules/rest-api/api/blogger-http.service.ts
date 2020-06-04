@@ -7,7 +7,7 @@ import { BloggerDto } from '../models/blogger.dto';
 import { ContentType, HttpRestService } from '../services/http-rest.service';
 
 enum ApiRoute {
-  DETAILS = '/api/admin/blogger/:bloggerId/details',
+  GET_BLOGGER = '/api/admin/blogger/:bloggerId',
 }
 
 enum RouteParam {
@@ -26,7 +26,7 @@ export class BloggerHttpService extends HttpRestService {
   public getBlogger(bloggerId: string): Observable<BloggerDto> {
     const route =
       this.basePath +
-      ApiRoute.DETAILS.replace(RouteParam.BLOGGER_ID, bloggerId);
+      ApiRoute.GET_BLOGGER.replace(RouteParam.BLOGGER_ID, bloggerId);
 
     return this.httpClient.get<BloggerDto>(route, {
       headers: this.getHeaders(),

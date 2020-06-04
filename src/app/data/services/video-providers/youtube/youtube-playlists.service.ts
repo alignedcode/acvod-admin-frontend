@@ -3,8 +3,10 @@ import { Observable } from 'rxjs';
 import { flatMap, map, tap } from 'rxjs/operators';
 
 import { YouTubePlaylistsHttpService } from '@core/modules/rest-api/api/video-providers/youtube-playlists-http.service';
+import { PaginatedResponse } from '@core/modules/rest-api/models/paginated-response.model';
 import { YouTubePlaylistDto } from '@core/modules/rest-api/models/video-providers/youtube/youtube-playlist.dto';
 import { YouTubePlaylist } from '@data/models/video-providers/youtube/youtube-playlist.entity';
+import { YouTubeVideo } from '@data/models/video-providers/youtube/youtube-video.entity';
 import { BloggersService } from '@data/services/bloggers.service';
 import { YouTubeStore } from '@data/state/video-providers/youtube.store';
 
@@ -132,11 +134,60 @@ export class YouTubePlaylistsService {
     );
   }
 
+  loadPlaylistVideos(
+    channelId: string,
+    playlistId: string,
+    pageToken?: string,
+  ): Observable<PaginatedResponse<YouTubeVideo>> {
+    return this.bloggerService.getBloggerId().pipe(
+      flatMap((bloggerId) =>
+        this.playlistsService.getPlaylistVideos(
+          bloggerId,
+          channelId,
+          playlistId,
+          pageToken,
+        ),
+      ),
+      tap((videos) => {
+        this.store.update(({ channels }) => {
+          const foundChannel = channels.find(({ id }) => id === channelId);
+
+          const foundPlaylist = foundChannel.allPlaylists.find(
+            ({ id }) => id === playlistId,
+          );
+
+          return {
+            channels: [
+              ...channels.filter(({ id }) => id !== channelId),
+              {
+                ...foundChannel,
+                allPlaylists: [
+                  ...foundChannel.allPlaylists.filter(
+                    ({ id }) => id !== playlistId,
+                  ),
+                  { ...foundPlaylist, videos },
+                ],
+              },
+            ],
+          };
+        });
+      }),
+    );
+  }
+
   private mapPalylistDtoToEntity({
     id,
     snippet: { title, description, publishedAt, thumbnails },
     contentDetails: { itemCount: videoCount },
   }: YouTubePlaylistDto): YouTubePlaylist {
-    return { id, title, description, publishedAt, videoCount, thumbnails };
+    return {
+      id,
+      title,
+      description,
+      publishedAt,
+      videoCount,
+      videos: { items: [] },
+      thumbnails,
+    };
   }
 }
