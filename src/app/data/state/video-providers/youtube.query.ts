@@ -31,7 +31,7 @@ export class YouTubeQuery extends Query<YouTubeState> {
   getUnselectedPlaylistsInChannel(channelId: string) {
     return this.channels$.pipe(
       map((channels) => {
-        const { allPlaylists, selectedPlaylists } = channels.find(
+        const { allPlaylists = [], selectedPlaylists = [] } = channels.find(
           ({ id }) => id === channelId,
         );
 
@@ -45,9 +45,19 @@ export class YouTubeQuery extends Query<YouTubeState> {
 
   getPlaylist(channelId: string, playlistId: string) {
     return this.getChannel(channelId).pipe(
-      map(({ allPlaylists }) =>
+      map(({ allPlaylists = [] }) =>
         allPlaylists.find(({ id }) => id === playlistId),
       ),
     );
+  }
+
+  getPlaylistValue(channelId: string, playlistId: string) {
+    const foundChannel = this.getChannelValue(channelId);
+
+    if (!foundChannel) {
+      return undefined;
+    }
+
+    return foundChannel.allPlaylists.find(({ id }) => id === playlistId);
   }
 }
