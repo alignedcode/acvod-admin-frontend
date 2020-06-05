@@ -1,3 +1,37 @@
-<ngx-datatable class="material" [columnMode]="ColumnMode.force" [rows]="videos" [columns]="columns" [headerHeight]="50"
-  [footerHeight]="50" [rowHeight]="'auto'" [messages]="tableMessages">
+<ngx-datatable class="material" [columnMode]="ColumnMode.force"
+  [rows]="videos | paginate: { itemsPerPage: page.size, currentPage: page.pageNumber, totalItems: page.totalElements }"
+  [columns]="columns" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [messages]="tableMessages"
+  [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber">
+  <ngx-datatable-footer *ngIf="true">
+    <ng-template ngx-datatable-footer-template let-rowCount="rowCount" let-pageSize="pageSize"
+      let-selectedCount="selectedCount" let-curPage="curPage" let-offset="offset">
+      <div class="container row justify-content-between align-items-center">
+        <div class="col">
+          <span class="paragraph mr-1">Items count: {{ rowCount }} | Per page: {{ pageSize }}</span>
+        </div>
+
+        <div class="col">
+          <pagination-template #paginationControl="paginationApi" (pageChange)="onSetPage($event)">
+            <div class="row align-items-center justify-content-end">
+              <div class="col-auto">
+                <button nbButton (click)="paginationControl.previous()" [disabled]="paginationControl.isFirstPage()">
+                  <nb-icon icon="chevron-left-outline"></nb-icon>
+                </button>
+              </div>
+
+              <div class="col-auto">
+                <span class="paragraph">{{ paginationControl.getCurrent() }} of {{ paginationControl.pages?.length }}</span>
+              </div>
+
+              <div class="col-auto">
+                <button nbButton (click)="paginationControl.next()" [disabled]="paginationControl.isLastPage()">
+                  <nb-icon icon="chevron-right-outline"></nb-icon>
+                </button>
+              </div>
+            </div>
+          </pagination-template>
+        </div>
+      </div>
+    </ng-template>
+  </ngx-datatable-footer>
 </ngx-datatable>

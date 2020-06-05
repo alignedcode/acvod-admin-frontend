@@ -8,6 +8,6 @@ export class TableColumnTruncationPipe implements PipeTransform {
   constructor(private readonly truncationPipe: ShortenPipe) {}
 
   transform(columnValue: string): string {
-    return this.truncationPipe.transform(columnValue, 220, '...', true);
+    return this.truncationPipe.transform(columnValue, 100, '...', true);
   }
 }

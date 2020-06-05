@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
+import { Page } from '@data/models/page';
 import { YouTubePlaylist } from '@data/models/video-providers/youtube/youtube-playlist.entity';
 
 @Component({
@@ -9,6 +10,13 @@ import { YouTubePlaylist } from '@data/models/video-providers/youtube/youtube-pl
 })
 export class YouTubePlaylistCardComponent {
   @Input() playlist: YouTubePlaylist;
+  @Input() videoPage: Page;
+
+  @Output() setVideoPage$ = new EventEmitter<number>();
 
   constructor() {}
+
+  onSetVideoPage(page: number) {
+    this.setVideoPage$.emit(page);
+  }
 }

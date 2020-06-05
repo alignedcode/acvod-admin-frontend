@@ -1,3 +1,4 @@
+import { PageInfo } from '@core/modules/rest-api/models/paginated-response.model';
 import { YouTubeVideo } from './youtube-video.entity';
 
 export interface YouTubePlaylist {
@@ -9,7 +10,9 @@ export interface YouTubePlaylist {
 
   videos: {
     items: YouTubeVideo[];
-    nextPage?: string;
+    nextPageToken?: string;
+    prevPageToken?: string;
+    pageInfo: PageInfo;
   };
 
   thumbnails: {

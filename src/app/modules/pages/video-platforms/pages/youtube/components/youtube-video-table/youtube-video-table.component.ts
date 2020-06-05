@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ColumnMode, TableColumn } from '@swimlane/ngx-datatable';
 
+import { Page } from '@data/models/page';
 import { YouTubeVideo } from '@data/models/video-providers/youtube/youtube-video.entity';
 import { TableColumnTruncationPipe } from '../../pipes/table-column-truncation.pipe';
 
@@ -16,12 +17,15 @@ export class YouTubeVideoTableComponent {
   };
 
   @Input() videos: YouTubeVideo[];
+  @Input() page: Page;
+
+  @Output() setPage$ = new EventEmitter<number>();
 
   readonly columns: TableColumn[];
 
   constructor(truncationPipe: TableColumnTruncationPipe) {
     this.columns = [
-      { name: 'ID', prop: 'id', minWidth: 300 },
+      { name: 'ID', prop: 'id' },
       { name: 'Title', prop: 'snippet.title' },
       {
         name: 'Description',
@@ -30,5 +34,9 @@ export class YouTubeVideoTableComponent {
       },
       { name: 'Published At', prop: 'snippet.publishedAt' },
     ];
+  }
+
+  onSetPage(page: number) {
+    this.setPage$.emit(page);
   }
 }

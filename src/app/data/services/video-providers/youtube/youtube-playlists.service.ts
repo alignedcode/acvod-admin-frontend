@@ -45,6 +45,38 @@ export class YouTubePlaylistsService {
     );
   }
 
+  loadPlaylist(
+    channelId: string,
+    playlistId: string,
+  ): Observable<YouTubePlaylist> {
+    return this.bloggerService.getBloggerId().pipe(
+      flatMap((bloggerId) =>
+        this.playlistsService.getPlaylist(bloggerId, channelId, playlistId),
+      ),
+      map((playlist) => this.mapPalylistDtoToEntity(playlist)),
+      tap((playlist) => {
+        this.store.update(({ channels }) => {
+          const channelToUpdate = channels.find(({ id }) => id === channelId);
+
+          return {
+            channels: [
+              ...channels.filter(({ id }) => id !== channelId),
+              {
+                ...channelToUpdate,
+                allPlaylists: channelToUpdate.allPlaylists
+                  .filter(({ id }) => id !== playlistId)
+                  .concat(playlist),
+                selectedPlaylists: channelToUpdate.selectedPlaylists
+                  .filter(({ id }) => id !== playlistId)
+                  .concat(playlist),
+              },
+            ],
+          };
+        });
+      }),
+    );
+  }
+
   // TODO: use a pagination feature
   loadSelectedPlaylists(
     channelId: string,
@@ -138,6 +170,7 @@ export class YouTubePlaylistsService {
     channelId: string,
     playlistId: string,
     pageToken?: string,
+    maxPageSize?: number,
   ): Observable<PaginatedResponse<YouTubeVideo>> {
     return this.bloggerService.getBloggerId().pipe(
       flatMap((bloggerId) =>
@@ -146,6 +179,7 @@ export class YouTubePlaylistsService {
           channelId,
           playlistId,
           pageToken,
+          maxPageSize,
         ),
       ),
       tap((videos) => {
@@ -186,7 +220,7 @@ export class YouTubePlaylistsService {
       description,
       publishedAt,
       videoCount,
-      videos: { items: [] },
+      videos: { items: [], pageInfo: { resultsPerPage: 0, totalResults: 0 } },
       thumbnails,
     };
   }

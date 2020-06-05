@@ -10,6 +10,7 @@ import { ContentType, HttpRestService } from '../../services/http-rest.service';
 
 enum ApiRoute {
   GET_PLAYLISTS = '/api/admin/blogger/:bloggerId/youtube/channel/:channelId/playlist',
+  GET_PLAYLIST = '/api/admin/blogger/:bloggerId/youtube/channel/:channelId/playlist/:playlistId',
   SELECT_PLAYLIST = '/api/admin/blogger/:bloggerId/youtube/channel/:channelId/playlist/:playlistId',
   DESELECT_PLAYLIST = '/api/admin/blogger/:bloggerId/youtube/channel/:channelId/playlist/:playlistId',
   GET_PLAYLIST_VIDEOS = '/api/admin/blogger/:bloggerId/youtube/channel/:channelId/playlist/:playlistId/video',
@@ -62,6 +63,19 @@ export class YouTubePlaylistsHttpService extends HttpRestService {
         },
       },
     );
+  }
+
+  getPlaylist(bloggerId: string, channelId: string, playlistId: string) {
+    const route = ApiRoute.GET_PLAYLIST.replace(
+      RouteParam.BLOGGER_ID,
+      bloggerId,
+    )
+      .replace(RouteParam.CHANNEL_ID, channelId)
+      .replace(RouteParam.PLAYLIST_ID, playlistId);
+
+    return this.httpClient.get<YouTubePlaylistDto>(`${this.basePath}${route}`, {
+      headers: this.getHeaders(),
+    });
   }
 
   getSelectedPlaylists(

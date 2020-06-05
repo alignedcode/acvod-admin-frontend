@@ -55,6 +55,21 @@ export class YouTubeChannelsService {
     );
   }
 
+  loadChannel(channelId: string): Observable<YouTubeChannelDto> {
+    return this.bloggerService.getBloggerId().pipe(
+      flatMap((bloggerId) =>
+        this.channelsApiService.getChannel(bloggerId, channelId),
+      ),
+      tap((channel) => {
+        this.youtubeStore.update(({ channels }) => ({
+          channels: channels
+            .filter(({ id }) => id !== channelId)
+            .concat(this.mapChannelDtoToEntity(channel)),
+        }));
+      }),
+    );
+  }
+
   private mapChannelDtoToEntity({
     id,
     snippet: { title, description, publishedAt },

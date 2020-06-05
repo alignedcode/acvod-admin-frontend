@@ -13,7 +13,6 @@ import {
   NbDatepickerModule,
   NbIconModule,
   NbInputModule,
-  NbLayoutModule,
   NbMenuModule,
   NbRadioModule,
   NbSearchModule,
@@ -24,6 +23,7 @@ import {
 } from '@nebular/theme';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { NgPipesModule } from 'ngx-pipes';
 
 import {
@@ -70,6 +70,7 @@ const NB_MODULES = [
     NgxDatatableModule,
     NgSelectModule,
     FormsModule,
+    NgxPaginationModule,
     NgPipesModule,
   ],
   exports: [
@@ -79,6 +80,7 @@ const NB_MODULES = [
     NgxDatatableModule,
     NgSelectModule,
     FormsModule,
+    NgxPaginationModule,
     NgPipesModule,
   ],
   declarations: [...PIPES],

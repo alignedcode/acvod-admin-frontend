@@ -9,6 +9,7 @@ import { ContentType, HttpRestService } from '../../services/http-rest.service';
 enum ApiRoute {
   AUTH = '/api/admin/blogger/:bloggerId/youtube/auth',
   GET_CHANNELS = '/api/admin/blogger/:bloggerId/youtube/channel',
+  GET_CHANNEL = '/api/admin/blogger/:bloggerId/youtube/channel/:channelId',
   REMOVE_CHANNEL = '/api/admin/blogger/:bloggerId/youtube/channel/:channelId',
 }
 
@@ -53,6 +54,20 @@ export class YouTubeChannelsHttpService extends HttpRestService {
       ApiRoute.GET_CHANNELS.replace(RouteParam.BLOGGER_ID, bloggerId);
 
     return this.httpClient.get<any>(route, {
+      headers: this.getHeaders(),
+    });
+  }
+
+  getChannel(
+    bloggerId: string,
+    channelId: string,
+  ): Observable<YouTubeChannelDto> {
+    const route = ApiRoute.GET_CHANNEL.replace(
+      RouteParam.BLOGGER_ID,
+      bloggerId,
+    ).replace(RouteParam.CHANNEL_ID, channelId);
+
+    return this.httpClient.get<any>(`${this.basePath}${route}`, {
       headers: this.getHeaders(),
     });
   }

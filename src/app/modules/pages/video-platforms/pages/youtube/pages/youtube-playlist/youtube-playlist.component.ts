@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
+import { Page } from '@data/models/page';
 import { YouTubePlaylist } from '@data/models/video-providers/youtube/youtube-playlist.entity';
 import { YouTubePlaylistPageService } from '../../services/youtube-playlist-page.service';
 
@@ -11,7 +12,8 @@ import { YouTubePlaylistPageService } from '../../services/youtube-playlist-page
   styleUrls: ['./youtube-playlist.component.scss'],
 })
 export class YouTubePlaylistComponent implements OnInit {
-  playlist: Observable<YouTubePlaylist>;
+  playlist$: Observable<YouTubePlaylist>;
+  videoPage$: Observable<Page>;
 
   constructor(
     private readonly pageService: YouTubePlaylistPageService,
@@ -19,8 +21,15 @@ export class YouTubePlaylistComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.playlist = this.pageService.getPlaylist(this.route);
+    this.pageService.tryToGetPlaylist(this.route).subscribe((playlist$) => {
+      this.playlist$ = playlist$;
+      this.videoPage$ = this.pageService.videoPage$;
 
-    this.pageService.loadVideos(this.route).subscribe();
+      this.pageService.loadVideoPage(this.route).subscribe();
+    });
+  }
+
+  onSetPage(pageNumber: number) {
+    this.pageService.loadVideoPage(this.route, pageNumber).subscribe();
   }
 }
