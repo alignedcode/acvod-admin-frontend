@@ -7,7 +7,7 @@
       let-selectedCount="selectedCount" let-curPage="curPage" let-offset="offset">
       <div class="container row justify-content-between align-items-center">
         <div class="col">
-          <span class="paragraph mr-1">Items count: {{ rowCount }} | Per page: {{ pageSize }}</span>
+          <span class="paragraph mr-1">Items count: {{ rowCount }} Per page: {{ page.size }}</span>
         </div>
 
         <div class="col">
@@ -20,7 +20,7 @@
               </div>
 
               <div class="col-auto">
-                <span class="paragraph">{{ paginationControl.getCurrent() }} of {{ paginationControl.pages?.length }}</span>
+                <span class="paragraph">{{ paginationControl.getCurrent() }} of {{ page.totalPages }}</span>
               </div>
 
               <div class="col-auto">

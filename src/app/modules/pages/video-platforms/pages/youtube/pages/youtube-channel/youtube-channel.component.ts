@@ -1,38 +1,48 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Observable, zip } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, throwError } from 'rxjs';
+import { map } from 'rxjs/operators';
 
+import { ResolvableData } from '@core/models/resolvable-data.model';
 import { YouTubeChannel } from '@data/models/video-providers/youtube/youtube-channel.entity';
-import { YouTubePlaylistsService } from '@data/services/video-providers/youtube/youtube-playlists.service';
-import { YouTubeQuery } from '@data/state/video-providers/youtube.query';
-import { YouTubeRoutingService } from '../../services/youtube-routing.service';
+import { YouTubeChannelPageService } from '../../services/youtube-channel-page.service';
+
+export interface YouTubeChannelComponentRouteData {
+  channel: ResolvableData<Observable<YouTubeChannel>, string>;
+}
 
 @Component({
   selector: 'youtube-channel',
   templateUrl: './youtube-channel.component.html',
   styleUrls: ['./youtube-channel.component.scss'],
 })
-export class YouTubeChannelComponent {
+export class YouTubeChannelComponent implements OnInit {
   channel$: Observable<YouTubeChannel>;
 
   constructor(
-    private readonly playlistsService: YouTubePlaylistsService,
-    private readonly routingService: YouTubeRoutingService,
-    private readonly query: YouTubeQuery,
+    private readonly pageService: YouTubeChannelPageService,
     private readonly route: ActivatedRoute,
-  ) {
-    const channelId = this.route.snapshot.paramMap.get('channelId');
+  ) {}
 
-    if (!channelId) {
-      this.routingService.navigateToChannelsPage();
-    }
+  ngOnInit() {
+    this.route.data
+      .pipe(
+        map(
+          ({ channel: { data, error } }: YouTubeChannelComponentRouteData) => {
+            if (data) {
+              return data;
+            }
 
-    this.channel$ = this.query.getChannel(channelId);
+            return throwError(error);
+          },
+        ),
+      )
+      .subscribe(
+        (channel$) => {
+          this.channel$ = channel$;
 
-    // TODO: Move into a component service
-    zip(
-      this.playlistsService.loadAllPlaylists(channelId),
-      this.playlistsService.loadSelectedPlaylists(channelId),
-    ).subscribe();
+          this.pageService.loadPlaylists(this.route).subscribe();
+        }
+      );
   }
 }

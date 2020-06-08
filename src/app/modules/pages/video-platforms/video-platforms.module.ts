@@ -2,7 +2,10 @@ import { NgModule } from '@angular/core';
 import { NbDialogModule, NbWindowModule } from '@nebular/theme';
 import { ShortenPipe } from 'ngx-pipes';
 
+import { ResolvableYouTubeChannel } from './pages/youtube/resolvers/youtube-channel.resolver';
+import { ResolvableYouTubePlaylist } from './pages/youtube/resolvers/youtube-playlist.resolver';
 import { YouTubeAuthDialogService } from './pages/youtube/services/youtube-auth-dialog.service';
+import { YouTubeChannelPageService } from './pages/youtube/services/youtube-channel-page.service';
 import { YouTubeNotificationService } from './pages/youtube/services/youtube-notification.service';
 import { YouTubePlaylistPageService } from './pages/youtube/services/youtube-playlist-page.service';
 import { YouTubeRoutingService } from './pages/youtube/services/youtube-routing.service';
@@ -39,9 +42,12 @@ import { VideoPlatformsComponent } from './video-platforms.component';
     NbWindowModule.forChild(),
   ],
   providers: [
+    ResolvableYouTubeChannel,
+    ResolvableYouTubePlaylist,
     YouTubeRoutingService,
     YouTubeNotificationService,
     YouTubeAuthDialogService,
+    YouTubeChannelPageService,
     YouTubePlaylistPageService,
     TableColumnTruncationPipe,
     ShortenPipe,

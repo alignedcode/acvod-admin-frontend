@@ -1,10 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { map } from 'rxjs/operators';
 
+import { ResolvableData } from '@core/models/resolvable-data.model';
 import { Page } from '@data/models/page';
 import { YouTubePlaylist } from '@data/models/video-providers/youtube/youtube-playlist.entity';
 import { YouTubePlaylistPageService } from '../../services/youtube-playlist-page.service';
+
+export interface YouTubePlaylistComponentRouteData {
+  playlist: ResolvableData<Observable<YouTubePlaylist>, string>;
+}
 
 @Component({
   selector: 'youtube-playlist',
@@ -21,12 +27,26 @@ export class YouTubePlaylistComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.pageService.tryToGetPlaylist(this.route).subscribe((playlist$) => {
-      this.playlist$ = playlist$;
-      this.videoPage$ = this.pageService.videoPage$;
+    this.route.data
+      .pipe(
+        map(
+          ({
+            playlist: { data, error },
+          }: YouTubePlaylistComponentRouteData) => {
+            if (data) {
+              return data;
+            }
 
-      this.pageService.loadVideoPage(this.route).subscribe();
-    });
+            return throwError(error);
+          },
+        ),
+      )
+      .subscribe((playlist$) => {
+        this.playlist$ = playlist$;
+
+        this.pageService.loadVideoPage(this.route).subscribe();
+        this.videoPage$ = this.pageService.videoPage$;
+      });
   }
 
   onSetPage(pageNumber: number) {
