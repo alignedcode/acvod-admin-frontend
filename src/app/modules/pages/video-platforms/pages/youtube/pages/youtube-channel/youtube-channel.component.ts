@@ -37,12 +37,10 @@ export class YouTubeChannelComponent implements OnInit {
           },
         ),
       )
-      .subscribe(
-        (channel$) => {
-          this.channel$ = channel$;
+      .subscribe((channel$) => {
+        this.channel$ = channel$;
 
-          this.pageService.loadPlaylists(this.route).subscribe();
-        }
-      );
+        this.pageService.loadPlaylists(this.route).subscribe();
+      });
   }
 }

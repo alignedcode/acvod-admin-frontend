@@ -1,12 +1,9 @@
-import { Location } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { NbAuthResult } from '@nebular/auth';
+import { Component, Inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
-import { OAuthSocialProvider } from '@core/modules/auth/models/oauth-social-provider.enum';
-import { OAuthSocialProviders } from '@core/modules/auth/models/oauth-social-providers';
-import { InternalAuthService } from '@core/modules/auth/services/internal-auth.service';
-import { AccountRoutes } from '../../account-routes.enum';
+import { NbOAuthBackendOptions } from '@core/modules/auth/models/nb-oauth-backend-options.model';
+import { OAUTH_SOCIAL_PROVIDERS } from '@core/modules/auth/oauth-social-providers.provider';
+import { AccountLoginPageService } from '../../services/account-login-page.service';
 
 @Component({
   selector: 'account-login',
@@ -14,66 +11,24 @@ import { AccountRoutes } from '../../account-routes.enum';
   templateUrl: './account-login.component.html',
 })
 export class AccountLoginComponent implements OnInit {
-  redirectDelay: number = 350;
-  showMessages: any = {};
-
-  errors: string[] = [];
-  messages: string[] = [];
-  user: any = {};
-  submitted: boolean = false;
-  socilalProviders = OAuthSocialProviders;
-  rememberMe = false;
-
   constructor(
-    protected authService: InternalAuthService,
-    protected cd: ChangeDetectorRef,
-    protected router: Router,
-    private route: ActivatedRoute,
-    protected location: Location,
+    @Inject(OAUTH_SOCIAL_PROVIDERS)
+    public readonly oAuthSocialProviders: NbOAuthBackendOptions[],
+    private readonly pageService: AccountLoginPageService,
+    private readonly route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe((params: Params) => {
+      // TODO: use an enum for the key
       const accessToken = params['accessToken'];
 
       if (!accessToken) {
         return;
       }
 
-      this.login(accessToken);
+      this.pageService.login(accessToken);
     });
-  }
-
-  login(accessToken: string): void {
-    this.errors = [];
-    this.messages = [];
-    this.submitted = true;
-
-    this.authService
-      .authenticate(accessToken, OAuthSocialProvider.GOOGLE)
-      .subscribe((result: NbAuthResult) => {
-        this.submitted = false;
-
-        if (result.isSuccess()) {
-          this.messages = result.getMessages();
-        } else {
-          this.errors = result.getErrors();
-        }
-
-        const redirect = `${AccountRoutes.ENTRY}`;
-        if (redirect) {
-          setTimeout(() => {
-            return this.router.navigateByUrl(redirect);
-          }, this.redirectDelay);
-        }
-
-        this.cd.detectChanges();
-      });
-  }
-
-  back() {
-    this.location.back();
-    return false;
   }
 
   getSocialProviderLink(
@@ -81,8 +36,10 @@ export class AccountLoginComponent implements OnInit {
     successfulRedirectUri: string,
     failureRedirectUri: string,
   ): string {
-    return `${baseEndpoint}?successfulRedirectUri=${encodeURIComponent(
+    return this.pageService.getSocialProviderLink(
+      baseEndpoint,
       successfulRedirectUri,
-    )}&unsuccessfulRedirectUri=${encodeURIComponent(failureRedirectUri)}`;
+      failureRedirectUri,
+    );
   }
 }

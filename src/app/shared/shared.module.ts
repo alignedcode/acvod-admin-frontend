@@ -13,6 +13,7 @@ import {
   NbDatepickerModule,
   NbIconModule,
   NbInputModule,
+  NbLayoutModule,
   NbMenuModule,
   NbRadioModule,
   NbSearchModule,
@@ -43,6 +44,7 @@ const PIPES = [
 ];
 
 const NB_MODULES = [
+  NbLayoutModule,
   NbMenuModule,
   NbAlertModule,
   NbInputModule,

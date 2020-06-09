@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { BASE_PATH } from '../../injection-tokens';
+import { BACKEND_BASE_PATH } from '../../backend-base-path.provider';
 import { YouTubeChannelDto } from '../../models/video-providers/youtube/youtube-channel.dto';
 import { ContentType, HttpRestService } from '../../services/http-rest.service';
 
@@ -27,7 +27,7 @@ enum RouteQueryParam {
 @Injectable()
 export class YouTubeChannelsHttpService extends HttpRestService {
   constructor(
-    @Inject(BASE_PATH) protected basePath: string,
+    @Inject(BACKEND_BASE_PATH) protected basePath: string,
     protected readonly httpClient: HttpClient,
   ) {
     super();

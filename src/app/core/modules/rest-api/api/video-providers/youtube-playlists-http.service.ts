@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { BASE_PATH } from '../../injection-tokens';
+import { BACKEND_BASE_PATH } from '../../backend-base-path.provider';
 import { PaginatedResponse } from '../../models/paginated-response.model';
 import { YouTubePlaylistDto } from '../../models/video-providers/youtube/youtube-playlist.dto';
 import { YouTubeVideoDto } from '../../models/video-providers/youtube/youtube-video.dto';
@@ -37,7 +37,7 @@ enum PlaylistsSelectionType {
 @Injectable()
 export class YouTubePlaylistsHttpService extends HttpRestService {
   constructor(
-    @Inject(BASE_PATH) protected basePath: string,
+    @Inject(BACKEND_BASE_PATH) protected basePath: string,
     protected readonly httpClient: HttpClient,
   ) {
     super();
