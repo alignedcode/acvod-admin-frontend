@@ -6,7 +6,10 @@ import { YouTubePlaylistsHttpService } from '@core/modules/rest-api/api/video-pr
 import { PaginatedResponse } from '@core/modules/rest-api/models/paginated-response.model';
 import { YouTubePlaylistDto } from '@core/modules/rest-api/models/video-providers/youtube/youtube-playlist.dto';
 import { YouTubePlaylist } from '@data/models/video-providers/youtube/youtube-playlist.entity';
-import { YouTubeVideo } from '@data/models/video-providers/youtube/youtube-video.entity';
+import {
+  YouTubeVideo,
+  YouTubeVideoUploadingState,
+} from '@data/models/video-providers/youtube/youtube-video.entity';
 import { BloggersService } from '@data/services/bloggers.service';
 import { YouTubeStore } from '@data/state/video-providers/youtube.store';
 
@@ -182,6 +185,13 @@ export class YouTubePlaylistsService {
           maxPageSize,
         ),
       ),
+      map((response) => ({
+        ...response,
+        items: response.items.map((video: YouTubeVideo) => ({
+          ...video,
+          uploadingState: YouTubeVideoUploadingState.NONE,
+        })),
+      })),
       tap((videos) => {
         this.store.update(({ channels }) => {
           const foundChannel = channels.find(({ id }) => id === channelId);

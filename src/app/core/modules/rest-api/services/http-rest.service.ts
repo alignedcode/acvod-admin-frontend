@@ -6,6 +6,7 @@ export enum HttpHeader {
 
 export enum ContentType {
   JSON = 'application/json',
+  PLAIN_TEXT = 'text/plain',
 }
 
 export abstract class HttpRestService {

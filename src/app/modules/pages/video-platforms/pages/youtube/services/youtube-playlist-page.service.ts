@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 
 import { Page } from '@data/models/page';
 import { YouTubePlaylistsService } from '@data/services/video-providers/youtube/youtube-playlists.service';
 import { YouTubeQuery } from '@data/state/video-providers/youtube.query';
+import { YouTubeVideosService } from '@data/services/video-providers/youtube/youtube-videos.service';
+import { YouTubeNotificationService } from './youtube-notification.service';
 
 @Injectable()
 export class YouTubePlaylistPageService {
@@ -24,7 +26,22 @@ export class YouTubePlaylistPageService {
   constructor(
     private readonly query: YouTubeQuery,
     private readonly playlistsService: YouTubePlaylistsService,
+    private readonly videosService: YouTubeVideosService,
+    private readonly notificationService: YouTubeNotificationService,
   ) {}
+
+  uploadVideo(route: ActivatedRoute, videoId: string) {
+    return this.videosService
+      .upload(this.getPlaylistAndChannel(route).channelId, videoId)
+      .pipe(
+        tap(() => this.notificationService.onSuccessfulUploadedVideo(videoId)),
+        catchError((error) => {
+          this.notificationService.onFailedUploadedVideo(videoId);
+
+          return throwError(error);
+        }),
+      );
+  }
 
   // TODO: move the pagination logic into a pagination service
   loadVideoPage(route: ActivatedRoute, loadPageNumber: number = 0) {

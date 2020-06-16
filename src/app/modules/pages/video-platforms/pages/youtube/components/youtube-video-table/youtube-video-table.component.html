@@ -35,3 +35,15 @@
     </ng-template>
   </ngx-datatable-footer>
 </ngx-datatable>
+
+<ng-template #actionsTemplate let-row="row" let-value="value">
+  <div class="row">
+    <div class='col-sm-1 mr-1'>
+      <button [nbSpinner]="isLoading(row)" nbSpinnerStatus="info" nbButton [size]="'small'"
+        (click)="onUploadVideo(value)" [status]="'primary'" disabled="isLoading(row)">
+        <nb-icon class="action-icon" icon="cloud-upload-outline"></nb-icon>
+        <span>Upload</span>
+      </button>
+    </div>
+  </div>
+</ng-template>

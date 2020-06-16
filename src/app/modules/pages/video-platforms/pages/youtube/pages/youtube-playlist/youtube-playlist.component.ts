@@ -49,6 +49,10 @@ export class YouTubePlaylistComponent implements OnInit {
       });
   }
 
+  onUploadVideo(videoId: string) {
+    this.pageService.uploadVideo(this.route, videoId).subscribe();
+  }
+
   onSetPage(pageNumber: number) {
     this.pageService.loadVideoPage(this.route, pageNumber).subscribe();
   }

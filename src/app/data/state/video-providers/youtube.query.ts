@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { YouTubeChannel } from '@data/models/video-providers/youtube/youtube-channel.entity';
 import { YouTubeState } from './youtube.state';
 import { YouTubeStore } from './youtube.store';
+import { YouTubeVideoUploadingState } from '@data/models/video-providers/youtube/youtube-video.entity';
 
 @Injectable()
 export class YouTubeQuery extends Query<YouTubeState> {
@@ -13,6 +14,8 @@ export class YouTubeQuery extends Query<YouTubeState> {
   hasChannels$ = this.select('channels').pipe(
     map((channels) => channels.length > 0),
   );
+
+  uploadableVideos = this.select('uploadableVideos');
 
   constructor(store: YouTubeStore) {
     super(store);
@@ -44,10 +47,40 @@ export class YouTubeQuery extends Query<YouTubeState> {
   }
 
   getPlaylist(channelId: string, playlistId: string) {
+    const uploadableVideos = this.getUploadableVideosValue();
+
     return this.getChannel(channelId).pipe(
-      map(({ allPlaylists = [] }) =>
-        allPlaylists.find(({ id }) => id === playlistId),
-      ),
+      map(({ allPlaylists = [] }) => {
+        const foundPlaylist = allPlaylists.find(({ id }) => id === playlistId);
+
+        if (foundPlaylist) {
+          return {
+            ...foundPlaylist,
+            videos: {
+              ...foundPlaylist.videos,
+              items: [
+                ...foundPlaylist.videos.items.filter(
+                  ({
+                    snippet: {
+                      resourceId: { videoId },
+                    },
+                  }) => !uploadableVideos.includes(videoId),
+                ),
+                ...foundPlaylist.videos.items
+                  .filter(({ snippet: { resourceId: { videoId } } }) =>
+                    uploadableVideos.includes(videoId),
+                  )
+                  .map((video) => ({
+                    ...video,
+                    uploadingState: YouTubeVideoUploadingState.IN_PROGRESS,
+                  })),
+              ],
+            },
+          };
+        }
+
+        return foundPlaylist;
+      }),
     );
   }
 
@@ -59,5 +92,9 @@ export class YouTubeQuery extends Query<YouTubeState> {
     }
 
     return foundChannel.allPlaylists.find(({ id }) => id === playlistId);
+  }
+
+  getUploadableVideosValue() {
+    return this.getValue().uploadableVideos;
   }
 }

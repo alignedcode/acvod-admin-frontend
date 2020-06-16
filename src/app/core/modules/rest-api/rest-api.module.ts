@@ -10,20 +10,19 @@ import { throwIfAlreadyLoaded } from '@core/module-import-guard';
 import { BloggerHttpService } from './api/blogger-http.service';
 import { YouTubeChannelsHttpService } from './api/video-providers/youtube-channels-http.service';
 import { YouTubePlaylistsHttpService } from './api/video-providers/youtube-playlists-http.service';
+import { YouTubeVideoHttpService } from './api/video-providers/youtube-video-http.service';
 
 @NgModule({
   providers: [
     BloggerHttpService,
     YouTubeChannelsHttpService,
     YouTubePlaylistsHttpService,
+    YouTubeVideoHttpService,
   ],
 })
 export class RestApiModule {
   public static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: RestApiModule,
-      providers: [],
-    };
+    return { ngModule: RestApiModule };
   }
 
   constructor(

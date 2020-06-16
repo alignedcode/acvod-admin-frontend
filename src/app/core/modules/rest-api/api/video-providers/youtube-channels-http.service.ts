@@ -8,9 +8,9 @@ import { ContentType, HttpRestService } from '../../services/http-rest.service';
 
 enum ApiRoute {
   AUTH = '/api/admin/blogger/:bloggerId/youtube/auth',
-  GET_CHANNELS = '/api/admin/blogger/:bloggerId/youtube/channel',
-  GET_CHANNEL = '/api/admin/blogger/:bloggerId/youtube/channel/:channelId',
-  REMOVE_CHANNEL = '/api/admin/blogger/:bloggerId/youtube/channel/:channelId',
+  GET_CHANNELS = '/api/admin/youtube/channel',
+  GET_CHANNEL = '/api/admin/youtube/channel/:channelId',
+  REMOVE_CHANNEL = '/api/admin/youtube/channel/:channelId',
 }
 
 enum RouteParam {
@@ -49,13 +49,12 @@ export class YouTubeChannelsHttpService extends HttpRestService {
   }
 
   getChannels(bloggerId: string): Observable<YouTubeChannelDto[]> {
-    const route =
-      this.basePath +
-      ApiRoute.GET_CHANNELS.replace(RouteParam.BLOGGER_ID, bloggerId);
-
-    return this.httpClient.get<any>(route, {
-      headers: this.getHeaders(),
-    });
+    return this.httpClient.get<any>(
+      `${this.basePath}${ApiRoute.GET_CHANNELS}`,
+      {
+        headers: this.getHeaders(),
+      },
+    );
   }
 
   getChannel(
@@ -63,9 +62,9 @@ export class YouTubeChannelsHttpService extends HttpRestService {
     channelId: string,
   ): Observable<YouTubeChannelDto> {
     const route = ApiRoute.GET_CHANNEL.replace(
-      RouteParam.BLOGGER_ID,
-      bloggerId,
-    ).replace(RouteParam.CHANNEL_ID, channelId);
+      RouteParam.CHANNEL_ID,
+      channelId,
+    );
 
     return this.httpClient.get<any>(`${this.basePath}${route}`, {
       headers: this.getHeaders(),
@@ -73,14 +72,12 @@ export class YouTubeChannelsHttpService extends HttpRestService {
   }
 
   removeChannel(bloggerId: string, channelId: string): Observable<any> {
-    const route =
-      this.basePath +
-      ApiRoute.REMOVE_CHANNEL.replace(RouteParam.BLOGGER_ID, bloggerId).replace(
-        RouteParam.CHANNEL_ID,
-        channelId,
-      );
+    const route = ApiRoute.REMOVE_CHANNEL.replace(
+      RouteParam.CHANNEL_ID,
+      channelId,
+    );
 
-    return this.httpClient.delete<any>(route, {
+    return this.httpClient.delete<any>(`${this.basePath}${route}`, {
       headers: this.getHeaders(),
     });
   }

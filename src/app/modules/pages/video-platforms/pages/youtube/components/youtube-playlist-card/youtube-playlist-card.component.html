@@ -28,7 +28,8 @@
       </nb-tab>
 
       <nb-tab tabTitle="Videos" badgeStatus="primary">
-        <youtube-video-table [videos]="playlist.videos.items" [page]="videoPage" (setPage$)="onSetVideoPage($event)"></youtube-video-table>
+        <youtube-video-table [videos]="playlist.videos.items" [page]="videoPage" (uploadVideo$)="onUploadVideo($event)"
+          (setPage$)="onSetVideoPage($event)"></youtube-video-table>
       </nb-tab>
     </nb-tabset>
   </nb-card-body>

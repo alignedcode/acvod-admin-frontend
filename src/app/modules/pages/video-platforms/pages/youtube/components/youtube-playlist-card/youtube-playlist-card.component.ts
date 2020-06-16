@@ -13,8 +13,13 @@ export class YouTubePlaylistCardComponent {
   @Input() videoPage: Page;
 
   @Output() setVideoPage$ = new EventEmitter<number>();
+  @Output() uploadVideo$ = new EventEmitter<string>();
 
   constructor() {}
+
+  onUploadVideo(videoId: string) {
+    this.uploadVideo$.emit(videoId);
+  }
 
   onSetVideoPage(page: number) {
     this.setVideoPage$.emit(page);

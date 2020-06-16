@@ -11,6 +11,9 @@ export class YouTubeNotificationService {
   private readonly ON_CHANNEL_NOT_FOUND_TITLE = 'Channel not found';
   private readonly ON_PLAYLIST_NOT_FOUND_TITLE =
     'Playlist not found in a Channel';
+  private readonly ON_SUCCESSSFUL_UPLOADED_VIDEO = 'Video was uploaded';
+  private readonly ON_FAILED_UPLOADED_VIDEO =
+    'There is an error in upload proccess';
 
   private readonly NOTIFICATION_POSITION =
     NbGlobalPhysicalPosition.BOTTOM_RIGHT;
@@ -51,6 +54,26 @@ export class YouTubeNotificationService {
     this.toastService.danger(
       `Channel ID: ${channelId}\n Playlist ID: ${playlistId}`,
       this.ON_PLAYLIST_NOT_FOUND_TITLE,
+      {
+        position: this.NOTIFICATION_POSITION,
+      },
+    );
+  }
+
+  onSuccessfulUploadedVideo(videoId: string) {
+    this.toastService.success(
+      `Video ID: ${videoId}`,
+      this.ON_SUCCESSSFUL_UPLOADED_VIDEO,
+      {
+        position: this.NOTIFICATION_POSITION,
+      },
+    );
+  }
+
+  onFailedUploadedVideo(videoId: string) {
+    this.toastService.danger(
+      `Video ID: ${videoId}`,
+      this.ON_FAILED_UPLOADED_VIDEO,
       {
         position: this.NOTIFICATION_POSITION,
       },

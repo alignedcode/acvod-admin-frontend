@@ -9,11 +9,11 @@ import { YouTubeVideoDto } from '../../models/video-providers/youtube/youtube-vi
 import { ContentType, HttpRestService } from '../../services/http-rest.service';
 
 enum ApiRoute {
-  GET_PLAYLISTS = '/api/admin/blogger/:bloggerId/youtube/channel/:channelId/playlist',
-  GET_PLAYLIST = '/api/admin/blogger/:bloggerId/youtube/channel/:channelId/playlist/:playlistId',
-  SELECT_PLAYLIST = '/api/admin/blogger/:bloggerId/youtube/channel/:channelId/playlist/:playlistId',
-  DESELECT_PLAYLIST = '/api/admin/blogger/:bloggerId/youtube/channel/:channelId/playlist/:playlistId',
-  GET_PLAYLIST_VIDEOS = '/api/admin/blogger/:bloggerId/youtube/channel/:channelId/playlist/:playlistId/video',
+  GET_PLAYLISTS = '/api/admin/youtube/channel/:channelId/playlist',
+  GET_PLAYLIST = '/api/admin/youtube/channel/:channelId/playlist/:playlistId',
+  SELECT_PLAYLIST = '/api/admin/youtube/channel/:channelId/playlist/:playlistId',
+  DESELECT_PLAYLIST = '/api/admin/youtube/channel/:channelId/playlist/:playlistId',
+  GET_PLAYLIST_VIDEOS = '/api/admin/youtube/channel/:channelId/playlist/:playlistId/video',
 }
 
 enum RouteParam {
@@ -49,9 +49,9 @@ export class YouTubePlaylistsHttpService extends HttpRestService {
     pageToken: string = '',
   ): Observable<PaginatedResponse<YouTubePlaylistDto>> {
     const route = ApiRoute.GET_PLAYLISTS.replace(
-      RouteParam.BLOGGER_ID,
-      bloggerId,
-    ).replace(RouteParam.CHANNEL_ID, channelId);
+      RouteParam.CHANNEL_ID,
+      channelId,
+    );
 
     return this.httpClient.get<PaginatedResponse<YouTubePlaylistDto>>(
       `${this.basePath}${route}`,
@@ -67,11 +67,9 @@ export class YouTubePlaylistsHttpService extends HttpRestService {
 
   getPlaylist(bloggerId: string, channelId: string, playlistId: string) {
     const route = ApiRoute.GET_PLAYLIST.replace(
-      RouteParam.BLOGGER_ID,
-      bloggerId,
-    )
-      .replace(RouteParam.CHANNEL_ID, channelId)
-      .replace(RouteParam.PLAYLIST_ID, playlistId);
+      RouteParam.CHANNEL_ID,
+      channelId,
+    ).replace(RouteParam.PLAYLIST_ID, playlistId);
 
     return this.httpClient.get<YouTubePlaylistDto>(`${this.basePath}${route}`, {
       headers: this.getHeaders(),
@@ -84,9 +82,9 @@ export class YouTubePlaylistsHttpService extends HttpRestService {
     pageToken: string = '',
   ): Observable<YouTubePlaylistDto[]> {
     const route = ApiRoute.GET_PLAYLISTS.replace(
-      RouteParam.BLOGGER_ID,
-      bloggerId,
-    ).replace(RouteParam.CHANNEL_ID, channelId);
+      RouteParam.CHANNEL_ID,
+      channelId,
+    );
 
     return this.httpClient.get<YouTubePlaylistDto[]>(
       `${this.basePath}${route}`,
@@ -106,11 +104,9 @@ export class YouTubePlaylistsHttpService extends HttpRestService {
     playlistId: string,
   ): Observable<any> {
     const route = ApiRoute.SELECT_PLAYLIST.replace(
-      RouteParam.BLOGGER_ID,
-      bloggerId,
-    )
-      .replace(RouteParam.CHANNEL_ID, channelId)
-      .replace(RouteParam.PLAYLIST_ID, playlistId);
+      RouteParam.CHANNEL_ID,
+      channelId,
+    ).replace(RouteParam.PLAYLIST_ID, playlistId);
 
     return this.httpClient.post<any>(`${this.basePath}${route}`, {
       headers: this.getHeaders(),
@@ -123,11 +119,9 @@ export class YouTubePlaylistsHttpService extends HttpRestService {
     playlistId: string,
   ): Observable<any> {
     const route = ApiRoute.DESELECT_PLAYLIST.replace(
-      RouteParam.BLOGGER_ID,
-      bloggerId,
-    )
-      .replace(RouteParam.CHANNEL_ID, channelId)
-      .replace(RouteParam.PLAYLIST_ID, playlistId);
+      RouteParam.CHANNEL_ID,
+      channelId,
+    ).replace(RouteParam.PLAYLIST_ID, playlistId);
 
     return this.httpClient.delete<any>(`${this.basePath}${route}`, {
       headers: this.getHeaders(),
@@ -142,11 +136,9 @@ export class YouTubePlaylistsHttpService extends HttpRestService {
     maxPageSize: number = 50,
   ): Observable<PaginatedResponse<YouTubeVideoDto>> {
     const route = ApiRoute.GET_PLAYLIST_VIDEOS.replace(
-      RouteParam.BLOGGER_ID,
-      bloggerId,
-    )
-      .replace(RouteParam.CHANNEL_ID, channelId)
-      .replace(RouteParam.PLAYLIST_ID, playlistId);
+      RouteParam.CHANNEL_ID,
+      channelId,
+    ).replace(RouteParam.PLAYLIST_ID, playlistId);
 
     return this.httpClient.get<PaginatedResponse<YouTubeVideoDto>>(
       `${this.basePath}${route}`,

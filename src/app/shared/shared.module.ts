@@ -21,6 +21,7 @@ import {
   NbSidebarModule,
   NbTabsetModule,
   NbUserModule,
+  NbSpinnerModule,
 } from '@nebular/theme';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -63,6 +64,7 @@ const NB_MODULES = [
   NbEvaIconsModule,
   NbRadioModule,
   NbDatepickerModule,
+  NbSpinnerModule,
 ];
 
 @NgModule({

@@ -13,6 +13,7 @@ import { BloggerQuery } from './state/blogger/blogger.query';
 import { BloggerStore } from './state/blogger/blogger.store';
 import { YouTubeQuery } from './state/video-providers/youtube.query';
 import { YouTubeStore } from './state/video-providers/youtube.store';
+import { YouTubeVideosService } from './services/video-providers/youtube/youtube-videos.service';
 
 @NgModule({})
 export class DataModule {
@@ -27,6 +28,7 @@ export class DataModule {
         BloggersService,
         YouTubeChannelsService,
         YouTubePlaylistsService,
+        YouTubeVideosService,
       ],
     };
   }

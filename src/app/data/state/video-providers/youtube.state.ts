@@ -2,8 +2,9 @@ import { YouTubeChannel } from '@data/models/video-providers/youtube/youtube-cha
 
 export interface YouTubeState {
   channels: YouTubeChannel[];
+  uploadableVideos: string[];
 }
 
 export function createInitialState(): YouTubeState {
-  return { channels: [] };
+  return { channels: [], uploadableVideos: [] };
 }
