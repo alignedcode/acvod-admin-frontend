@@ -10,6 +10,7 @@ import {
 } from './components';
 import { OneColumnLayoutComponent } from './pages';
 
+import { BreadcrumbsMenuModule } from './components/breadcrumbs-menu/breadcrumbs-menu.module';
 import { LayoutRoutingService } from './services/layout-routing.service';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { COSMIC_THEME } from './styles/theme.cosmic';
@@ -25,8 +26,8 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [CommonModule, SharedModule, NbLayoutModule],
-  exports: [CommonModule, ...COMPONENTS],
+  imports: [CommonModule, SharedModule, NbLayoutModule, BreadcrumbsMenuModule],
+  exports: [CommonModule, ...COMPONENTS, BreadcrumbsMenuModule],
   declarations: [...COMPONENTS],
 })
 export class LayoutModule {

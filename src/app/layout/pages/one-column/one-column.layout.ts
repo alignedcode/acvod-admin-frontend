@@ -9,6 +9,10 @@ import { Component } from '@angular/core';
         <header></header>
       </nb-layout-header>
 
+      <nb-layout-header subheader>
+        <breadcrumbs-menu></breadcrumbs-menu>
+      </nb-layout-header>
+
       <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive>
         <ng-content select="nb-menu"></ng-content>
       </nb-sidebar>

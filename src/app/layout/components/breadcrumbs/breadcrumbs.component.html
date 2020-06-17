@@ -1,0 +1,31 @@
+<div [ngClass]="'ui-breadcrumb ui-widget ui-widget-header ui-helper-clearfix ui-corner-all'">
+  <ul>
+    <li [class]="home.styleClass" [ngClass]="'ui-breadcrumb-home'" [ngStyle]="home.style" *ngIf="home">
+      <a [routerLink]="[home.url]" [queryParams]="home.queryParams"
+        [routerLinkActive]="'ui-menuitem-link-active'" [routerLinkActiveOptions]="
+          home.routerLinkActiveOptions || { exact: false }
+        " class="ui-menuitem-link" (click)="itemClick($event, home)">
+        <nb-icon [icon]="home.icon"></nb-icon>
+      </a>
+    </li>
+
+    <li class="ui-breadcrumb-chevron pi pi-chevron-right" *ngIf="model && home"></li>
+
+    <ng-template ngFor let-item let-end="last" [ngForOf]="model">
+      <li [class]="item.styleClass" [ngStyle]="item.style">
+        <a [routerLink]="[item.url]" [queryParams]="item.queryParams"
+          [routerLinkActive]="'ui-menuitem-link-active'" [routerLinkActiveOptions]="
+            item.routerLinkActiveOptions || { exact: false }" class="ui-menuitem-link"
+          (click)="itemClick($event, item)">
+          <span *ngIf="item.icon" class="ui-menuitem-icon" [ngClass]="item.icon"></span>
+
+          <span class="ui-menuitem-text">{{ item.label }}</span>
+        </a>
+      </li>
+
+      <li class="ui-breadcrumb-chevron" *ngIf="!end">
+        <nb-icon icon="chevron-right"></nb-icon>
+      </li>
+    </ng-template>
+  </ul>
+</div>
