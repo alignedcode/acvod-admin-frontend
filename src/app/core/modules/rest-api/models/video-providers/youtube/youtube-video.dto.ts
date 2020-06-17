@@ -4,6 +4,13 @@ export interface YouTubeVideoDto {
   id: string;
   snippet: Snippet;
   contentDetails: ContentDetails;
+  storageState?: VideoStorageState;
+}
+
+export enum VideoStorageState {
+  SAVED = 'saved',
+  IN_PROGRESS = 'in-progress',
+  NONE = 'none',
 }
 
 interface ContentDetails {

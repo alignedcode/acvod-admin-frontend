@@ -2,19 +2,19 @@ import {
   Component,
   EventEmitter,
   Input,
-  Output,
   ViewChild,
+  Output,
   TemplateRef,
   OnInit,
 } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { ColumnMode, TableColumn } from '@swimlane/ngx-datatable';
 
 import { Page } from '@data/models/page';
-import {
-  YouTubeVideo,
-  YouTubeVideoUploadingState,
-} from '@data/models/video-providers/youtube/youtube-video.entity';
+import { YouTubeVideo } from '@data/models/video-providers/youtube/youtube-video.entity';
 import { TableColumnTruncationPipe } from '../../pipes/table-column-truncation.pipe';
+import { VideoStorageState } from '@core/modules/rest-api/models/video-providers/youtube/youtube-video.dto';
+import { VideoStorageStatePipe } from '../../pipes/video-storage-state.pipe';
 
 @Component({
   selector: 'youtube-video-table',
@@ -38,7 +38,11 @@ export class YouTubeVideoTableComponent implements OnInit {
 
   columns: TableColumn[];
 
-  constructor(private readonly truncationPipe: TableColumnTruncationPipe) {}
+  constructor(
+    private readonly truncationPipe: TableColumnTruncationPipe,
+    private readonly storageStatePipe: VideoStorageStatePipe,
+    private readonly datePipe: DatePipe,
+  ) {}
 
   ngOnInit() {
     this.columns = [
@@ -49,8 +53,16 @@ export class YouTubeVideoTableComponent implements OnInit {
         prop: 'snippet.description',
         pipe: this.truncationPipe,
       },
-      { name: 'Published At', prop: 'snippet.publishedAt' },
-      { name: 'Upload State', prop: 'uploadedState' },
+      {
+        name: 'Published At',
+        prop: 'snippet.publishedAt',
+        pipe: this.datePipe,
+      },
+      {
+        name: 'Upload State',
+        prop: 'storageState',
+        pipe: this.storageStatePipe,
+      },
       {
         name: 'Actions',
         cellTemplate: this.actionsTemplate,
@@ -67,9 +79,11 @@ export class YouTubeVideoTableComponent implements OnInit {
     this.setPage$.emit(page);
   }
 
-  isLoading({
-    uploadingState = YouTubeVideoUploadingState.NONE,
-  }: YouTubeVideo) {
-    return uploadingState === YouTubeVideoUploadingState.IN_PROGRESS;
+  isLoading({ storageState = VideoStorageState.NONE }: YouTubeVideo) {
+    return storageState === VideoStorageState.IN_PROGRESS;
+  }
+
+  isUploaded({ storageState = VideoStorageState.NONE }: YouTubeVideo) {
+    return storageState === VideoStorageState.SAVED;
   }
 }

@@ -39,11 +39,21 @@
 <ng-template #actionsTemplate let-row="row" let-value="value">
   <div class="row">
     <div class='col-sm-1 mr-1'>
-      <button [nbSpinner]="isLoading(row)" nbSpinnerStatus="info" nbButton [size]="'small'"
-        (click)="onUploadVideo(value)" [status]="'primary'" disabled="isLoading(row)">
-        <nb-icon class="action-icon" icon="cloud-upload-outline"></nb-icon>
-        <span>Upload</span>
-      </button>
+      <ng-container *ngIf="!isUploaded(row) else reuploadButton">
+        <button [nbSpinner]="isLoading(row)" nbSpinnerStatus="info" nbButton [size]="'small'"
+          (click)="onUploadVideo(value)" [status]="'primary'" disabled="isLoading(row)">
+          <nb-icon class="action-icon" icon="cloud-upload-outline"></nb-icon>
+          <span>Upload</span>
+        </button>
+      </ng-container>
     </div>
   </div>
+
+  <ng-template #reuploadButton>
+    <button [nbSpinner]="isLoading(row)" nbSpinnerStatus="info" nbButton [size]="'small'"
+          (click)="onUploadVideo(value)" [status]="'success'" disabled="isLoading(row)">
+          <nb-icon class="action-icon" icon="cloud-upload-outline"></nb-icon>
+          <span>Reupload</span>
+        </button>
+  </ng-template>
 </ng-template>

@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { YouTubeChannel } from '@data/models/video-providers/youtube/youtube-channel.entity';
 import { YouTubeState } from './youtube.state';
 import { YouTubeStore } from './youtube.store';
-import { YouTubeVideoUploadingState } from '@data/models/video-providers/youtube/youtube-video.entity';
+import { VideoStorageState } from '@core/modules/rest-api/models/video-providers/youtube/youtube-video.dto';
 
 @Injectable()
 export class YouTubeQuery extends Query<YouTubeState> {
@@ -72,7 +72,7 @@ export class YouTubeQuery extends Query<YouTubeState> {
                   )
                   .map((video) => ({
                     ...video,
-                    uploadingState: YouTubeVideoUploadingState.IN_PROGRESS,
+                    storageState: VideoStorageState.IN_PROGRESS,
                   })),
               ],
             },

@@ -8,6 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ColumnMode, TableColumn } from '@swimlane/ngx-datatable';
+import { DatePipe } from '@angular/common';
 
 import { YouTubePlaylist } from '@data/models/video-providers/youtube/youtube-playlist.entity';
 
@@ -32,13 +33,15 @@ export class YouTubePlaylistListComponent implements OnInit {
 
   columns: TableColumn[] = [];
 
+  constructor(private readonly datePipe: DatePipe) {}
+
   ngOnInit(): void {
     // TODO: Move into a service
     this.columns = [
       { name: 'ID', prop: 'id', minWidth: 300 },
       { name: 'Title', prop: 'title' },
       { name: 'Description', prop: 'description' },
-      { name: 'Published At', prop: 'publishedAt' },
+      { name: 'Published At', prop: 'publishedAt', pipe: this.datePipe },
       { name: 'Videos', prop: 'videoCount' },
       { name: 'Actions', cellTemplate: this.actionsTemplate, prop: 'id' },
     ];

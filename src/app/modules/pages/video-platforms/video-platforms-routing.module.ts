@@ -6,6 +6,8 @@ import { ResolvableYouTubePlaylist } from './pages/youtube/resolvers/youtube-pla
 
 import { VideoPlatformsRoutes } from './video-platforms-routes.enum';
 
+import { BreadcrumbRouteData } from '@layout/models/breadcrumb-route-data.enum';
+import { SkippedBreadcrumb } from '@layout/models/skipped-breadcrumb';
 import { YouTubeApprovedAuthComponent } from './pages/youtube/pages/youtube-approved-auth/youtube-approved-auth.component';
 import { YouTubeChannelComponent } from './pages/youtube/pages/youtube-channel/youtube-channel.component';
 import { YouTubeChannelsComponent } from './pages/youtube/pages/youtube-channels/youtube-channels.component';
@@ -15,6 +17,9 @@ import { VideoPlatformsComponent } from './video-platforms.component';
 export const routes: Routes = [
   {
     path: VideoPlatformsRoutes.YOUTUBE,
+    data: {
+      [BreadcrumbRouteData.LABEL]: 'YouTube',
+    },
     component: VideoPlatformsComponent,
     children: [
       {
@@ -23,21 +28,42 @@ export const routes: Routes = [
       },
       {
         path: VideoPlatformsRoutes.YOUTUBE_CHANNELS,
+        data: {
+          [BreadcrumbRouteData.LABEL]: 'Channels',
+        },
         children: [
-          { path: '', component: YouTubeChannelsComponent },
+          {
+            path: '',
+            data: {
+              [BreadcrumbRouteData.LABEL]: SkippedBreadcrumb,
+            },
+            component: YouTubeChannelsComponent,
+          },
           {
             path: VideoPlatformsRoutes.YOUTUBE_CHANNEL,
+            data: {
+              [BreadcrumbRouteData.LABEL]: 'Channel',
+            },
             children: [
               {
                 path: '',
                 component: YouTubeChannelComponent,
+                data: {
+                  [BreadcrumbRouteData.LABEL]: SkippedBreadcrumb,
+                },
                 resolve: { channel: ResolvableYouTubeChannel },
               },
               {
                 path: VideoPlatformsRoutes.YOUTUBE_PLAYLISTS,
+                data: {
+                  [BreadcrumbRouteData.LABEL]: SkippedBreadcrumb,
+                },
                 children: [
                   {
                     path: VideoPlatformsRoutes.YOUTUBE_PLAYLIST,
+                    data: {
+                      [BreadcrumbRouteData.LABEL]: 'Playlist',
+                    },
                     component: YouTubePlaylistComponent,
                     resolve: { playlist: ResolvableYouTubePlaylist },
                   },

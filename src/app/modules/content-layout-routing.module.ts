@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from '@core/modules/auth/guards/auth.guard';
+import { BreadcrumbRouteData } from '@layout/models/breadcrumb-route-data.enum';
+import { SkippedBreadcrumb } from '@layout/models/skipped-breadcrumb';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ContentLayoutComponent } from './content-layout.component';
 import { AccountShortSummaryRoutes } from './pages/account-short-summary/account-short-summary-routes.enum';
@@ -17,6 +19,9 @@ const routes: Routes = [
       {
         path: AccountShortSummaryRoutes.ENTRY,
         canActivate: [AuthGuard],
+        data: {
+          [BreadcrumbRouteData.LABEL]: 'Dashboard',
+        },
       },
       {
         path: AccountRoutes.ENTRY,
@@ -38,6 +43,9 @@ const routes: Routes = [
       {
         path: VideoPlatformsRoutes.ENTRY,
         canActivate: [AuthGuard],
+        data: {
+          [BreadcrumbRouteData.LABEL]: 'Video Platforms',
+        },
         loadChildren: () =>
           import('./pages/video-platforms/video-platforms.module').then(
             (module) => module.VideoPlatformsModule,

@@ -16,6 +16,7 @@ import { SharedModule } from '@shared/shared.module';
 import { VideoPlatformsRoutingModule } from './video-platforms-routing.module';
 
 import { TableColumnTruncationPipe } from './pages/youtube/pipes/table-column-truncation.pipe';
+import { VideoStorageStatePipe } from './pages/youtube/pipes/video-storage-state.pipe';
 
 import { YouTubeAddChannelCardComponent } from './pages/youtube/components/youtube-add-channel-card/youtube-add-channel-card.component';
 import { YouTubeAddPlaylistControlComponent } from './pages/youtube/components/youtube-add-playlist-control/youtube-add-playlist-control.component';
@@ -50,6 +51,7 @@ import { VideoPlatformsComponent } from './video-platforms.component';
     YouTubeChannelPageService,
     YouTubePlaylistPageService,
     TableColumnTruncationPipe,
+    VideoStorageStatePipe,
     ShortenPipe,
   ],
   entryComponents: [YouTubeNotBoundAccountDialogComponent],
