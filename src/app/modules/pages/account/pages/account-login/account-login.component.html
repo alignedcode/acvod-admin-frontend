@@ -1,0 +1,22 @@
+<nb-layout>
+  <nb-layout-column>
+    <nb-card>
+      <nb-card-body>
+        <h1 id="title" class="title">Login</h1>
+        <p class="sub-title">Log in with your social account.</p>
+
+        <section *ngIf="oAuthSocialProviders?.length > 0" class="links" aria-label="Social sign in">
+          <div class="socials">
+            <ng-container *ngFor="let socialProvider of oAuthSocialProviders">
+              <a *ngIf="socialProvider.baseEndpoint"
+                [attr.href]="getSocialProviderLink(socialProvider.baseEndpoint, socialProvider.redirect.success, socialProvider.redirect.failure)">
+                <nb-icon *ngIf="socialProvider.icon; else title" [icon]="socialProvider.icon"></nb-icon>
+                <ng-template #title>{{ socialProvider.title }}</ng-template>
+              </a>
+            </ng-container>
+          </div>
+        </section>
+      </nb-card-body>
+    </nb-card>
+  </nb-layout-column>
+</nb-layout>
