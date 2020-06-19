@@ -1,0 +1,28 @@
+<div *ngIf="hasChannels$ | async else introductionModal">
+  <div class="row">
+    <div class="col-md-12 col-lg-12 col-xxxl-6">
+      <nb-card class="actions-card">
+        <nb-card-body>
+          <button nbButton (click)="onAddChannel()" [status]="'primary'">
+            <nb-icon class="action-icon" icon="plus-outline"></nb-icon>
+            <span>Add a Channel</span>
+          </button>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-lg-12 col-xxxl-6">
+      <youtube-channel-table [channels$]="channels$" (removeChannel$)="onRemoveChannel($event)"></youtube-channel-table>
+    </div>
+  </div>
+</div>
+
+<ng-template #introductionModal>
+  <div class="row align-items-center justify-content-md-center">
+    <div class="col-md-6">
+      <youtube-add-channel-card (addChannel$)="onAddChannel()"></youtube-add-channel-card>
+    </div>
+  </div>
+</ng-template>
