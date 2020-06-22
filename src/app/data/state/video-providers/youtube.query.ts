@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Query } from '@datorama/akita';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
+import { VideoStorageState } from '@core/modules/rest-api/models/video-providers/youtube/youtube-video.dto';
 import { YouTubeChannel } from '@data/models/video-providers/youtube/youtube-channel.entity';
 import { YouTubeState } from './youtube.state';
 import { YouTubeStore } from './youtube.store';
-import { VideoStorageState } from '@core/modules/rest-api/models/video-providers/youtube/youtube-video.dto';
 
 @Injectable()
 export class YouTubeQuery extends Query<YouTubeState> {
@@ -15,7 +15,7 @@ export class YouTubeQuery extends Query<YouTubeState> {
     map((channels) => channels.length > 0),
   );
 
-  uploadableVideos = this.select('uploadableVideos');
+  uploadableVideos$ = this.select('uploadableVideos');
 
   constructor(store: YouTubeStore) {
     super(store);
@@ -46,11 +46,14 @@ export class YouTubeQuery extends Query<YouTubeState> {
     );
   }
 
+  // TODO: use combineLatest
   getPlaylist(channelId: string, playlistId: string) {
-    const uploadableVideos = this.getUploadableVideosValue();
-
-    return this.getChannel(channelId).pipe(
-      map(({ allPlaylists = [] }) => {
+    return this.select().pipe(
+      map(({ channels, uploadableVideos }) => ({
+        channel: channels.find(({ id }) => channelId === id),
+        uploadableVideos,
+      })),
+      map(({ channel: { allPlaylists }, uploadableVideos }) => {
         const foundPlaylist = allPlaylists.find(({ id }) => id === playlistId);
 
         if (foundPlaylist) {

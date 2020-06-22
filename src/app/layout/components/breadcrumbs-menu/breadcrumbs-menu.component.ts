@@ -1,19 +1,20 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter, tap } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
 import { MenuItem } from '@layout/models/menu-item';
-import { BreadcrumbsMenuService } from './breadcrumbs-menu.service';
 import { AppRoutes } from 'app/app-route.enum';
+import { BreadcrumbsMenuService } from './breadcrumbs-menu.service';
 
 @Component({
   selector: 'breadcrumbs-menu',
   templateUrl: './breadcrumbs-menu.component.html',
   styleUrls: ['./breadcrumbs-menu.component.scss'],
 })
-export class BreadcrumbsMenuComponent implements AfterViewInit {
+export class BreadcrumbsMenuComponent implements OnInit {
   menuItems: MenuItem[] = [];
 
+  // TODO: move to the default menu options
   readonly homeRoute = { icon: 'home-outline', url: AppRoutes.ROOT };
 
   constructor(
@@ -22,7 +23,11 @@ export class BreadcrumbsMenuComponent implements AfterViewInit {
     private readonly menuService: BreadcrumbsMenuService,
   ) {}
 
-  ngAfterViewInit() {
+  ngOnInit() {
+    this.menuItems = this.menuService.createBreadcrumbs(
+      this.activatedRoute.root,
+    );
+
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
