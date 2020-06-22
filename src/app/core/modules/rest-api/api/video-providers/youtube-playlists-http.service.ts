@@ -44,7 +44,6 @@ export class YouTubePlaylistsHttpService extends HttpRestService {
   }
 
   getAllPlaylists(
-    bloggerId: string,
     channelId: string,
     pageToken: string = '',
   ): Observable<PaginatedResponse<YouTubePlaylistDto>> {
@@ -65,7 +64,7 @@ export class YouTubePlaylistsHttpService extends HttpRestService {
     );
   }
 
-  getPlaylist(bloggerId: string, channelId: string, playlistId: string) {
+  getPlaylist(channelId: string, playlistId: string) {
     const route = ApiRoute.GET_PLAYLIST.replace(
       RouteParam.CHANNEL_ID,
       channelId,
@@ -77,7 +76,6 @@ export class YouTubePlaylistsHttpService extends HttpRestService {
   }
 
   getSelectedPlaylists(
-    bloggerId: string,
     channelId: string,
     pageToken: string = '',
   ): Observable<YouTubePlaylistDto[]> {
@@ -98,11 +96,7 @@ export class YouTubePlaylistsHttpService extends HttpRestService {
     );
   }
 
-  selectPlaylist(
-    bloggerId: string,
-    channelId: string,
-    playlistId: string,
-  ): Observable<any> {
+  selectPlaylist(channelId: string, playlistId: string): Observable<any> {
     const route = ApiRoute.SELECT_PLAYLIST.replace(
       RouteParam.CHANNEL_ID,
       channelId,
@@ -113,11 +107,7 @@ export class YouTubePlaylistsHttpService extends HttpRestService {
     });
   }
 
-  deselectPlaylist(
-    bloggerId: string,
-    channelId: string,
-    playlistId: string,
-  ): Observable<any> {
+  deselectPlaylist(channelId: string, playlistId: string): Observable<any> {
     const route = ApiRoute.DESELECT_PLAYLIST.replace(
       RouteParam.CHANNEL_ID,
       channelId,
@@ -129,7 +119,6 @@ export class YouTubePlaylistsHttpService extends HttpRestService {
   }
 
   getPlaylistVideos(
-    bloggerId: string,
     channelId: string,
     playlistId: string,
     pageToken: string = '',

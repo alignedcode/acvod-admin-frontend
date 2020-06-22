@@ -1,19 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { flatMap, map, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { YouTubePlaylistsHttpService } from '@core/modules/rest-api/api/video-providers/youtube-playlists-http.service';
 import { PaginatedResponse } from '@core/modules/rest-api/models/paginated-response.model';
 import { YouTubePlaylistDto } from '@core/modules/rest-api/models/video-providers/youtube/youtube-playlist.dto';
 import { YouTubePlaylist } from '@data/models/video-providers/youtube/youtube-playlist.entity';
 import { YouTubeVideo } from '@data/models/video-providers/youtube/youtube-video.entity';
-import { BloggersService } from '@data/services/bloggers.service';
 import { YouTubeStore } from '@data/state/video-providers/youtube.store';
 
 @Injectable()
 export class YouTubePlaylistsService {
   constructor(
-    private readonly bloggerService: BloggersService,
     private readonly playlistsService: YouTubePlaylistsHttpService,
     private readonly store: YouTubeStore,
   ) {}
@@ -23,10 +21,7 @@ export class YouTubePlaylistsService {
     channelId: string,
     pageToken?: string,
   ): Observable<YouTubePlaylist[]> {
-    return this.bloggerService.getBloggerId().pipe(
-      flatMap((bloggerId) =>
-        this.playlistsService.getAllPlaylists(bloggerId, channelId, pageToken),
-      ),
+    return this.playlistsService.getAllPlaylists(channelId, pageToken).pipe(
       map(({ items }) =>
         items.map((playlist) => this.mapPalylistDtoToEntity(playlist)),
       ),
@@ -49,10 +44,7 @@ export class YouTubePlaylistsService {
     channelId: string,
     playlistId: string,
   ): Observable<YouTubePlaylist> {
-    return this.bloggerService.getBloggerId().pipe(
-      flatMap((bloggerId) =>
-        this.playlistsService.getPlaylist(bloggerId, channelId, playlistId),
-      ),
+    return this.playlistsService.getPlaylist(channelId, playlistId).pipe(
       map((playlist) => this.mapPalylistDtoToEntity(playlist)),
       tap((playlist) => {
         this.store.update(({ channels }) => {
@@ -82,37 +74,29 @@ export class YouTubePlaylistsService {
     channelId: string,
     pageToken?: string,
   ): Observable<YouTubePlaylist[]> {
-    return this.bloggerService.getBloggerId().pipe(
-      flatMap((bloggerId) =>
-        this.playlistsService.getSelectedPlaylists(
-          bloggerId,
-          channelId,
-          pageToken,
+    return this.playlistsService
+      .getSelectedPlaylists(channelId, pageToken)
+      .pipe(
+        map((playlists) =>
+          playlists.map((playlist) => this.mapPalylistDtoToEntity(playlist)),
         ),
-      ),
-      map((playlists) =>
-        playlists.map((playlist) => this.mapPalylistDtoToEntity(playlist)),
-      ),
-      tap((selectedPlaylists) => {
-        this.store.update(({ channels }) => {
-          const channelToUpdate = channels.find(({ id }) => id === channelId);
+        tap((selectedPlaylists) => {
+          this.store.update(({ channels }) => {
+            const channelToUpdate = channels.find(({ id }) => id === channelId);
 
-          return {
-            channels: [
-              ...channels.filter(({ id }) => id !== channelId),
-              { ...channelToUpdate, selectedPlaylists },
-            ],
-          };
-        });
-      }),
-    );
+            return {
+              channels: [
+                ...channels.filter(({ id }) => id !== channelId),
+                { ...channelToUpdate, selectedPlaylists },
+              ],
+            };
+          });
+        }),
+      );
   }
 
   selectPlaylist(channelId: string, playlistId: string): Observable<any> {
-    return this.bloggerService.getBloggerId().pipe(
-      flatMap((bloggerId) =>
-        this.playlistsService.selectPlaylist(bloggerId, channelId, playlistId),
-      ),
+    return this.playlistsService.selectPlaylist(channelId, playlistId).pipe(
       tap(() => {
         this.store.update(({ channels }) => {
           const foundChannel = channels.find(({ id }) => id === channelId);
@@ -138,14 +122,7 @@ export class YouTubePlaylistsService {
   }
 
   deselectPlaylist(channelId: string, playlistId: string): Observable<any> {
-    return this.bloggerService.getBloggerId().pipe(
-      flatMap((bloggerId) =>
-        this.playlistsService.deselectPlaylist(
-          bloggerId,
-          channelId,
-          playlistId,
-        ),
-      ),
+    return this.playlistsService.deselectPlaylist(channelId, playlistId).pipe(
       tap(() => {
         this.store.update(({ channels }) => {
           const foundChannel = channels.find(({ id }) => id === channelId);
@@ -172,41 +149,34 @@ export class YouTubePlaylistsService {
     pageToken?: string,
     maxPageSize?: number,
   ): Observable<PaginatedResponse<YouTubeVideo>> {
-    return this.bloggerService.getBloggerId().pipe(
-      flatMap((bloggerId) =>
-        this.playlistsService.getPlaylistVideos(
-          bloggerId,
-          channelId,
-          playlistId,
-          pageToken,
-          maxPageSize,
-        ),
-      ),
-      tap((videos) => {
-        this.store.update(({ channels }) => {
-          const foundChannel = channels.find(({ id }) => id === channelId);
+    return this.playlistsService
+      .getPlaylistVideos(channelId, playlistId, pageToken, maxPageSize)
+      .pipe(
+        tap((videos) => {
+          this.store.update(({ channels }) => {
+            const foundChannel = channels.find(({ id }) => id === channelId);
 
-          const foundPlaylist = foundChannel.allPlaylists.find(
-            ({ id }) => id === playlistId,
-          );
+            const foundPlaylist = foundChannel.allPlaylists.find(
+              ({ id }) => id === playlistId,
+            );
 
-          return {
-            channels: [
-              ...channels.filter(({ id }) => id !== channelId),
-              {
-                ...foundChannel,
-                allPlaylists: [
-                  ...foundChannel.allPlaylists.filter(
-                    ({ id }) => id !== playlistId,
-                  ),
-                  { ...foundPlaylist, videos },
-                ],
-              },
-            ],
-          };
-        });
-      }),
-    );
+            return {
+              channels: [
+                ...channels.filter(({ id }) => id !== channelId),
+                {
+                  ...foundChannel,
+                  allPlaylists: [
+                    ...foundChannel.allPlaylists.filter(
+                      ({ id }) => id !== playlistId,
+                    ),
+                    { ...foundPlaylist, videos },
+                  ],
+                },
+              ],
+            };
+          });
+        }),
+      );
   }
 
   private mapPalylistDtoToEntity({

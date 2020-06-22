@@ -15,7 +15,7 @@ enum RouteParam {
 }
 
 @Injectable()
-export class BloggerHttpService extends HttpRestService {
+export class BloggersHttpService extends HttpRestService {
   constructor(
     @Inject(BACKEND_BASE_PATH) protected basePath: string,
     protected readonly httpClient: HttpClient,
@@ -24,11 +24,12 @@ export class BloggerHttpService extends HttpRestService {
   }
 
   public getBlogger(bloggerId: string): Observable<BloggerDto> {
-    const route =
-      this.basePath +
-      ApiRoute.GET_BLOGGER.replace(RouteParam.BLOGGER_ID, bloggerId);
+    const route = ApiRoute.GET_BLOGGER.replace(
+      RouteParam.BLOGGER_ID,
+      bloggerId,
+    );
 
-    return this.httpClient.get<BloggerDto>(route, {
+    return this.httpClient.get<BloggerDto>(`${this.basePath}/${route}`, {
       headers: this.getHeaders(),
     });
   }

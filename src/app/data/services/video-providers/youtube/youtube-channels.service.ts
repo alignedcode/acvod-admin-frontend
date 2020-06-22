@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { flatMap, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 import { OAuthService } from '@core/modules/auth/services/oauth.service';
 import { YouTubeChannelsHttpService } from '@core/modules/rest-api/api/video-providers/youtube-channels-http.service';
@@ -30,10 +30,7 @@ export class YouTubeChannelsService {
   }
 
   removeChannel(channelId: string): Observable<any> {
-    return this.bloggerService.getBloggerId().pipe(
-      flatMap((bloggerId) =>
-        this.channelsApiService.removeChannel(bloggerId, channelId),
-      ),
+    return this.channelsApiService.removeChannel(channelId).pipe(
       tap(() => {
         this.youtubeStore.update(({ channels }) => ({
           channels: channels.filter(({ id }) => id !== channelId),
@@ -43,8 +40,7 @@ export class YouTubeChannelsService {
   }
 
   loadChannels(): Observable<YouTubeChannelDto[]> {
-    return this.bloggerService.getBloggerId().pipe(
-      flatMap((bloggerId) => this.channelsApiService.getChannels(bloggerId)),
+    return this.channelsApiService.getChannels().pipe(
       tap((channels) => {
         this.youtubeStore.update({
           channels: channels.map((channel) =>
@@ -56,10 +52,7 @@ export class YouTubeChannelsService {
   }
 
   loadChannel(channelId: string): Observable<YouTubeChannelDto> {
-    return this.bloggerService.getBloggerId().pipe(
-      flatMap((bloggerId) =>
-        this.channelsApiService.getChannel(bloggerId, channelId),
-      ),
+    return this.channelsApiService.getChannel(channelId).pipe(
       tap((channel) => {
         this.youtubeStore.update(({ channels }) => ({
           channels: channels

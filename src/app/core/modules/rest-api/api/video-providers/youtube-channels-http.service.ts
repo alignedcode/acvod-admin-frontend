@@ -48,7 +48,7 @@ export class YouTubeChannelsHttpService extends HttpRestService {
     return `${this.basePath}${route}${uriQueries}`;
   }
 
-  getChannels(bloggerId: string): Observable<YouTubeChannelDto[]> {
+  getChannels(): Observable<YouTubeChannelDto[]> {
     return this.httpClient.get<any>(
       `${this.basePath}${ApiRoute.GET_CHANNELS}`,
       {
@@ -57,10 +57,7 @@ export class YouTubeChannelsHttpService extends HttpRestService {
     );
   }
 
-  getChannel(
-    bloggerId: string,
-    channelId: string,
-  ): Observable<YouTubeChannelDto> {
+  getChannel(channelId: string): Observable<YouTubeChannelDto> {
     const route = ApiRoute.GET_CHANNEL.replace(
       RouteParam.CHANNEL_ID,
       channelId,
@@ -71,7 +68,7 @@ export class YouTubeChannelsHttpService extends HttpRestService {
     });
   }
 
-  removeChannel(bloggerId: string, channelId: string): Observable<any> {
+  removeChannel(channelId: string): Observable<any> {
     const route = ApiRoute.REMOVE_CHANNEL.replace(
       RouteParam.CHANNEL_ID,
       channelId,
