@@ -2,5 +2,5 @@
 export const environment = {
   production: true,
   backendURI: 'http://ec2-18-191-255-140.us-east-2.compute.amazonaws.com:443',
-  fronendURI: '',
+  fronendURI: 'https://alignedcode.github.io/acvod-admin-frontend',
 };
