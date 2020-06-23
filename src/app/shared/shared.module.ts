@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import {
   NbAccordionModule,
@@ -19,12 +19,13 @@ import {
   NbSearchModule,
   NbSelectModule,
   NbSidebarModule,
+  NbSpinnerModule,
   NbTabsetModule,
   NbUserModule,
-  NbSpinnerModule,
 } from '@nebular/theme';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { AgGridModule } from 'ag-grid-angular';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgPipesModule } from 'ngx-pipes';
 
@@ -74,8 +75,10 @@ const NB_MODULES = [
     NgxDatatableModule,
     NgSelectModule,
     FormsModule,
+    ReactiveFormsModule,
     NgxPaginationModule,
     NgPipesModule,
+    AgGridModule.withComponents([]),
   ],
   exports: [
     CommonModule,
@@ -84,8 +87,10 @@ const NB_MODULES = [
     NgxDatatableModule,
     NgSelectModule,
     FormsModule,
+    ReactiveFormsModule,
     NgxPaginationModule,
     NgPipesModule,
+    AgGridModule,
   ],
   declarations: [...PIPES],
 })

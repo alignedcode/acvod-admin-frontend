@@ -29,7 +29,7 @@ export class BloggersHttpService extends HttpRestService {
       bloggerId,
     );
 
-    return this.httpClient.get<BloggerDto>(`${this.basePath}/${route}`, {
+    return this.httpClient.get<BloggerDto>(`${this.basePath}${route}`, {
       headers: this.getHeaders(),
     });
   }

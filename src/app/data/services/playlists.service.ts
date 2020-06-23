@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
-import { InternalAuthService } from '@core/modules/auth/services/internal-auth.service';
 import { PlaylistsHttpService } from '@core/modules/rest-api/api/playlists-http.service';
+import { AddPlaylistDto } from '@core/modules/rest-api/models/playlist/add-playlist.dto';
 import { Playlist } from '@data/models/playlist.entity';
 import { PlaylistsStore } from '@data/state/playlists/playlists.store';
 
@@ -11,15 +11,8 @@ import { PlaylistsStore } from '@data/state/playlists/playlists.store';
 export class PlaylistsService {
   constructor(
     private readonly playlistsApiService: PlaylistsHttpService,
-    private readonly authService: InternalAuthService,
     private readonly playlistsStore: PlaylistsStore,
   ) {}
-
-  getBloggerId(): Observable<string> {
-    return this.authService
-      .getToken()
-      .pipe(map((token) => token.getPayload().bloggerId));
-  }
 
   loadPlaylists(): Observable<Playlist[]> {
     return this.playlistsApiService.getPlaylists().pipe(
@@ -31,24 +24,23 @@ export class PlaylistsService {
     );
   }
 
-  // TODO: use a different model for creation
-  addPlaylist(playlist: Playlist): Observable<Playlist> {
+  addPlaylist(playlist: AddPlaylistDto): Observable<Playlist> {
     return this.playlistsApiService.addPlaylist(playlist).pipe(
       tap((createdPlaylist) => {
-        this.playlistsStore.update(({ playlists }) => {
-          playlists.concat(createdPlaylist);
-        });
+        this.playlistsStore.update(({ playlists }) => ({
+          playlists: playlists.concat(createdPlaylist),
+        }));
       }),
     );
   }
 
   removePlaylist(playlistId: string): Observable<Playlist> {
     return this.playlistsApiService.removePlaylist(playlistId).pipe(
-      tap(() => {
-        this.playlistsStore.update(({ playlists }) => ({
+      tap(() => ({
+        playlists: this.playlistsStore.update(({ playlists }) => ({
           playlists: playlists.filter(({ id }) => id !== playlistId),
-        }));
-      }),
+        })),
+      })),
     );
   }
 }

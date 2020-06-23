@@ -24,9 +24,9 @@ export class ResolvableYouTubeChannel
     route: ActivatedRouteSnapshot,
   ): Observable<ResolvableData<Observable<YouTubeChannel>, string>> {
     const channelId = this.getChannel(route);
-    const foundPlaylist = this.query.getChannelValue(channelId);
+    const foundChannel = this.query.getChannelValue(channelId);
 
-    if (!foundPlaylist) {
+    if (!foundChannel) {
       return this.channelsService.loadChannel(channelId).pipe(
         map(() => ({ data: this.query.getChannel(channelId) })),
         catchError(() => {

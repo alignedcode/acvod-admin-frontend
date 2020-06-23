@@ -6,10 +6,13 @@ import {
 } from '@angular/core';
 
 import { throwIfAlreadyLoaded } from '@core/module-import-guard';
+
 import { BloggersService } from './services/bloggers.service';
+import { PlaylistsService } from './services/playlists.service';
 import { YouTubeChannelsService } from './services/video-providers/youtube/youtube-channels.service';
 import { YouTubePlaylistsService } from './services/video-providers/youtube/youtube-playlists.service';
 import { YouTubeVideosService } from './services/video-providers/youtube/youtube-videos.service';
+
 import { BloggerQuery } from './state/blogger/blogger.query';
 import { BloggerStore } from './state/blogger/blogger.store';
 import { PlaylistsQuery } from './state/playlists/playlists.query';
@@ -30,6 +33,7 @@ export class DataModule {
         YouTubeStore,
         YouTubeQuery,
         BloggersService,
+        PlaylistsService,
         PlaylistsStore,
         YouTubeChannelsService,
         YouTubePlaylistsService,

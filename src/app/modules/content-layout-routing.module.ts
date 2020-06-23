@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from '@core/modules/auth/guards/auth.guard';
 import { BreadcrumbRouteData } from '@layout/models/breadcrumb-route-data.enum';
-import { SkippedBreadcrumb } from '@layout/models/skipped-breadcrumb';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ContentLayoutComponent } from './content-layout.component';
 import { AccountShortSummaryRoutes } from './pages/account-short-summary/account-short-summary-routes.enum';
@@ -35,7 +34,7 @@ const routes: Routes = [
             canActivate: [AuthGuard],
             loadChildren: () =>
               import('./pages/account/account.module').then(
-                (module) => module.AccountModule,
+                ({ AccountModule }) => AccountModule,
               ),
           },
         ],
@@ -48,7 +47,15 @@ const routes: Routes = [
         },
         loadChildren: () =>
           import('./pages/video-platforms/video-platforms.module').then(
-            (module) => module.VideoPlatformsModule,
+            ({ VideoPlatformsModule }) => VideoPlatformsModule,
+          ),
+      },
+      {
+        path: '',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('./pages/playlists/playlists.module').then(
+            ({ PlaylistsModule }) => PlaylistsModule,
           ),
       },
     ],

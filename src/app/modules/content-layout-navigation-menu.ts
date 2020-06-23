@@ -16,8 +16,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   {
-    title: 'Video Platforms',
+    title: 'Content',
     group: true,
+  },
+  {
+    title: 'Playlists',
+    icon: 'list-outline',
+    link: `/content/playlist`,
   },
   {
     title: 'YouTube',

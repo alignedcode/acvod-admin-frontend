@@ -3,7 +3,8 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { BACKEND_BASE_PATH } from '../backend-base-path.provider';
-import { PlaylistDto } from '../models/playlist.dto';
+import { AddPlaylistDto } from '../models/playlist/add-playlist.dto';
+import { PlaylistDto } from '../models/playlist/playlist.dto';
 import { ContentType, HttpRestService } from '../services/http-rest.service';
 
 enum ApiRoute {
@@ -27,17 +28,16 @@ export class PlaylistsHttpService extends HttpRestService {
 
   getPlaylists(): Observable<PlaylistDto[]> {
     return this.httpClient.get<PlaylistDto[]>(
-      `${this.basePath}/${ApiRoute.GET_PLAYLISTS}`,
+      `${this.basePath}${ApiRoute.GET_PLAYLISTS}`,
       {
         headers: this.getHeaders(),
       },
     );
   }
 
-  // TODO: use different DTO for creation
-  addPlaylist(playlist: PlaylistDto): Observable<PlaylistDto> {
+  addPlaylist(playlist: AddPlaylistDto): Observable<PlaylistDto> {
     return this.httpClient.post<PlaylistDto>(
-      `${this.basePath}/${ApiRoute.GET_PLAYLISTS}`,
+      `${this.basePath}${ApiRoute.GET_PLAYLISTS}`,
       playlist,
       {
         headers: this.getHeaders(),
@@ -51,7 +51,7 @@ export class PlaylistsHttpService extends HttpRestService {
       playlistId,
     );
 
-    return this.httpClient.delete<any>(`${this.basePath}/${route}`, {
+    return this.httpClient.delete<any>(`${this.basePath}${route}`, {
       headers: this.getHeaders(),
     });
   }

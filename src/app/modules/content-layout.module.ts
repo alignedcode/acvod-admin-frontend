@@ -7,6 +7,7 @@ import { ContentLayoutRoutingModule } from './content-layout-routing.module';
 import { ContentLayoutComponent } from './content-layout.component';
 import { AccountShortSummaryModule } from './pages/account-short-summary/account-short-summary.module';
 import { AccountModule } from './pages/account/account.module';
+import { PlaylistsModule } from './pages/playlists/playlists.module';
 import { VideoPlatformsModule } from './pages/video-platforms/video-platforms.module';
 
 @NgModule({
@@ -18,6 +19,7 @@ import { VideoPlatformsModule } from './pages/video-platforms/video-platforms.mo
     AccountShortSummaryModule,
     AccountModule,
     VideoPlatformsModule,
+    PlaylistsModule,
   ],
   declarations: [ContentLayoutComponent],
 })
