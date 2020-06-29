@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { BACKEND_BASE_PATH } from '../../backend-base-path.provider';
-import { PaginatedResponse } from '../../models/paginated-response.model';
+import { PaginatedResponse } from '../../models/paginated-response.dto';
 import { YouTubePlaylistDto } from '../../models/video-providers/youtube/youtube-playlist.dto';
 import { YouTubeVideoDto } from '../../models/video-providers/youtube/youtube-video.dto';
 import { ContentType, HttpRestService } from '../../services/http-rest.service';

@@ -3,15 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { BreadcrumbRouteData } from '@layout/models/breadcrumb-route-data.enum';
 import { SkippedBreadcrumb } from '@layout/models/skipped-breadcrumb';
-import { PlaylistsPageComponent } from './pages/playlists-page/playlists-page.component';
-import { ResolvablePlaylists } from './resolvers/playlists.resolver';
+import { VideosPageComponent } from './pages/videos-page/videos-page.component';
+import { ResolvableVideos } from './resolvers/videos.resolver';
 
 const routes: Routes = [
   {
     path: '',
     data: { [BreadcrumbRouteData.LABEL]: SkippedBreadcrumb },
-    resolve: { playlists: ResolvablePlaylists },
-    component: PlaylistsPageComponent,
+    resolve: { videos: ResolvableVideos },
+    component: VideosPageComponent,
   },
 ];
 
@@ -19,4 +19,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class PlaylistsRoutingModule {}
+export class VideosRoutingModule {}

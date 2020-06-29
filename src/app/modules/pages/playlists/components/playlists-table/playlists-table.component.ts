@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Playlist } from '@data/models/playlist.entity';
 import { PlaylistsTableService } from './playlists-table.service';
@@ -8,7 +8,7 @@ import { PlaylistsTableService } from './playlists-table.service';
   templateUrl: './playlists-table.component.html',
   styleUrls: ['./playlists-table.component.scss'],
 })
-export class PlaylistsTableComponent implements OnInit {
+export class PlaylistsTableComponent {
   @Input() playlists: Playlist[] = [];
 
   get columnDefs() {
@@ -16,6 +16,4 @@ export class PlaylistsTableComponent implements OnInit {
   }
 
   constructor(private readonly service: PlaylistsTableService) {}
-
-  ngOnInit() {}
 }

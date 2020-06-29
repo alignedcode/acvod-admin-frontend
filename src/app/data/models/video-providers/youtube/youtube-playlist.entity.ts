@@ -1,4 +1,4 @@
-import { PageInfo } from '@core/modules/rest-api/models/paginated-response.model';
+import { PageInfo } from '@core/modules/rest-api/models/paginated-response.dto';
 import { YouTubeVideo } from './youtube-video.entity';
 
 export interface YouTubePlaylist {

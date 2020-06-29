@@ -1,19 +1,19 @@
+import { DatePipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
   Input,
-  ViewChild,
+  OnInit,
   Output,
   TemplateRef,
-  OnInit,
+  ViewChild,
 } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { ColumnMode, TableColumn } from '@swimlane/ngx-datatable';
 
+import { VideoStorageState } from '@core/modules/rest-api/models/video/video-storage-state.enum';
 import { Page } from '@data/models/page';
 import { YouTubeVideo } from '@data/models/video-providers/youtube/youtube-video.entity';
 import { TableColumnTruncationPipe } from '../../pipes/table-column-truncation.pipe';
-import { VideoStorageState } from '@core/modules/rest-api/models/video-providers/youtube/youtube-video.dto';
 import { VideoStorageStatePipe } from '../../pipes/video-storage-state.pipe';
 
 @Component({

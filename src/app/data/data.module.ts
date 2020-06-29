@@ -19,6 +19,9 @@ import { PlaylistsQuery } from './state/playlists/playlists.query';
 import { PlaylistsStore } from './state/playlists/playlists.store';
 import { YouTubeQuery } from './state/video-providers/youtube.query';
 import { YouTubeStore } from './state/video-providers/youtube.store';
+import { VideosQuery } from './state/videos/videos.query';
+import { VideosStore } from './state/videos/videos.store';
+import { VideosService } from './services/videos.service';
 
 @NgModule({})
 export class DataModule {
@@ -35,6 +38,9 @@ export class DataModule {
         BloggersService,
         PlaylistsService,
         PlaylistsStore,
+        VideosStore,
+        VideosQuery,
+        VideosService,
         YouTubeChannelsService,
         YouTubePlaylistsService,
         YouTubeVideosService,

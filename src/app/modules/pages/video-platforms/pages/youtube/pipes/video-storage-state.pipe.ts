@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { VideoStorageState } from '@core/modules/rest-api/models/video-providers/youtube/youtube-video.dto';
+import { VideoStorageState } from '@core/modules/rest-api/models/video/video-storage-state.enum';
 import { VideoStorageStateName } from '@data/models/video-providers/youtube/youtube-video.entity';
 
 @Pipe({

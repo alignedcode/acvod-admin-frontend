@@ -12,6 +12,7 @@ import { PlaylistsHttpService } from './api/playlists-http.service';
 import { YouTubeChannelsHttpService } from './api/video-providers/youtube-channels-http.service';
 import { YouTubePlaylistsHttpService } from './api/video-providers/youtube-playlists-http.service';
 import { YouTubeVideoHttpService } from './api/video-providers/youtube-video-http.service';
+import { VideosHttpService } from './api/videos-http.service';
 
 @NgModule({
   providers: [
@@ -20,6 +21,7 @@ import { YouTubeVideoHttpService } from './api/video-providers/youtube-video-htt
     YouTubePlaylistsHttpService,
     YouTubeVideoHttpService,
     PlaylistsHttpService,
+    VideosHttpService,
   ],
 })
 export class RestApiModule {

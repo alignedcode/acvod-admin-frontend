@@ -11,6 +11,7 @@ export const routes: Routes = [
         (module) => module.ContentLayoutModule,
       ),
   },
+  { path: 'videos', loadChildren: () => import('./modules/pages/videos/videos.module').then(m => m.VideosModule) },
 ];
 
 const config: ExtraOptions = {

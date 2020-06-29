@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class PlaylistsTableService {
+export class VideosTableService {
   readonly columnDefs = [
     { headerName: 'Title', field: 'title', sortable: true, filter: true },
     {
@@ -10,6 +10,17 @@ export class PlaylistsTableService {
       sortable: true,
       filter: true,
     },
-    { headerName: 'Privacy', field: 'privacy', sortable: true, filter: true },
+    {
+      headerName: 'Source',
+      valueGetter: 'data.source.provider',
+      sortable: true,
+      filter: true,
+    },
+    {
+      headerName: 'Storage Status',
+      field: 'storageState',
+      sortable: true,
+      filter: true,
+    },
   ];
 }

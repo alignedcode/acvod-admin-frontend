@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { YouTubePlaylistsHttpService } from '@core/modules/rest-api/api/video-providers/youtube-playlists-http.service';
-import { PaginatedResponse } from '@core/modules/rest-api/models/paginated-response.model';
+import { PaginatedResponse } from '@core/modules/rest-api/models/paginated-response.dto';
 import { YouTubePlaylistDto } from '@core/modules/rest-api/models/video-providers/youtube/youtube-playlist.dto';
 import { YouTubePlaylist } from '@data/models/video-providers/youtube/youtube-playlist.entity';
 import { YouTubeVideo } from '@data/models/video-providers/youtube/youtube-video.entity';

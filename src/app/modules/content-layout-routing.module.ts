@@ -51,12 +51,28 @@ const routes: Routes = [
           ),
       },
       {
-        path: '',
-        canActivate: [AuthGuard],
-        loadChildren: () =>
-          import('./pages/playlists/playlists.module').then(
-            ({ PlaylistsModule }) => PlaylistsModule,
-          ),
+        path: 'content',
+        data: { [BreadcrumbRouteData.LABEL]: 'Content' },
+        children: [
+          {
+            path: 'playlist',
+            canActivate: [AuthGuard],
+            data: { [BreadcrumbRouteData.LABEL]: 'Playlists' },
+            loadChildren: () =>
+              import('./pages/playlists/playlists.module').then(
+                ({ PlaylistsModule }) => PlaylistsModule,
+              ),
+          },
+          {
+            path: 'video',
+            canActivate: [AuthGuard],
+            data: { [BreadcrumbRouteData.LABEL]: 'Videos' },
+            loadChildren: () =>
+              import('./pages/videos/videos.module').then(
+                ({ VideosModule }) => VideosModule,
+              ),
+          },
+        ],
       },
     ],
   },

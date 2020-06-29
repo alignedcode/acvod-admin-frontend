@@ -9,6 +9,7 @@ import { AccountShortSummaryModule } from './pages/account-short-summary/account
 import { AccountModule } from './pages/account/account.module';
 import { PlaylistsModule } from './pages/playlists/playlists.module';
 import { VideoPlatformsModule } from './pages/video-platforms/video-platforms.module';
+import { VideosModule } from './pages/videos/videos.module';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { VideoPlatformsModule } from './pages/video-platforms/video-platforms.mo
     AccountModule,
     VideoPlatformsModule,
     PlaylistsModule,
+    VideosModule,
   ],
   declarations: [ContentLayoutComponent],
 })

@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { ResolvableData } from '@core/models/resolvable-data.model';
 import { Playlist } from '@data/models/playlist.entity';
-import { PlaylistsModalService } from '../../services/playlists-modal.service';
+import { PlaylistsPageService } from '../../services/playlists-page.service';
 
 export interface PlaylistsComponentRouteData {
   playlists: ResolvableData<Observable<Playlist[]>, string>;
@@ -20,7 +20,7 @@ export class PlaylistsPageComponent implements OnInit {
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly modalService: PlaylistsModalService,
+    private readonly pageService: PlaylistsPageService,
   ) {}
 
   ngOnInit() {
@@ -38,6 +38,6 @@ export class PlaylistsPageComponent implements OnInit {
   }
 
   onAddPlaylist() {
-    this.modalService.showAddNewPlaylistModal();
+    this.pageService.addPlaylist();
   }
 }

@@ -3,7 +3,7 @@ import { Query } from '@datorama/akita';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { VideoStorageState } from '@core/modules/rest-api/models/video-providers/youtube/youtube-video.dto';
+import { VideoStorageState } from '@core/modules/rest-api/models/video/video-storage-state.enum';
 import { YouTubeChannel } from '@data/models/video-providers/youtube/youtube-channel.entity';
 import { YouTubeState } from './youtube.state';
 import { YouTubeStore } from './youtube.store';

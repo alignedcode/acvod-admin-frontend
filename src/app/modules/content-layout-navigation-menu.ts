@@ -20,6 +20,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     group: true,
   },
   {
+    title: 'Videos',
+    icon: 'play-circle-outline',
+    link: `/content/video`,
+  },
+  {
     title: 'Playlists',
     icon: 'list-outline',
     link: `/content/playlist`,

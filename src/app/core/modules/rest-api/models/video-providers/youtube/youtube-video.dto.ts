@@ -1,3 +1,5 @@
+import { VideoStorageState } from '../../video/video-storage-state.enum';
+
 export interface YouTubeVideoDto {
   kind: string;
   etag: string;
@@ -5,12 +7,6 @@ export interface YouTubeVideoDto {
   snippet: Snippet;
   contentDetails: ContentDetails;
   storageState?: VideoStorageState;
-}
-
-export enum VideoStorageState {
-  SAVED = 'saved',
-  IN_PROGRESS = 'in-progress',
-  NONE = 'none',
 }
 
 interface ContentDetails {
