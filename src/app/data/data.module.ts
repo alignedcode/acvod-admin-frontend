@@ -13,6 +13,7 @@ import { YouTubeChannelsService } from './services/video-providers/youtube/youtu
 import { YouTubePlaylistsService } from './services/video-providers/youtube/youtube-playlists.service';
 import { YouTubeVideosService } from './services/video-providers/youtube/youtube-videos.service';
 
+import { VideosService } from './services/videos.service';
 import { BloggerQuery } from './state/blogger/blogger.query';
 import { BloggerStore } from './state/blogger/blogger.store';
 import { PlaylistsQuery } from './state/playlists/playlists.query';
@@ -21,7 +22,6 @@ import { YouTubeQuery } from './state/video-providers/youtube.query';
 import { YouTubeStore } from './state/video-providers/youtube.store';
 import { VideosQuery } from './state/videos/videos.query';
 import { VideosStore } from './state/videos/videos.store';
-import { VideosService } from './services/videos.service';
 
 @NgModule({})
 export class DataModule {

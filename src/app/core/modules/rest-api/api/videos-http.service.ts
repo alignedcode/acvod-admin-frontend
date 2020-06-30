@@ -26,7 +26,7 @@ export class VideosHttpService extends HttpRestService {
     super();
   }
 
-  getVideos(): Observable<VideoDto[]> {
+  getAll(): Observable<VideoDto[]> {
     return this.httpClient.get<VideoDto[]>(
       `${this.basePath}${ApiRoute.GET_VIDEOS}`,
       {
@@ -35,7 +35,7 @@ export class VideosHttpService extends HttpRestService {
     );
   }
 
-  addVideo(video: AddVideoDto): Observable<VideoDto> {
+  addOne(video: AddVideoDto): Observable<VideoDto> {
     return this.httpClient.post<VideoDto>(
       `${this.basePath}${ApiRoute.GET_VIDEOS}`,
       video,
@@ -45,7 +45,7 @@ export class VideosHttpService extends HttpRestService {
     );
   }
 
-  removeVideo(videoId: string): Observable<any> {
+  removeOne(videoId: string): Observable<any> {
     const route = ApiRoute.REMOVE_VIDEO.replace(RouteParam.VIDEO_ID, videoId);
 
     return this.httpClient.delete<any>(`${this.basePath}${route}`, {

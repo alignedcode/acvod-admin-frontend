@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
 import { Page } from '@data/models/page';
 import { YouTubePlaylistsService } from '@data/services/video-providers/youtube/youtube-playlists.service';
-import { YouTubeQuery } from '@data/state/video-providers/youtube.query';
 import { YouTubeVideosService } from '@data/services/video-providers/youtube/youtube-videos.service';
+import { YouTubeQuery } from '@data/state/video-providers/youtube.query';
 import { YouTubeNotificationService } from './youtube-notification.service';
 
 @Injectable()

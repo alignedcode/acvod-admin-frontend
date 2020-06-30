@@ -19,7 +19,7 @@ export class ResolvableVideos
   ) {}
 
   resolve(): Observable<ResolvableData<Observable<Video[]>, string>> {
-    return this.videosService.loadVideos().pipe(
+    return this.videosService.loadAll().pipe(
       map(() => ({ data: this.query.videos$ })),
       catchError(() => {
         this.notificationService.onFailedLoadedVideos();

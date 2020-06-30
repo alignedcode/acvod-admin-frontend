@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCommonModule } from '@angular/material/core';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import {
   NbAccordionModule,
@@ -15,6 +18,7 @@ import {
   NbInputModule,
   NbLayoutModule,
   NbMenuModule,
+  NbProgressBarModule,
   NbRadioModule,
   NbSearchModule,
   NbSelectModule,
@@ -45,6 +49,8 @@ const PIPES = [
   NumberWithCommasPipe,
 ];
 
+const MATERIAL_MODULES = [MatCommonModule, MatButtonModule, MatToolbarModule];
+
 const NB_MODULES = [
   NbLayoutModule,
   NbMenuModule,
@@ -66,12 +72,14 @@ const NB_MODULES = [
   NbRadioModule,
   NbDatepickerModule,
   NbSpinnerModule,
+  NbProgressBarModule,
 ];
 
 @NgModule({
   imports: [
     CommonModule,
     ...NB_MODULES,
+    ...MATERIAL_MODULES,
     NgxDatatableModule,
     NgSelectModule,
     FormsModule,
@@ -84,6 +92,7 @@ const NB_MODULES = [
     CommonModule,
     ...PIPES,
     ...NB_MODULES,
+    ...MATERIAL_MODULES,
     NgxDatatableModule,
     NgSelectModule,
     FormsModule,

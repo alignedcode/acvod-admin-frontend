@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -8,7 +9,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ColumnMode, TableColumn } from '@swimlane/ngx-datatable';
-import { DatePipe } from '@angular/common';
 
 import { YouTubePlaylist } from '@data/models/video-providers/youtube/youtube-playlist.entity';
 
