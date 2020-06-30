@@ -1,0 +1,18 @@
+<div class="row align-items-center">
+  <div class="col">
+    <ng-select #playlistsSearchControl [items]="playlists" bindLabel="title" autofocus appendTo="body" bindValue="id"
+      [(ngModel)]="selectedPlaylistId" placeholder="Select a playlist">
+      <ng-template ng-notfound-tmp let-searchTerm="searchTerm">
+        <div class="ng-option disabled">
+          Sorry, there are no playlists to select...
+        </div>
+      </ng-template>
+    </ng-select>
+  </div>
+
+  <div class="col">
+    <button nbButton (click)="onSelectPlaylist()" [status]="'primary'" [disabled]="!selectedPlaylistId">
+      <nb-icon class="action-icon" icon="plus-outline"></nb-icon>
+    </button>
+  </div>
+</div>

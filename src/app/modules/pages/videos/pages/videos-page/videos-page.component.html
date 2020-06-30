@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-md-12 col-lg-12 col-xxxl-6">
+    <nb-card class="actions-card">
+      <nb-card-body>
+        <div class="container">
+          <div class="row justify-content-center">
+            <h6 class="h6">Drop videos below!</h6>
+          </div>
+
+          <div class="row justify-content-start">
+            <div class="col-auto align-self-center">
+              <input-file [(ngModel)]="uploadableVideos"></input-file>
+            </div>
+
+            <div class="col align-self-center">
+              <button nbButton (click)="uploadVideo()" [disabled]="!hasUploadableVideos" [status]="'primary'">
+                <nb-icon class="action-icon" icon="plus-outline"></nb-icon>
+                <span>Upload</span>
+              </button>
+            </div>
+          </div>
+
+          <div *ngIf="uploadingState" class="row justify-content-center py-2">
+            <div class="col">
+              <nb-progress-bar [value]="uploadingState.progress$ | async" status="info">{{uploadingState.progress$ | async}}</nb-progress-bar>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<videos-table [videos]="videos$ | async"></videos-table>

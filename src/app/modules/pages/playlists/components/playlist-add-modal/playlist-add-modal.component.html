@@ -1,0 +1,43 @@
+<nb-card>
+  <nb-card-header>A new playlist</nb-card-header>
+
+  <nb-card-body>
+    <form [formGroup]="playlistForm">
+      <div class="form-group row">
+        <label for="inputTitle" class="label col-sm-3 col-form-label">Title</label>
+        <div class="col-sm-9">
+          <input nbInput fullWidth id="inputTitle" placeholder="Title" [formControlName]="'title'">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="inputDescription" class="label col-sm-3 col-form-label">Description</label>
+        <div class="col-sm-9">
+          <input nbInput fullWidth id="inputDescription" placeholder="Description" [formControlName]="'description'">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="inputPrivacy" class="label col-sm-3 col-form-label">Privacy Status</label>
+        <div class="col-md-2">
+          <nb-select id="inputPrivacy" placeholder="Privacy" [formControlName]="'privacy'">
+            <nb-option *ngFor="let privacyOption of privacyOptions" [value]="privacyOption.id">{{privacyOption.name}}
+            </nb-option>
+          </nb-select>
+        </div>
+      </div>
+    </form>
+  </nb-card-body>
+
+  <nb-card-footer>
+    <div class="container row justify-content-between align-items-center">
+      <div class="col align-self-start">
+        <button nbButton status="danger" (click)="onClose()">Cancel</button>
+      </div>
+
+      <div class="col align-self-end">
+        <button nbButton status="success" [disabled]="!playlistForm.valid" (click)="onAddPlaylist()">Add</button>
+      </div>
+    </div>
+  </nb-card-footer>
+</nb-card>
