@@ -1,0 +1,26 @@
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+
+@import './themes';
+@import './variables';
+
+.ngx-datatable.material {
+  background: $ngx-datatable-background;
+  box-shadow: none;
+
+  border-color: nb-theme(border-basic-color-4);
+  border-width: $default-border-width;
+  border-radius: nb-theme(border-radius);
+  border-style: solid;
+
+  .datatable-header {
+    .datatable-header-cell {
+      font-size: nb-theme(text-subtitle-2-font-size);
+      font-weight: nb-theme(text-subtitle-2-font-weight);
+      line-height: nb-theme(text-subtitle-2-line-height);
+    }
+  }
+}
+
+

@@ -1,0 +1,12 @@
+<nb-card>
+  <nb-card-header>{{ title }}</nb-card-header>
+  <nb-card-body>
+    <p class="subtitle-2">We are sorry, but your Google Account is not linked with YouTube channel.</p>
+    <a [href]="YOUTUBE_STUDIO_LINK">Please, create your YouTube channel</a>
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton (click)="navigateToChannelsPage()" [status]="'primary'">
+      <span>Go to the Channels page</span>
+    </button>
+  </nb-card-footer>
+</nb-card>
